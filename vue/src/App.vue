@@ -1,12 +1,28 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">
+      <router-link to="/login">
+        Login
+      </router-link>|
+      <router-link to="/top">
+        Top
+      </router-link>|
+      <router-link to="/edit">
+        Edit
+      </router-link>|
+      <router-link to="/search">
+        Search
+      </router-link>|
+      <router-link to="/result">
+        Result
+      </router-link>|
+      <router-link to="/home">
+        <!-- ここから、参考に残しておきました。 -->
         Home
-      </router-link> |
+      </router-link>|
       <router-link to="/about">
         About
-      </router-link>
+      </router-link>           <!-- ここまで、参考に残しておきました。 -->
     </div>
     <router-view />
   </div>
