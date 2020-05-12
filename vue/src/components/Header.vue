@@ -1,19 +1,29 @@
 <template>
   <div class="headderSection">
-    <Header />
     <div class="logoParent">
       <img class="pageLogo" src="../assets/logo.png" alt="ロゴ">
     </div>
     <div class="userName_authorityLevel">
       <div class="userName">
-        小澤こうた
+        {{username}}
       </div>
       <div class="authorityLevel">
-        一般ユーザー
+        <p v-if="user==general">一般ユーザー</p>
+        <p v-else-if="user==admin">管理者</p>
+        <p v-else>オーナー</p>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+// export default {
+//   data:{
+//     user: general
+//  },
+//     return username
+// }
+</script>
 
 <style scoped>
 
@@ -21,10 +31,12 @@
   height: 70px;
   background-color: lightgrey;
 }
+
 .logoParent{
   text-align: left;
 }
-.pageLogo{ /*これがロゴマークになる？？？*/
+
+.pageLogo{
   width: 50px;
   margin: 13px 0px 0px 10px;
 }
@@ -48,4 +60,7 @@
 
 </style>
 
-<!--ヘッダー-->
+<!--
+取得した名前を表示
+if文
+-->
