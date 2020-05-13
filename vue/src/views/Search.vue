@@ -3,64 +3,58 @@
     <div class="searchTitle">
       life_graph
     </div>
-    <router-link to="/login">
-      Login
-    </router-link>|
-    <router-link to="/top">
-      Top
-    </router-link>|
-    <router-link to="/edit">
-      Edit
-    </router-link>|
-    <router-link to="/search">
-      Search
-    </router-link>|
-    <router-link to="/result">
-      Result
-    </router-link>|
-    <router-link to="/home">
-      Home
-    </router-link>|
-    <router-link to="/about">
-      About
-    </router-link>
-
-    <div>
-      <form method="get" action="http://localhost:8081/" target="blank">
-        <input type="text" name="q" size="31" maxlength="255" value="">
-        <input type="submit" name="btng" value="Search">
-        <input type="hidden" name="hl" value="ja">
-        <input type="hidden" name="sitesearch" value="web-officer.com">
+    <!-- header -->
+    <header>
+      <h1 class="headline">
+        <a>Search</a>
+      </h1>
+    </header>
+    <div class="username">
+      <form action="confirm.php" method="post">
+        ユーザーネーム：<input type="text" name="yourname">
       </form>
     </div>
-    <body>
-      <!-- header -->
-      <header>
-        <h1 class="headline">
-          <a>Search</a>
-        </h1>
-      </header>
-    </body>
-    <!-- <img class="pagelogo" src"" alt="Logo"> -->
-    <!-- <div>
-      <label for="site-search">Article Site:</label>
-      <input type="search" id="site-search" name="q"
-             aria-label="Search through site content">
+    <div class="kousin">
+      <label for="num">更新日時：</label>
+      <input id="num" type="number" name="kousin-num">
     </div>
-    <button>Search</button> -->
-    <table>
-      <tr><th>No.</th><th>username</th><th>updatedate</th> </tr>
-      <tr><td>1</td> <td>tagi</td><td>20200512</td> </tr>
-      <tr><td>2</td> <td>okazaki</td><td>20200511</td> </tr>
-      <tr><td>3</td> <td>sakamoto</td><td>20200430</td> </tr>
-    </table>
+    <div class="button">
+      <input type="submit" value="Search">
+    </div>
+    <footer>
+      <h2>
+        <a>検索結果</a>
+      </h2>
+      <table id="sampleTable">
+        <tr>
+          <th>見出し</th>
+          <thcmanSortBtn>a</thcmanSortBtn>
+          <thcmanSortBtn>b</thcmanSortBtn>
+          <thcmanSortBtn>c</thcmanSortBtn>
+          <thcmanSortBtn>d</thcmanSortBtn>
+          <thcmanSortBtn>e</thcmanSortBtn>
+        </tr>
+        <tr><th>行1</th><td>4</td><td>1</td><td>DEFGH</td><td>あいう</td><td>100</td></tr>
+        <tr><th>行2</th><td>3</td><td>100</td><td>abc</td><td>かきく</td><td>10,000</td></tr>
+        <tr><th>行3</th><td>5</td><td>20</td><td>ijkl</td><td>さしす</td><td>1,000</td></tr>
+        <tr><th>行4</th><td>1</td><td>9</td><td>MNOP</td><td>たちつ</td><td>10</td></tr>
+        <tr><th>行5</th><td>2</td><td>80</td><td>qr</td><td>なにぬ</td><td>100,000</td></tr>
+      </table>
+      <div class="nav-links">
+        <a class="prev page-numbers" href="">«</a>
+        <a class="page-numbers" href="">1</a>
+        <span class="page-numbers current">2</span>
+        <a class="page-numbers" href="">3</a>
+        <span class="page-numbers dots">…</span>
+        <a class="page-numbers" href="">10</a>
+        <a class="next page-numbers" href="">»</a>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
-export default {
 
-}
 </script>
 
 <style>
@@ -72,24 +66,6 @@ export default {
     margin: 100px;
     padding:0px 0px 0px 0px;
 }
-.table th{
-  padding : 20px 10px;
-}
-
-.table td{
-  padding : 20px 10px;
-}
-table{
-  width: 100%;
-}
-
-th{
-  width: 30%;
-}
-
-td{
-  width: 30%;
-}
 .site-search{
     font-size:px;
     margin: 0 auto;
@@ -100,6 +76,80 @@ td{
     font: 1rem 'Fira Sans', sans-serif;
     text-align: center;
 }
+.username {
+  padding: 5px;
+}
+.button {
+  padding: 15px;
+  /* box-shadow: 0 0 8px rgba(0,0,0, .4); */
+}
+.tsImgArea{
+  line-height: 1;
+}
+/* 昇順降順 */
+.tsImg{
+  display    : inline-block;
+  width      : 8px;
+  height     : 6px;
+  background : #eee;
+  border     : 1px solid #777;
+  margin     : 1px 3px;
+  padding    : 3px;
+  cursor     : pointer;
+}
+.tsImg:hover{
+  background : #FFD700;
+}
+.tsImg path{
+  fill       : #777;
+}
+#sampleTable {
+  width          : 100%;
+  border-collapse: collapse;         /* 境界線結合 */
+  border-spacing : 0;                /* 罫線間余白 */
+  font-size      : 9pt;              /* 文字サイズ */
+}
+#sampleTable th {
+  text-align    : center;            /* 文字位置   */
+  font-weight   : bold;              /* 太文字     */
+  padding       : 6px 5px;          /* 余白       */
+  white-space   : nowrap;
+}
+#sampleTable td {
+  text-align    : center;            /* 文字位置   */
+  padding       : 6px 5px;           /* 余白       */
+  white-space   : nowrap;
+}
+/* ふったーCSS */
+.nav-links{
+  padding:2em;
+  display:flex;
+  justify-content:center;
+  background:#f3f3f3;
+}
+a,span{
+  width:50px;
+  height:50px;
+  margin:2px;
+  line-height:50px;
+  text-align:center;
+  font-size:14px;
+  font-weight:bold;
+  text-decoration:none;
+  background:#fff;
+  color:#222;
+}
+a:hover{
+  background:gold;
+  border-radius:100%;
+}
+.current{
+  background:gold;
+  border-radius:100%;
+}
+.dots{
+  background:none;
+}
 
 header {
   width: 100%;
@@ -108,7 +158,7 @@ header {
   text-align: center;
 }
 .headline{
-  font-size: 32px;
+  font-size: 42px;
 }
 .nav-list {
   text-align: center;
