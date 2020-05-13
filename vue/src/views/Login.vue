@@ -16,11 +16,14 @@
         <input type="password" name="pwd" size="40" maxlength="32" autocomplete="OFF">
       </label>
     </div>
-    <input type="submit" value="Login">
+    <router-link to="/">
+      <input type="submit" value="Login">
+    </router-link>
   </div>
 </template>
 
 <script>
+//
 // export default {
 //   data: {
 //     return{

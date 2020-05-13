@@ -3,7 +3,7 @@
     <Header />
     <div class="topSection">
       <h1 class="mainMessage">
-        人生は数値で測れない。
+        これは人生グラフのサイトです。
       </h1>
       <div class="searchButtonParent">
         <router-link to="/search">
@@ -40,6 +40,11 @@ export default {
 .topSection{
 
 }
+
+.mainMessage{
+  text-align: center;
+}
+
 .searchButtonParent{
   text-align: left;
 }
