@@ -1,19 +1,58 @@
 <template>
   <div class="headderSection">
-    <Header />
     <div class="logoParent">
-      <img class="pageLogo" src="../assets/logo.png" alt="ロゴ">
+      <router-link to="/">
+        <img class="pageLogo" src="../assets/logo.png" alt="ロゴ">
+      </router-link>
     </div>
+    <div class="nav">
+      <router-link to="/login">
+        Login
+      </router-link>|
+      <router-link to="/edit">
+        Edit
+      </router-link>|
+      <router-link to="/search">
+        Search
+      </router-link>|
+      <router-link to="/result">
+        Result
+      </router-link>|
+    </div>
+    <router-view />
     <div class="userName_authorityLevel">
       <div class="userName">
-        小澤こうた
+        {{userName}}
       </div>
       <div class="authorityLevel">
-        一般ユーザー
+        <p v-if="authority==general">一般ユーザー</p>
+        <p v-else-if="authority==admin">管理者</p>
+        <p v-else>オーナー</p>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+// export default {
+//   data: {
+//     userName: '小澤コウタ',
+//     user: 'general'
+//   },
+//   computed: {
+//     Name () {
+//       const userName = //javaで取得する場所
+//       return this.userName
+//     }
+//   },
+//   computed: {
+//     Authority () {
+//       const authority = //javaで取得する場所
+//       return this.authority
+//     }
+//   }
+// }
+// </script>
 
 <style scoped>
 
@@ -21,10 +60,12 @@
   height: 70px;
   background-color: lightgrey;
 }
+
 .logoParent{
   text-align: left;
 }
-.pageLogo{ /*これがロゴマークになる？？？*/
+
+.pageLogo{
   width: 50px;
   margin: 13px 0px 0px 10px;
 }
@@ -46,6 +87,15 @@
   margin: 0pt 0pt 0pt 0pt;
 }
 
+.nav{
+  position: absolute;
+  top:800px;
+  font-size: 0.5rem;
+}
+
 </style>
 
-<!--ヘッダー-->
+<!--
+取得した名前を表示
+if文
+-->

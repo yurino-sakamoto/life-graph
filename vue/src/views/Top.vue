@@ -3,19 +3,19 @@
     <Header />
     <div class="topSection">
       <h1 class="mainMessage">
-        人生は数値で測れない。
+        これは人生グラフのサイトです。
       </h1>
       <div class="searchButtonParent">
-        <button type="submit">
+        <router-link to="/search">
           <img class="searchButton" src="../assets/logo.png" alt="検索">
-        </button>
+        </router-link>
       </div>
       <div class="registerButtonParent">
-        <button type="submit">
+        <router-link to="/edit">
           <img class="registerButton" src="../assets/logo.png" alt="検索">
-        </button>
+        </router-link>
       </div>
-      <chart />
+      <chart class="topChart" />
     </div>
   </div>
 </template>
@@ -23,11 +23,13 @@
 <script>
 
 import Header from '../components/Header.vue'
+import Chart from '../components/Chart.vue'
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    Chart
   }
 }
 
@@ -38,6 +40,11 @@ export default {
 .topSection{
 
 }
+
+.mainMessage{
+  text-align: center;
+}
+
 .searchButtonParent{
   text-align: left;
 }
@@ -61,4 +68,11 @@ export default {
   margin: 50px;
 }
 
+.topChart{
+  width: 500px;
+  margin: 0px auto;
+}
+
 </style>
+
+<!--chartを描画-->

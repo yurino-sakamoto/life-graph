@@ -15,7 +15,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/top',
+    path: '/',
     name: 'Top',
     component: Top
   },
