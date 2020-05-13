@@ -36,7 +36,7 @@
 <script>
 // export default {
 //   data: {
-//     userName: '小澤コウタ'
+//     userName: '小澤コウタ',
 //     user: 'general'
 //   },
 //   computed: {
@@ -52,8 +52,7 @@
 //     }
 //   }
 // }
-
-</script>
+// </script>
 
 <style scoped>
 
