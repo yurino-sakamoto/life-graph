@@ -9,22 +9,21 @@
       </router-link>
     </span>
     <div class="editInfo">
-      <form action="" method="post">
-        <p>グラフ情報入力</p>
-        <p>
-          <label for="age">年齢:</label>
-          <input type="text" name="age" required minlength="1" maxlength="2" size="4">
-          <label for="age">歳</label>
-        </p>
-        <p>
-          <label for="percentage">満足度:</label>
-          <input type="text" name="percentage" required minlength="1" maxlength="3" size="4">
-          <label for="age">%</label>
-        </p>コメント<br>
-        <textarea name="kanso" rows="4" cols="40" /><br>
-        <input type="reset" name="reset" value="Clear">
-        <input type="submit" name="send" value="Add">
-      </form>
+      <p>グラフ情報入力</p>
+      <div>
+        年齢:<input v-model="ageAdd" type="text">歳
+        <!-- 連続的なデータの書き換え用 -->
+        <!-- <p>{{ ageAdd }}</p> -->
+        <!-- 表示先指定 -->
+      </div>
+      <div>
+        満足度:<input v-model="scoreAdd" type="text">％
+      </div>
+      <div>
+        コメント:<input v-model="commentAdd" type="text">
+      </div>
+      <input v-model="Clear" type="reset">
+      <input v-model="Add" type="submit">
     </div>
     <div class="editGraph">
       <Chart />
@@ -38,8 +37,17 @@ import Chart from '../components/Chart'
 export default {
   components: {
     Chart
+  },
+  data () { // これでfunctionの役割
+    // データの整理している
+    return {
+      ageAdd: 0, // '初期値はここに入れておく'
+      scoreAdd: 0,
+      commentAdd: 'Enter here'
+    }
   }
 }
+
 </script>
 
 <style>

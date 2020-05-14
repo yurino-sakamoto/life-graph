@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 //import org.springframework.data.mongodb.core.mapping.Document;
 
 //@Document(collection = "users")
-public class Users {
+public class User {
 //  @Id
   private String id;
 
@@ -31,10 +31,10 @@ public class Users {
 //  @DBRef
   private Set<Role> roles = new HashSet<>();
 
-  public Users() {
+  public User() {
   }
 
-  public Users(String username, String email, String password) {
+  public User(String username, String email, String password) {
     this.username = username;
     this.email = email;
     this.password = password;
