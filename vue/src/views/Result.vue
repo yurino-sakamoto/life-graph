@@ -6,7 +6,7 @@
         <img class="searchButton" src="../assets/logo.png" alt="検索">
       </router-link>
     </div>
-  <Chart class="resultChart" />
+    <Chart class="resultChart" />
   </div>
 </template>
 
