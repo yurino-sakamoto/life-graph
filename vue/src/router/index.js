@@ -4,7 +4,7 @@ import Login from '../views/Login.vue'
 import Top from '../views/Top.vue'
 import Edit from '../views/Edit.vue'
 import Search from '../views/Search.vue'
-import Result from '../views/Result.vue'
+import Reference from '../views/Reference.vue'
 
 Vue.use(VueRouter)
 
@@ -31,9 +31,9 @@ const routes = [
     component: Search
   },
   {
-    path: '/result',
-    name: 'Result',
-    component: Result
+    path: '/reference',
+    name: 'Reference',
+    component: Reference
   }
 ]
 

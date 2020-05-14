@@ -15,8 +15,8 @@
       <router-link to="/search">
         Search
       </router-link>|
-      <router-link to="/result">
-        Result
+      <router-link to="/reference">
+        Reference
       </router-link>|
     </div>
     <router-view />
