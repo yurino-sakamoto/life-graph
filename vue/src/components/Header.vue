@@ -15,19 +15,25 @@
       <router-link to="/search">
         Search
       </router-link>|
-      <router-link to="/result">
-        Result
+      <router-link to="/reference">
+        Reference
       </router-link>|
     </div>
     <router-view />
     <div class="userName_authorityLevel">
       <div class="userName">
-        {{userName}}
+        {{ userName }}
       </div>
       <div class="authorityLevel">
-        <p v-if="authority==general">一般ユーザー</p>
-        <p v-else-if="authority==admin">管理者</p>
-        <p v-else>オーナー</p>
+        <p v-if="authority==general">
+          一般ユーザー
+        </p>
+        <p v-else-if="authority==admin">
+          管理者
+        </p>
+        <p v-else>
+          オーナー
+        </p>
       </div>
     </div>
   </div>

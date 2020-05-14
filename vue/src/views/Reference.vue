@@ -1,12 +1,12 @@
 <template>
-  <div class="resultSection">
+  <div class="referenceSection">
     <Header />
     <div class="searchButtonParent">
       <router-link to="/search">
         <img class="searchButton" src="../assets/logo.png" alt="検索">
       </router-link>
     </div>
-  <Chart class="resultChart" />
+    <Chart class="referenceChart" />
   </div>
 </template>
 
