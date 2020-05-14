@@ -19,8 +19,9 @@
         <p>
           <label for="percentage">満足度:</label>
           <input type="text" name="percentage" required minlength="1" maxlength="3" size="4">
-          <label for="age">%</label></p>コメント<br>
-        <textarea name="kanso" rows="4" cols="40"></textarea><br>
+          <label for="age">%</label>
+        </p>コメント<br>
+        <textarea name="kanso" rows="4" cols="40" /><br>
         <input type="reset" name="reset" value="Clear">
         <input type="submit" name="send" value="Add">
       </form>

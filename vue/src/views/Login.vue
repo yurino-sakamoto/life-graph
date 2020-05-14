@@ -43,9 +43,6 @@
   margin: 100px;
 }
 
-.loginButton{
-}
-
 .pageTitle{
   font-size: 2rem;
   padding: 50px 0px 0px 0px;
