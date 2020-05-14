@@ -1,7 +1,8 @@
 package com.lifegraph.team20.auth;
 
-import org.springframework.http.ResponseEntity;
+//import java.util.HashSet;
 //import java.util.List;
+//import java.util.Set;
 //import java.util.stream.Collectors;
 //
 //import javax.validation.Valid;
@@ -10,18 +11,32 @@ import org.springframework.http.ResponseEntity;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.security.authentication.AuthenticationManager;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-@RequestMapping("/auth")
-public class AuthController {
-
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.RestController;
+//
+//import com.lifegraph.team20.models.ERole;
+//import com.lifegraph.team20.models.Role;
+//import com.lifegraph.team20.models.User;
+//import com.lifegraph.team20.payload.request.LoginRequest;
+//import com.lifegraph.team20.payload.request.SignupRequest;
+//import com.lifegraph.team20.payload.response.JwtResponse;
+//import com.lifegraph.team20.payload.response.MessageResponse;
+//import com.lifegraph.team20.repository.RoleRepository;
+//import com.lifegraph.team20.repository.UserRepository;
+//import com.lifegraph.team20.security.jwt.JwtUtils;
+//import com.lifegraph.team20.security.services.UserDetailsImpl;
+//
+//
+//@RestController
+//@RequestMapping("/auth")
+//public class AuthController {
+//
 //	@Autowired
 //	AuthenticationManager authenticationManager;
 //
@@ -57,12 +72,12 @@ public class AuthController {
 //												 userDetails.getEmail(),
 //												 roles));
 //	}
-
-  @RequestMapping(value = "/login", method = RequestMethod.GET)
-  public ResponseEntity<String> login() {
-    return ResponseEntity.ok("OK");
-  }
-
+//
+//  @RequestMapping(value = "/login", method = RequestMethod.GET)
+//  public ResponseEntity<String> login() {
+//    return ResponseEntity.ok("OK");
+//  }
+//
 //  @PostMapping("/signup")
 //	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 //		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -117,4 +132,4 @@ public class AuthController {
 //
 //		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 //	}
-}
+//}
