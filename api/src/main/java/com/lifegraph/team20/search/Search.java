@@ -1,18 +1,39 @@
-package com.lifegraph.team20.search;
+//package com.lifegraph.team20.search;
+//
+//import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.Size;
+//
+//import lombok.Data;
+//
+//@Data
+//public class Search {
+//
+//	@NotBlank
+//    @Size(max = 18)
+//    private String id;
+//
+//    @NotBlank
+//    private String value;
+//
+//    public Search toDomainUser() {
+//        return Search.builder()
+//                .id(this.id)
+//                .value(this.value)
+//                .build();
+//	}
+//}
 
-import lombok.Data;
 
-@Entity
-@Data
-public class Search {
 
-	@Id
-	@Column(name="goods_id")
-	private String goodsId;
 
-	@Colunm(name="goods_name")
-	private String goodsName;
-}
+
+
+
+
+
+
+
+
 
 
 
