@@ -37,10 +37,6 @@ export default {
 
 <style scoped>
 
-.topSection{
-
-}
-
 .mainMessage{
   text-align: center;
 }
@@ -62,10 +58,6 @@ export default {
   bottom: 42px;
   width: 40px;
   margin: 0px 100px 0px 0px;
-}
-
-.mainMessage{
-  margin: 50px;
 }
 
 .topChart{
