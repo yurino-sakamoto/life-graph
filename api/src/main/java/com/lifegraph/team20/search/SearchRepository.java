@@ -1,12 +1,12 @@
-package com.lifegraph.team20.search;
-
-
-
-
-public interface SearchRepository extends <Search, Integer> {
-
-}
-
+//package com.lifegraph.team20.search;
+//
+//
+//
+//
+//public interface SearchRepository extends <Search, Integer> {
+//
+//}
+//
 
 
 //import org.springframework.
