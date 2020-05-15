@@ -77,9 +77,9 @@ export default {
       // storeに送るためにここにdispatchを
     },
     add () {
-      console.log(this.ageAdd)
-      console.log(this.scoreAdd)
-      console.log(this.commentAdd)
+      // console.log(this.ageAdd)
+      // console.log(this.scoreAdd)
+      // console.log(this.commentAdd)
       // storeに送るためにここにdispatchを
     }
   }
