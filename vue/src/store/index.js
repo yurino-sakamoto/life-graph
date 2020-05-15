@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+//import chart from './modules/chart.js'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,12 @@ export default new Vuex.Store({
     account: {
       // TODO: delete because of test
       login: 'ng'
-    }
+    },
+    chart: {
+      modules:
+        chart: [],
+        loaded: false
+    },
   },
   mutations: {
     // TODO: delete because of test

@@ -1,5 +1,6 @@
 <template>
   <div class="editorSection">
+    <Header />
     <span class="editTitle">
       編集
     </span><br>
@@ -11,22 +12,34 @@
     <div class="editInfo">
       <p>グラフ情報入力</p>
       <div>
-        年齢:<input v-model="ageAdd" type="text">歳
-        <!-- 連続的なデータの書き換え用 -->
-        <!-- <p>{{ ageAdd }}</p> -->
-        <!-- 表示先指定 -->
+        <h>
+          <label class="label" for="ageAdd" />年齢:
+          <input v-model="ageAdd" type="text">歳
+          <!-- 入力即表示される -->
+          <!-- <p>{{ ageAdd }}</p> -->
+        </h>
+        <div class="e">
+          <h>
+            <label class="label" for="ScoreAdd">満足度:</label>
+            <input v-model="scoreAdd" type="text" >％
+          </h>
+          <h>
+            <label class="label" for="CommentAdd">コメント:</label>
+            <input v-model="commentAdd" type="text" placeholder="Add comments.">
+          </h>
+          <button class="clearForm" @click="reset">
+            Reset
+          </button>
+          <button class="addForm" @click="add">
+            Add
+          </button>
+        </div>
       </div>
-      <div>
-        満足度:<input v-model="scoreAdd" type="text">％
-      </div>
-      <div>
-        コメント:<input v-model="commentAdd" type="text">
-      </div>
-      <input v-model="Clear" type="reset">
-      <input v-model="Add" type="submit">
     </div>
     <div class="editGraph">
-      <Chart />
+      <div v-if="loaded" class="chart">
+        <Chart />
+      </div>
     </div>
   </div>
 </template>
@@ -39,15 +52,38 @@ export default {
     Chart
   },
   data () { // これでfunctionの役割
-    // データの整理している
+    // データの整理
     return {
-      ageAdd: 0, // '初期値はここに入れておく'
-      scoreAdd: 0,
-      commentAdd: 'Enter here'
+      // storeにつなぐ代わり
+      ageAdd: null,
+      scoreAdd: null,
+      commentAdd: '' // '初期値はここに入れておく'
+    }
+  },
+  computed: { // チャートのレンダリングの時、読み込んでから表示できるようになるのと同じ
+    loaded () {
+      // console.log(this.$store.chart.age)
+      return this.$store.state.chart.loaded // 梶くんのコード泣
+    }
+  },
+  mounted () { // チャートのレンダリングの時、読み込んでから表示できるようになるのと同じ
+    this.$store.dispatch('chart/load') // 梶くんのコード泣
+  },
+  methods: {
+    reset () {
+      console.clear(this.ageAdd)
+      console.clear(this.scoreAdd)
+      console.clear(this.commentAdd)
+      // storeに送るためにここにdispatchを
+    },
+    add () {
+      console.log(this.ageAdd)
+      console.log(this.scoreAdd)
+      console.log(this.commentAdd)
+      // storeに送るためにここにdispatchを
     }
   }
 }
-
 </script>
 
 <style>
@@ -67,6 +103,11 @@ export default {
 .editButton {
   background: #FFF;
   color: #565452;
+}
+li {
+  list-style: none;
+  text-align: center;
+  width: 240px;
 }
 .editInfo {
   background:#FFF;
