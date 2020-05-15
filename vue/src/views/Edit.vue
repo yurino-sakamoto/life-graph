@@ -21,7 +21,7 @@
         <div class="e">
           <h>
             <label class="label" for="ScoreAdd">満足度:</label>
-            <input v-model="scoreAdd" type="text" >％
+            <input v-model="scoreAdd" type="text">％
           </h>
           <h>
             <label class="label" for="CommentAdd">コメント:</label>
@@ -71,9 +71,9 @@ export default {
   },
   methods: {
     reset () {
-      console.clear(this.ageAdd)
-      console.clear(this.scoreAdd)
-      console.clear(this.commentAdd)
+      // console.clear(this.ageAdd)
+      // console.clear(this.scoreAdd)
+      // console.clear(this.commentAdd)
       // storeに送るためにここにdispatchを
     },
     add () {
