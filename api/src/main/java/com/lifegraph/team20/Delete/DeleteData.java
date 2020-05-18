@@ -1,4 +1,4 @@
-package com.lifegraph.team20.edit.Controller;
+package com.lifegraph.team20.Delete;
 
 import com.sun.istack.NotNull;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class LifeGraphdata {
+public class DeleteData {
 //StringじゃなくてもOK
 	@NotNull
 	private Integer age;

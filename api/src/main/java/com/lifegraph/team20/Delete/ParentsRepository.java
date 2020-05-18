@@ -1,4 +1,4 @@
-package com.lifegraph.team20.edit.repository;
+package com.lifegraph.team20.Delete;
 
 import java.util.List;
 
