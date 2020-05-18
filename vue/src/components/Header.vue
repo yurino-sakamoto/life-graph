@@ -21,14 +21,25 @@
     </div>
     <router-view />
     <div class="userName_authorityLevel">
+      <p>Click here to log out↓</p>
+      <button class="btn btn-lg btn-fill" @click="logout">
+        Log Out
+      </button>
       <div class="userName">
-        {{ userName }}
+        ユーザー名：{{ userName }}
       </div>
       <div class="authorityLevel">
+<<<<<<< HEAD
         <p v-if="authority=='general'">
           一般ユーザー
         </p>
         <p v-else-if="authority=='admin'">
+=======
+        <p v-if="authority==USER">
+          一般ユーザー
+        </p>
+        <p v-else-if="authority==ADMIN">
+>>>>>>> develop
           管理者
         </p>
         <p v-else>

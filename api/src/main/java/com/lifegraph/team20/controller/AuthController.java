@@ -1,5 +1,5 @@
-package com.lifegraph.team20.auth;
-
+//package com.lifegraph.team20.controller;
+//
 //import java.util.HashSet;
 //import java.util.List;
 //import java.util.Set;
@@ -14,10 +14,10 @@ package com.lifegraph.team20.auth;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.RestController;
 //
 //import com.lifegraph.team20.models.ERole;
@@ -32,11 +32,10 @@ package com.lifegraph.team20.auth;
 //import com.lifegraph.team20.security.jwt.JwtUtils;
 //import com.lifegraph.team20.security.services.UserDetailsImpl;
 //
-//
+//@CrossOrigin(origins = "*", maxAge = 3600)
 //@RestController
-//@RequestMapping("/auth")
+//@RequestMapping("/api/auth")
 //public class AuthController {
-//
 //	@Autowired
 //	AuthenticationManager authenticationManager;
 //
@@ -73,12 +72,7 @@ package com.lifegraph.team20.auth;
 //												 roles));
 //	}
 //
-//  @RequestMapping(value = "/login", method = RequestMethod.GET)
-//  public ResponseEntity<String> login() {
-//    return ResponseEntity.ok("OK");
-//  }
-//
-//  @PostMapping("/signup")
+//	@PostMapping("/signup")
 //	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 //		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 //			return ResponseEntity
@@ -97,7 +91,7 @@ package com.lifegraph.team20.auth;
 //							 signUpRequest.getEmail(),
 //							 encoder.encode(signUpRequest.getPassword()));
 //
-//		Set<String> strRoles = signUpRequest.getRoles();
+//		Set<String> strRoles = signUpRequest.getRole();
 //		Set<Role> roles = new HashSet<>();
 //
 //		if (strRoles == null) {

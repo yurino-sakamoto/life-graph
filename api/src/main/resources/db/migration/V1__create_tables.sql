@@ -1,14 +1,28 @@
 CREATE TABLE `users` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `mail_address` varchar(255) NOT NULL,
-  `pass` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `authority` int NOT NULL DEFAULT '1',
   `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `name` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `mail_address` (`mail_address`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `roles` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `user_roles` (
+  `user_id` bigint not null,
+  `role_id` int not null,
+  PRIMARY KEY (`user_id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8MB4;
 
 CREATE TABLE `parent_graphs` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -31,33 +45,9 @@ CREATE TABLE `child_graphs` (
   CONSTRAINT `child_graphs_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `parent_graphs` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `users` (
-  `mail_address`,
-  `pass`,
-  `authority`,
-  `created_at`,
-  `updated_at`,
+  INSERT INTO `roles` (
   `name`
-) VALUES
-  ('yu.okazaki@seattleconsulting.co.jp', '666', 1, current_timestamp, current_timestamp, '悠'),
-  ('yurino.sakamoto@seattleconsulting.co.jp', '777', 3, current_timestamp, current_timestamp, 'ゆりの'),
-  ('keita.yamaoka@seattleconsulting.co.jp', '222', 2, current_timestamp, current_timestamp, 'けいた');
-
-  INSERT INTO `parent_graphs` (
-  `user_id`,
-  `created_at`,
-  `updated_at`
-) VALUES
-  (3, current_timestamp, current_timestamp),
-  (1, current_timestamp, current_timestamp),
-  (2, current_timestamp, current_timestamp);
-
-  INSERT INTO `child_graphs` (
-  `parent_id`,
-  `age`,
-  `score`,
-  `comment`
-) VALUES
-  (3, 10, 100, 'aaaaaaa'),
-  (3, 15, 50, 'bbbbbbb'),
-  (2, 22, -90, 'ccccccc');
+)VALUES
+('ROLE_USER'),
+('ROLE_MODERATOR'),
+('ROLE_ADMIN');

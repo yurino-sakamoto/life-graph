@@ -1,8 +1,8 @@
-//package com.lifegraph.team20.search;
+//package com.lifegraph.team20.Reference;
 //
 //import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.stereotype.Repository;
 //
 //@Repository
-//public interface SearchRepository extends JpaRepository <Search, String> {
+//public interface TestRepositry2 extends JpaRepository<Test, int> {
 //}

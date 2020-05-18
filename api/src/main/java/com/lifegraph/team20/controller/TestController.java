@@ -1,4 +1,4 @@
-package com.lifegraph.team20.auth;
+package com.lifegraph.team20.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
