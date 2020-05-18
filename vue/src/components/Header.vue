@@ -29,10 +29,10 @@
         ユーザー名：{{ userName }}
       </div>
       <div class="authorityLevel">
-        <p v-if="authority==USER">
+        <p v-if="authority=='general'">
           一般ユーザー
         </p>
-        <p v-else-if="authority==ADMIN">
+        <p v-else-if="authority=='admin'">
           管理者
         </p>
         <p v-else>
@@ -44,52 +44,28 @@
 </template>
 
 <script>
-// import axios from 'axios'
-//   var axiosProxyS = axios.create({
-//     baseURL: 'http://localhost:8080/', // process.env.baseApiUrl,
-//     timeout: 1000,
-//     headers: {'Authorization': 'Bearer ' + proxyObj.accessToken}
-//   })
-//   export default {
-//   data () {
-//     return {
-//       apiToken: proxyObj.accessToken // eslint-disable-line no-use-before-define
-//     }
-//   },
-//   methods: {
-//     logout: function () {
-//     // Best practice is to post to logout
-//     // First log out of proxy server session
-//     axiosProxyS.post('/logout')
-//      .then(function (res) {
-//        window.location.href = 'http://localhost:8080/'
-//      })
-//      .catch(function (err) {
-//         console.log(err)
-//         window.location.href = 'http://localhost:8080/'
-//      })
-//    }
-//   }
-// }
-// export default {
-//   data: {
-//     userName: '小澤コウタ',
-//     user: 'general'
-//   },
-//   computed: {
-//     Name () {
-//       const userName = //javaで取得する場所
-//       return this.userName
-//     }
-//   },
-//   computed: {
-//     Authority () {
-//       const authority = //javaで取得する場所
-//       return this.authority
-//     }
-//   }
-// }
-// </script>
+export default {
+  data () {
+    return {
+      userName: '小澤コウタ',
+      user: 'general',
+      authority: 'admin'
+    }
+  }
+  // computed: {
+  //   Name () {
+  //     const userName = //javaで取得する場所
+  //     return this.userName
+  //   }
+  // },
+  // computed: {
+  //   Authority () {
+  //     const authority = //javaで取得する場所
+  //     return this.authority
+  //   }
+  // }
+}
+</script>
 
 <style scoped>
 
