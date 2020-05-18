@@ -64,8 +64,8 @@ export default {
     this.setScore()
     this.setComment()
     this.renderChart(this.data, this.options)
-    console.log(this.data)
-    console.log(this.options)
+    // console.log(this.data)
+    // console.log(this.options)
   },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue

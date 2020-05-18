@@ -90,14 +90,14 @@ export default {
       this.age = ''
       this.score = ''
       this.comment = ''
-      console.clear(this.ageAdd)
-      console.clear(this.scoreAdd)
-      console.clear(this.commentAdd)
+      // console.clear(this.ageAdd)
+      // console.clear(this.scoreAdd)
+      // console.clear(this.commentAdd)
     },
     add () {
-      console.log(this.ageAdd)
-      console.log(this.scoreAdd)
-      console.log(this.commentAdd)
+      // console.log(this.ageAdd)
+      // console.log(this.scoreAdd)
+      // console.log(this.commentAdd)
       const content = {
         age: this.age,
         score: this.score,
