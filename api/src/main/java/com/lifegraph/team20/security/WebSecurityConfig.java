@@ -64,7 +64,13 @@
 //		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 //	}
 //}
+
+
+
 //！！！！！坂元さん↓↓↓！！！！！
+
+
+
 
 //package com.lifegraph.team20.security;
 //import org.springframework.context.ApplicationContextAware;
