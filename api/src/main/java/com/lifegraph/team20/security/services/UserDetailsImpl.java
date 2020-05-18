@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lifegraph.team20.models.User;
 
+import lombok.Data;
+
+@Data
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
@@ -46,29 +49,6 @@ public class UserDetailsImpl implements UserDetails {
 				user.getEmail(),
 				user.getPassword(),
 				authorities);
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	@Override
-	public String getPassword() {
-		return password;
-	}
-
-	@Override
-	public String getUsername() {
-		return username;
 	}
 
 	@Override
