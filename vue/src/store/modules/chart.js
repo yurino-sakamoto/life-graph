@@ -8,7 +8,7 @@ export default {
 
   state: {
     //状態
-    count:0
+    count: 0,
   },
   getters: {
     //storeの状態を変更するメソッド(同期処理のみ)
