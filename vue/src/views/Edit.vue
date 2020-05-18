@@ -12,32 +12,55 @@
     <div class="editInfo">
       <p>グラフ情報入力</p>
       <div>
-        <h>
-          <label class="label" for="ageAdd" />年齢:
+        <p>
+          <label class="label" for="ageAdd">年齢:
+          </label>
           <input v-model="ageAdd" type="text">歳
-          <!-- 入力即表示される -->
-          <!-- <p>{{ ageAdd }}</p> -->
-        </h>
+        <!-- 入力即表示される -->
+        <!-- <p>{{ ageAdd }}</p> -->
+        </p>
         <div class="e">
-          <h>
-            <label class="label" for="ScoreAdd">満足度:</label>
+          <p>
+            <label class="label" for="ScoreAdd">満足度:
+            </label>
             <input v-model="scoreAdd" type="text">％
-          </h>
-          <h>
-            <label class="label" for="CommentAdd">コメント:</label>
-            <input v-model="commentAdd" type="text" placeholder="Add comments.">
-          </h>
-          <button class="clearForm" @click="reset">
+          </p>
+          <p>
+            <label
+              class="label"
+              for="CommentAdd"
+            >
+              コメント:
+            </label>
+            <textarea
+              v-model="commentAdd"
+              placeholder="Add comments."
+            />
+          </p>
+          <button
+            class="clearForm"
+            href="#!"
+            @click="reset"
+          >
+            <div />
             Reset
           </button>
-          <button class="addForm" @click="add">
+          <!-- =#! クリックしてもどこにも遷移させない場合に指定 -->
+          <button
+            class="addForm"
+            href="#!"
+            @click="add"
+          >
             Add
           </button>
         </div>
       </div>
     </div>
     <div class="editGraph">
-      <div v-if="loaded" class="chart">
+      <div
+        v-if="true"
+        class="chart"
+      >
         <Chart />
       </div>
     </div>
@@ -54,33 +77,36 @@ export default {
   data () { // これでfunctionの役割
     // データの整理
     return {
-      // storeにつなぐ代わり
+      // storeにつなぐ代わり??
       ageAdd: null,
       scoreAdd: null,
       commentAdd: '' // '初期値はここに入れておく'
     }
   },
-  computed: { // チャートのレンダリングの時、読み込んでから表示できるようになるのと同じ
-    loaded () {
-      // console.log(this.$store.chart.age)
-      return this.$store.state.chart.loaded // 梶くんのコード泣
-    }
-  },
-  mounted () { // チャートのレンダリングの時、読み込んでから表示できるようになるのと同じ
-    this.$store.dispatch('chart/load') // 梶くんのコード泣
+  computed: { // 編集する
   },
   methods: {
     reset () {
-      // console.clear(this.ageAdd)
-      // console.clear(this.scoreAdd)
-      // console.clear(this.commentAdd)
-      // storeに送るためにここにdispatchを
+      this.age = ''
+      this.score = ''
+      this.comment = ''
+      console.clear(this.ageAdd)
+      console.clear(this.scoreAdd)
+      console.clear(this.commentAdd)
     },
     add () {
-      // console.log(this.ageAdd)
-      // console.log(this.scoreAdd)
-      // console.log(this.commentAdd)
-      // storeに送るためにここにdispatchを
+      console.log(this.ageAdd)
+      console.log(this.scoreAdd)
+      console.log(this.commentAdd)
+      const content = {
+        age: this.age,
+        score: this.score,
+        comment: this.comment
+      }
+      this.$store.dispatch('chart/addContent', content)
+      this.age = '' // add後に消す
+      this.score = ''
+      this.comment = ''
     }
   }
 }
@@ -88,7 +114,7 @@ export default {
 
 <style>
 .editorSection {
-  background: linear-gradient(to bottom, rgba(133,199,183,0.95),#FFF);
+  background: #F3F3F9;
   width: 100%;
   height: 1000px;
   margin: 0 auto;
@@ -122,11 +148,19 @@ li {
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
 }
-.cancelButton {
+.clearForm {
+  background:#FE5F52;
+  border-radius: 25px;
   padding: 6px;
+  font-size: 12pt;
+  color:#FFF;
 }
-.addButton{
+.addForm {
+  background:#FE5F52;
+  border-radius: 25px;
   padding: 6px;
+  font-size: 12pt;
+  color:#FFF;
 }
 .editGraph {
   background:#FFF;

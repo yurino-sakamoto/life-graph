@@ -3,22 +3,37 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default {
+export default new Vuex.Store({
   namespaced: true,
-
   state: {
-    //状態
-    count: 0,
+    contents: [
+      {
+        age: 0,
+        score: 30,
+        comment: 'あいうえお'
+      },
+      {
+        age: 5,
+        score: 80,
+        comment: 'あいうえお'
+      },
+      {
+        age: 10,
+        score: -10,
+        comment: 'あいうえお'
+      }
+    ],
+    load: false,
+    loaded: false
   },
-  getters: {
-    //storeの状態を変更するメソッド(同期処理のみ)
-
+  mutations: {
+    addContentMutation (state, content) { // 第二引数の、s要らん
+      state.contents.push(content)
+    }
   },
-  mutation: {
-
-  },
-  actions:{
-    //storeの状態を変更するメソッド(非同期処理も)
-
+  actions: {
+    addContent ({ commit }, content) {
+      commit('addContentMutation', content)
+    }
   }
-}
+})

@@ -25,10 +25,10 @@
         {{ userName }}
       </div>
       <div class="authorityLevel">
-        <p v-if="authority==general">
+        <p v-if="authority=='general'">
           一般ユーザー
         </p>
-        <p v-else-if="authority==admin">
+        <p v-else-if="authority=='admin'">
           管理者
         </p>
         <p v-else>
@@ -40,25 +40,28 @@
 </template>
 
 <script>
-// export default {
-//   data: {
-//     userName: '小澤コウタ',
-//     user: 'general'
-//   },
-//   computed: {
-//     Name () {
-//       const userName = //javaで取得する場所
-//       return this.userName
-//     }
-//   },
-//   computed: {
-//     Authority () {
-//       const authority = //javaで取得する場所
-//       return this.authority
-//     }
-//   }
-// }
-// </script>
+export default {
+  data () {
+    return {
+      userName: '小澤コウタ',
+      user: 'general',
+      authority: 'admin'
+    }
+  }
+  // computed: {
+  //   Name () {
+  //     const userName = //javaで取得する場所
+  //     return this.userName
+  //   }
+  // },
+  // computed: {
+  //   Authority () {
+  //     const authority = //javaで取得する場所
+  //     return this.authority
+  //   }
+  // }
+}
+</script>
 
 <style scoped>
 
