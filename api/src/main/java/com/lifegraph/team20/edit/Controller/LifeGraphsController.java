@@ -2,7 +2,6 @@
 //
 //import javax.validation.Valid;
 //
-//import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +11,7 @@
 //
 //@RestController
 //public class LifeGraphsController {
-//	@Autowired
+////	@Autowired
 ////    InsertService GraphService;
 ////	Validation Varidation;
 //
@@ -24,11 +23,8 @@
 //		LifeGraphdata lifegraph = responseTransfer;
 //		System.out.println(lifegraph);
 //
-//		//型変換をしたい（lifegraph）を方変換すると全て型が変わってしまう？？だめじゃん
-//		int num = Integer.parseInt(lifegraph);
-//
 //		//存在チェック
-////		exist(num);
+//		exist(num);
 //
 //		//レスポンスを返す
 //	    return ResponseEntity.ok(HttpStatus.OK);

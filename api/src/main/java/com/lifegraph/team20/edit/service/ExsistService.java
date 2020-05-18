@@ -63,10 +63,10 @@
 //	//インサートの条件分岐
 //	//メソッドの中に入れる必要あり？？と思ったから書き換えた！(コンストラクタを定義)
 //	public void exsist() {
-//		//親テーブルに情報がないとき//exsistById()→booleanで帰るjpaのメソッド
+//		//親テーブルに情報がないとき。exsistById()→booleanで帰るjpaのメソッド
 //		if(ParentsRepository.exsistById()) {
-//
 //			//	 ページから取得したidと同じかどうかを確認する
+//
 //			String mySql = “insert into parent_chart (update_at) values (‘” + getNowDateTime() + “‘)“;
 //			stmt.executeUpdate(mySql);
 //

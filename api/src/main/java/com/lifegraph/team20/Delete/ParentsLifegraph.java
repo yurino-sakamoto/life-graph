@@ -1,4 +1,4 @@
-package com.lifegraph.team20.edit.models;
+package com.lifegraph.team20.Delete;
 
 import java.util.List;
 
@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.lifegraph.team20.edit.models.ChildLifegraph;
 
 import lombok.Data;
 
