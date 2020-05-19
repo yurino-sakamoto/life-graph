@@ -8,10 +8,11 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 //
+//import com.lifegraph.team20.edit.Controller.LifeGraphdata;
 //import com.lifegraph.team20.edit.models.ChildLifegraph;
 //import com.lifegraph.team20.edit.models.ParentsLifegraph;
-//import com.lifegraph.team20.edit.repository.ChildRepository;
 //import com.lifegraph.team20.edit.repository.ParentsRepository;
+//import com.lifegraph.team20.edit.repository.ChildRepository;
 //
 ////Service→ビジネスロジック
 ////案①
@@ -47,87 +48,94 @@
 ////新規登録：addChild();
 //
 //@Service
-//public class ExsistService extends ParentsLifegraph{
-//
+//public class ExsistService extends ParentsLifegraph {
 //	@Autowired
 //	ParentsRepository ParentsRepository;
 //	ChildRepository ChildRepository;
 //
-//	//これいる？？？
-//	//	public LifeGraphService(long user_id, Timestamp createdAtTime, Timestamp updatedAtTime) {
-//	//	super(user_id, createdAtTime, updatedAtTime);
-//	//	// TODO 自動生成されたコンストラクター・スタブ
-//	//}
+//	//	//これがあるのはおかしくない？？↓
+//	//	public ExsistService(long id, Timestamp update_at, long user_id) {
+//	//		super(id, update_at, user_id);
+//	//		// TODO 自動生成されたコンストラクター・スタブ
 //
-//	//		ageで条件分岐する場合の案
+//
+//	//ageで条件分岐する場合の案
 //	//インサートの条件分岐
 //	//メソッドの中に入れる必要あり？？と思ったから書き換えた！(コンストラクタを定義)
-//	public void exsist() {
-//		//親テーブルに情報がないとき。exsistById()→booleanで帰るjpaのメソッド
-//		if(ParentsRepository.exsistById()) {
-//			//	 ページから取得したidと同じかどうかを確認する
+//	public void exsist(LifeGraphdata lifegraph) {
 //
-//			String mySql = “insert into parent_chart (update_at) values (‘” + getNowDateTime() + “‘)“;
-//			stmt.executeUpdate(mySql);
+//		//親テーブルに情報がないとき。exsistById()→booleanで帰るjpaのメソッド
+//		if(ParentsRepository.existsById(lifegraphからIdを取り出して入れたい) == false) {
+//
 //
 //			//①親テーブルに新規時間
-//			insertParents(〇〇);
+//			//タイムスタンプを押す実行文をmySQLおく
+//			String mySql = "insert into parent_chart (update_at) values (‘” + getNowDateTime() + “‘)";
+//			//ステートメントっていうインターフェースのメソッドを呼び出す→インサート文の実行
+//			//インサート文を流したい
+//			stmt.executeUpdate(mySql);
 //
 //			//②小テーブルに追加
-//			addChild(〇〇);
+//			addChild(lifegraph);
 //
 //			//子テーブルの年齢が被っていない時（ageで情報が被っているかを判断する）
 //		}else {
 //
-//			//親テーブルの登録日時を更新
-//			String mySql = “insert into parent_chart (created_at) values (‘” + getNowDateTime() + “’)“;
+//			//①親テーブルの登録日時を更新
+//			String mySql = "insert into parent_chart (created_at) values (‘” + getNowDateTime() + “’)";
 //			stmt.executeUpdate(mySql);
 //
-//			//ageの有無で分岐させる
-//			if(ChildRepository.exsistByAge()) {
-//				ChildRepository. queryAll() ;
+//			//②ageの有無で分岐させる
+//			if(ChildRepository.existsByAge(lifegraphから年齢を取り出して入れたい) == true) {
+//				//既に登録済みのものがある場合（年齢で）
+//				ChildRepository.queryAll();
 //
-//				public LifeGraph delete(LifeGraph lifeGraph) {
+//				public ChildLifegraph delete(ChildLifegraph ChildLifegraph) {
+//					//詰める必要あり
+//					//親テーブルに残っているデータを消す
+//					ParentsLifegraph.getChildLifegraph().clear(Entityからの情報);
 //
-//					ParentsLifeGraph.getLifeGraph().clear();
+//					//親テーブルに小テーブルの情報を追加する
+//					ParentsLifegraph.getLifegraph().add(Entityからの情報);
 //
-//					ParentsLifeGraph.getLifeGraph().add(lifeGraph);
-//
-//					return lifeGraphRepository.save(lifeGraph);
+//					//データをセーブする
+//					return lifeGraphRepository.save(Entityの情報));
 //
 //				}else {
-//					addChild();
+//					//新規で登録する場合（年齢にかぶりがない場合）
+//					addChild(Vueからの情報);
 //				}
 //			}
 //		}
 //
 //		//saveとsaveAndFlushの違いは特にない（）
 //		//小テーブルの情報を追加or新規登録(メッシと違う)
-//		public ChildLifegraph addChild(ChildLifegraph lifegraph){
-//			return ChildRepository.save(lifegraph);
+//		public ChildLifegraph addChild(ChildLifegraph childEntity){
+//			return ChildRepository.save(childEntity);
 //		}
 //
 //		//タイムスタンプの押し方を考えなくてはならない（どうやって、片方のみに押すのか）
-//		//親テーブルの新規登録
-//		public String insertParents(ParentsLifegraph lifegraph){
-//			final DateFormat df = new SimpleDateFormat(“yyyy-MM-dd HH:mm:ss”);
-//			final Date date = new Date(System.currentTimeMillis());
-//			return df.format(date);
-//		}
+////		//親テーブルの新規登録
+////		public String insertParents(ParentsLifegraph ParentsEntity){
+////			final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+////			final Date date = new Date(System.currentTimeMillis());
+////			return df.format(date);
+////		}
 //		//	//親テーブル更新（不必要）
 //		//	public ParentsLifegraph updateParents(ParentsLifegraph lifegraph){
 //		//		return ParentsRepository.save(lifegraph);
 //		//	}
 //
-////		//小テーブルのレコードを削除する
-////		public ParentsLifegraph deleteChild(ParentsLifegraph lifegraph){
-////			//①SQLからデータを持ってくる（レコード全部の方が楽？カラムの方が楽？→レコードを採用）
-////			@Query()
-////
-////			//②
-////
-////			return ParentsRepository.save(lifegraph);
-////		}
+//		//		//小テーブルのレコードを削除する
+//		//		public ParentsLifegraph deleteChild(ParentsLifegraph lifegraph){
+//		//			//①SQLからデータを持ってくる（レコード全部の方が楽？カラムの方が楽？→レコードを採用）
+//		//			@Query()
+//		//
+//		//			//②
+//		//
+//		//			return ParentsRepository.save(lifegraph);
+//		//		}
+//
 //	}
 //
 //
