@@ -16,7 +16,7 @@ export default {
             fillColor: 'rgba(254,95,82,0.6)', // 線から下端までを塗りつぶす色
             strokeColor: 'rgba(254,95,82,1)', //  折れ線の色
             pointColor: 'rgba(254,95,82,1)', //  ドットの塗りつぶし色
-            pointHighlightFill: 'rgba(86,84,82,1)', // マウスが載った際のドットの塗りつぶし色/             pointHighlightStroke: 'yellow', // マウスが載った際のドットの枠線色
+            pointHighlightFill: 'rgba(86,84,82,1)', // マウスが載った際のドットの塗りつぶし色/pointHighlightStroke: 'yellow', // マウスが載った際のドットの枠線色
             // label:ここにスコアが入るからlabelの中は空にする
             borderWidth: 1,
             fill: false,
@@ -76,11 +76,11 @@ export default {
   },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue
-      // const age = []
-      // this.$store.state.chart.contents.map((Age) => { // forEachではなくmap
-      //   age.push(Age.age)
-      // })
-      // this.data.datasets[0].data = age
+      const age = []
+      this.$store.state.chart.contents.map((Age) => { // forEachではなくmap
+        age.push(Age.age)
+      })
+      this.data.datasets[0].data = age
     },
     setScore () {
       const score = []

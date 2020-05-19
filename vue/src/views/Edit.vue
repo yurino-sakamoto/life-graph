@@ -1,70 +1,125 @@
 <template>
-  <div class="editorSection">
-    <Header />
+  <div id="editSection">
+    <div>
+      <Header />
+    </div>
     <div class="editTitle">
       編集
     </div>
-    <div class="backButon">
-      <router-link to="/Top">
-        Back
-      </router-link>
-    </div>
-    <div class="editInfo">
-      <div>
-        <div class="edit">
-          <p>
-            <label class="label">年齢:
-            </label>
-            <input
-              v-model="ageAdd"
-              type="number"
-            >歳
-          <!-- 入力即表示される -->
-          <!-- <p>{{ ageAdd }}</p> -->
-          </p>
-          <p>
-            <label
-              class="label"
-              for="ScoreAdd"
-            >満足度:
-            </label>
-            <input
-              v-model="scoreAdd"
-              type="number"
-            >％
-          </p>
-          <p>
-            <label
-              class="label"
-              for="CommentAdd"
-            >
-              コメント:
-            </label>
-            <input
-              v-model="commentAdd"
-              type="String"
-            >
-          </p>
-            <button
-              class="clearForm"
-              @click="reset"
-            >
-              <!-- =#! いる？ クリックしてもどこにも遷移させない場合に指定 -->
-              Reset
-            </button>
-            <button
-              class="addForm"
-              @click="add"
-            >
-              Add
-            </button>
+    <div id="editForm">
+      <h1>Life Graph</h1>
+      <div id="input">
+        <table id="field">
+          <tr>
+            <th scope="row">
+              <label for="age">
+                年齢
+              </label>
+            </th>
+            <td>
+              <input
+                id="age"
+                ref="editor"
+                v-model="age"
+                type="number"
+                @keyup.enter="changeContents"
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <label for="score">
+                満足度
+              </label>
+            </th>
+            <td>
+              <input
+                id="score"
+                ref="editor"
+                v-model="score"
+                type="number"
+                @keyup.enter="changeContents"
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <label for="comment">
+                コメント
+              </label>
+            </th>
+            <td>
+              <textarea
+                id="comment"
+                ref="editor"
+                v-model="comment"
+                cols="30"
+                rows="5"
+                placeholder="内容を入力してください。"
+                @keyup.enter="changeContents"
+              />
+            </td>
+          </tr>
+        </table>
+        <div id="action">
+          <button
+            id="reset"
+            @click="reset"
+          >
+            クリア
+          </button>
+          <button
+            id="submit"
+            @click="add"
+          >
+            {{ changeButtonText }}
+          </button>
         </div>
       </div>
+      <div id="list">
+        <table>
+          <thead>
+            <tr>
+              <th>年齢</th>
+              <th>スコア</th>
+              <th>コメント</th>
+            </tr>
+          </thead>
+          <tbody v-if="isActive">
+            <tr
+              v-for="content in contents"
+              :key="content.age"
+            >
+              <td>{{ content.age }}</td>
+              <td>{{ content.score }}</td>
+              <td>{{ content.comment }}</td>
+              <button
+                class="button"
+                @click="edit(index)"
+              >
+                編集
+              </button>
+              <button
+                class="button"
+                @click="deleteContents(index)"
+              >
+                削除
+              </button>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button
+        class="button"
+        @click="update()"
+      >
+        更新
+      </button>
     </div>
-    <div class="editGraph">
+    <div class="chartArea">
       <div
-        v-if="true"
-        class="chart"
+        v-if="loaded"
+        id="chart"
       >
         <Chart />
       </div>
@@ -73,21 +128,32 @@
 </template>
 
 <script>
-import Chart from '../components/Chart'
-
+import Header from '../components/Header.vue'
+import Chart from '../components/Chart.vue'
 export default {
+  name: 'Edit',
   components: {
+    Header,
     Chart
   },
-  data () { // これでfunctionの役割
-    // データの整理
+  data () {
     return {
-      ageAdd: null,
-      scoreAdd: null,
-      commentAdd: ''
+      isActive: false,
+      contents: [
+        {
+          age: '',
+          score: '',
+          comment: ''
+        }
+      ],
+      load: true,
+      editIndex: -1
     }
   },
   computed: {
+    loaded () {
+      return this.$store.state.chart.loaded
+    },
     changeButtonText () {
       return this.editIndex === -1 ? '追加' : '編集'
     }
@@ -97,30 +163,64 @@ export default {
       this.age = ''
       this.score = ''
       this.comment = ''
-      // console.clear(this.ageAdd)
-      // console.clear(this.scoreAdd)
-      // console.clear(this.commentAdd)
+      // console.clear(this.age)
+      // console.clear(this.score)
+      // console.clear(this.comment)
     },
     add () {
-      console.log(this.ageAdd)
-      console.log(this.scoreAdd)
-      console.log(this.commentAdd)
-      const content = {
-        age: this.ageAdd,
-        score: this.scoreAdd,
-        comment: this.commentAdd
+      this.isActive = true
+      if (this.editIndex === -1) { // ifの時addボタンの挙動
+        this.contents.push({ age: this.age, score: this.score, comment: this.comment }) // 配列の最後に
+        this.age = ''
+        this.score = ''
+        this.comment = ''
+      } else { // elseの時editボタンの挙動
+        this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment }) // splice配列の最初？ 配列から要素を削除・追加して組み替え
+        this.age = ''
+        this.score = ''
+        this.comment = ''
+        this.editIndex = -1
       }
-      this.$store.dispatch('chart/addContent', content) // chart/module化したときの約束(storeの階層化)。namespacedしてるから
-      this.age = '' // add後に消す
+      console.log(this.age)
+      console.log(this.score)
+      console.log(this.comment)
+
+      const content = {
+        age: this.age,
+        score: this.score,
+        comment: this.comment
+      }
+      this.$store.dispatch('addContent', content)
+    },
+    submit () {
+      this.isActive = true
+      if (this.age === '') return
+      const content = {
+        age: this.age,
+        score: this.score,
+        comment: this.comment
+      }
+      this.content.push(content)
+      this.$store.dispatch('addContent', content)
+      this.age = ''
       this.score = ''
       this.comment = ''
+    },
+    deleteContents (index) {
+      this.contents.splice(index, 1)
+    },
+    edit (index) {
+      this.editIndex = index
+      this.score = this.contents[index]
+      this.comment = this.contents[index]
+      this.$refs.editor.focus() // フォーカスを設定
     }
   }
 }
 </script>
 
 <style>
-.editorSection {
+.editSection {
   background: #F3F3F9;
   width: 100%;
   height: 1000px;
@@ -129,25 +229,41 @@ export default {
   padding: 30px;
   display: inline-block;
 }
-.editorTitle {
+.editTitle,h1 {
   color: #565452;
   font-size: 30px;
 }
-.backButton {
+#reset {
   border: none;
   outline: none;
   background:#FE5F52;
   border-radius: 10px;
+  margin: 10px auto;
   padding: 6px;
   font-size: 12pt;
-  color:#FFF;
+  color:#FFF
 }
-li {
-  list-style: none;
-  text-align: center;
-  width: 240px;
+#submit {
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  border-radius: 10px;
+  margin: 10px auto;
+  padding: 6px;
+  font-size: 12pt;
+  color:#FFF
 }
-.editInfo {
+.button {
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  border-radius: 10px;
+  margin: 10px auto;
+  padding: 6px;
+  font-size: 12pt;
+  color:#FFF
+}
+.inputInfo {
   background:#FFF;
   border-radius: 20px;
   color: #565452;
@@ -159,26 +275,6 @@ li {
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
-}
-.clearForm {
-  border: none;
-  outline: none;
-  background:#FE5F52;
-  border-radius: 10px;
-  margin: 10px auto;
-  padding: 6px;
-  font-size: 12pt;
-  color:#FFF;
-}
-.addForm {
-  border: none;
-  outline: none;
-  background:#FE5F52;
-  border-radius: 10px;
-  margin: 20px auto;
-  padding: 6px;
-  font-size: 12pt;
-  color:#FFF;
 }
 .editGraph {
   background:#FFF;

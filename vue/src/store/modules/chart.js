@@ -43,13 +43,11 @@ export default {
   },
   mutations: {
     addContentMutation (state, content) {
-      debugger
       state.contents.push(content)
     }
   },
   actions: {
     addContent ({ commit }, content) {
-      debugger
       commit('addContentMutation', content)
     }
   }
