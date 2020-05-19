@@ -20,6 +20,11 @@ import com.lifegraph.team20.edit.models.ParentsLifegraph;
 
 @Repository
 public interface ParentsRepository extends JpaRepository<ParentsLifegraph, Long> {
+	// ageがすでに登録された物が存在しているかを判断する物
+	//書き方が怪しい
+    Boolean existsById(long id);
+
     @Query("SELECT * FROM child_chart WHERE parent_id :parent_id and age :age")
     List<ParentsLifegraph> queryAll();
+
 }

@@ -2,6 +2,7 @@ package com.lifegraph.team20.edit.models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,17 +14,23 @@ import javax.persistence.Table;
 import lombok.Data;
 
 //Entityデータベースに接続するときの値を持っておく
+
 @Data
 @Entity
 @Table(name = "Parents_lifegraph")
 public class ParentsLifegraph {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected long id;
 
-
+	@Column(name = "created_at")
 	private java.sql.Timestamp created_at;
+
+	@Column(name = "update_at")
 	private java.sql.Timestamp update_at;
+
+	@Column(name = "user_id")
 	private long user_id;
 
 	//カラムをくっつける（fetch = FetchType.LAZY?）

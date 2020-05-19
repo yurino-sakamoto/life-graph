@@ -1,5 +1,6 @@
 package com.lifegraph.team20.edit.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,18 +21,21 @@ public class ChildLifegraph {
 	//@IDプライマリキーに付ける,@GeneratedValueはIdで指定したプライマリキーの採番方法を指定する。
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private long id;
 
 	//カラムをくっつける時の小テーブルにつける
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
+	@JoinColumn(name = "parent_id")
 	private long parent_id;
 
 	//UNIQUE指定
 	@NotBlank
+	@Column(name = "age")
 	private int age;
 
 	@NotBlank
+	@Column(name = "score")
 	private int score;
 	private long comment;
 
