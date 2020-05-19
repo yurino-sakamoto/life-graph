@@ -1,5 +1,57 @@
 //package com.lifegraph.team20.search;
 //
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
+//import java.util.List;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.jdbc.core.JdbcTemplate;
+//import org.springframework.jdbc.core.RowMapper;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.RestController;
+//
+//@RestController
+//public class SearchController {
+//
+//	private static final String LikeName = "悠";
+//	private static final String StartDate = "";
+//	private static final String UpdateDate = "";
+//
+//	@RequestMapping(value = "/search", method = RequestMethod.GET)
+//
+//	public List<SearchGraphInfo>SearchGraphInfos(){
+//		List<SearchGraphInfo> SearchGraphInfos = SelectSearchGraphInfo();
+//		return SearchGraphInfos;
+//
+//	}
+//
+//	@Autowired
+//	private JdbcTemplate jdbcTemplate;
+//	private List<SearchGraphInfo> SelectSearchGraphInfo() {
+//		String sql="";
+//		if(LikeName != "") {
+//			final String sql1 =  "select `name`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where name like '%"+LikeName+"%'";
+//			sql=sql1;
+//		}else if(StartDate !=  "") {
+//			final String sqlStartDate =  "select `name`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where `created_at` like '%"+StartDate+"%'";
+//			sql=sqlStartDate;
+//		}else if(UpdateDate != "") {
+//			final String sqlUpdateDate =  "select `name`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where `updated_at` like '%"+UpdateDate+"%'";
+//			sql=sqlUpdateDate;
+//		}
+//		return jdbcTemplate.query(sql, new RowMapper<SearchGraphInfo>() {
+//			public SearchGraphInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				return new SearchGraphInfo(rs.getString("name"), rs.getInt("user_id"),rs.getTimestamp("created_at"),rs.getTimestamp("updated_at"));
+//			}
+//		});
+//	}
+//}
+
+
+//②成功
+//package com.lifegraph.team20.search;
+//
 //import java.util.List;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +72,17 @@
 //	@Autowired
 //	public SearchService service;
 //
-//	@Autowired
-//	public SearchRepository repository;
-//
 //	@RequestMapping(method = RequestMethod.GET)
 //	List<Search> getSearch() {
-//		return repository.getSearch();
+//		return service.getSearch();
+//	}
+//
+//	List<parent_graph> getGraph() {
+//		return service.getGraph();
 //	}
 //}
 
-
+//①
 //	@RequestMapping(method = RequestMethod.POST)
 //	public ModelAndView login(ModelAndView mav
 //			,@RequestParam("userId") String userId
