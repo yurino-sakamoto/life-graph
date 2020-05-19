@@ -76,11 +76,11 @@ export default {
   },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue
-      const age = []
-      this.$store.state.chart.contents.map((Age) => { // forEachではなくmap
-        age.push(Age.age)
-      })
-      this.data.datasets[0].data = age
+      // const age = []
+      // this.$store.state.chart.contents.map((Age) => { // forEachではなくmap
+      //   age.push(Age.age)
+      // })
+      // this.data.datasets[0].data = age
     },
     setScore () {
       const score = []

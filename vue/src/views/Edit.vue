@@ -181,9 +181,9 @@ export default {
         this.comment = ''
         this.editIndex = -1
       }
-      console.log(this.age)
-      console.log(this.score)
-      console.log(this.comment)
+      // console.log(this.age)
+      // console.log(this.score)
+      // console.log(this.comment)
 
       const content = {
         age: this.age,
