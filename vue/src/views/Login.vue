@@ -3,25 +3,15 @@
     <div class="pageTitle">
       人生グラフ
     </div>
-    <!--
-    <img class="pageLogo" src="../assets/logo.png" alt="Logo">
-    -->
     <div class="loginID">
-      <!-- <label for="password">username:
-        <input type="text" name="uid" size="40" maxlength="32" autocomplete="OFF"> -->
       <label for="username" />
-      <input v-model="username" type="username" name="username" placeholder="UserName">
+      <input v-model="username" type="username" placeholder="UserName">
       <label for="password" />
-      <input v-model="password" type="password" name="password" placeholder="Password">
+      <input v-model="password" type="password" placeholder="Password">
     </div>
     <button class="button-panel" @click="login()">
       Sign in
     </button>
-    <!-- <div class="loginButton">
-      <router-link to="/">
-        <input type="submit" value="Login">
-      </router-link>
-    </div> -->
   </div>
 </template>
 

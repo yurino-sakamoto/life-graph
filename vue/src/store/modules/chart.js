@@ -3,8 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  namespaced: true,
+export default {
+  namespaced: true, // 名前空間
   state: {
     contents: [
       {
@@ -21,13 +21,28 @@ export default new Vuex.Store({
         age: 10,
         score: -10,
         comment: 'あいうえお'
+      },
+      {
+        age: 15,
+        score: 40,
+        comment: 'あいうえお'
+      },
+      {
+        age: 20,
+        score: -80,
+        comment: 'あいうえお'
+      },
+      {
+        age: 25,
+        score: 100,
+        comment: 'あいうえお'
       }
     ],
     load: false,
-    loaded: false
+    loaded: true
   },
   mutations: {
-    addContentMutation (state, content) { // 第二引数の、s要らん
+    addContentMutation (state, content) {
       state.contents.push(content)
     }
   },
@@ -36,4 +51,4 @@ export default new Vuex.Store({
       commit('addContentMutation', content)
     }
   }
-})
+}

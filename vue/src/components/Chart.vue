@@ -11,12 +11,12 @@ export default {
         datasets: [
           {
             label: '人生グラフ',
-            backgroundColor: '#f565452',
+            backgroundColor: 'rgba(254,95,82,1)',
             data: [],
-            fillColor: 'rgba(165,42,42,0.65)', // 線から下端までを塗りつぶす色
-            strokeColor: 'rgba(165,42,42,1)', //  折れ線の色
-            pointColor: 'rgba(165,42,42,1)', //  ドットの塗りつぶし色
-            pointHighlightFill: 'yellow', // マウスが載った際のドットの塗りつぶし色/             pointHighlightStroke: 'yellow', // マウスが載った際のドットの枠線色
+            fillColor: 'rgba(254,95,82,0.6)', // 線から下端までを塗りつぶす色
+            strokeColor: 'rgba(254,95,82,1)', //  折れ線の色
+            pointColor: 'rgba(254,95,82,1)', //  ドットの塗りつぶし色
+            pointHighlightFill: 'rgba(86,84,82,1)', // マウスが載った際のドットの塗りつぶし色/pointHighlightStroke: 'yellow', // マウスが載った際のドットの枠線色
             // label:ここにスコアが入るからlabelの中は空にする
             borderWidth: 1,
             fill: false,
@@ -36,22 +36,29 @@ export default {
           xAxes: [{
             gridLines: {
               //  縦線消す
-              display: false,
-              labelString: '年齢'
+              display: true,
+              labelString: '年齢',
+              fontColor: 'rgba(86,84,82,1)'
+            },
+            ticks: {
+              beginAtZero: true,
+              max: 25,
+              min: 0,
+              stepsize: 1
             }
           }],
           yAxes: [{
             gridLines: {
               //  zerolineを残すため
-              display: false,
+              display: true,
               labelString: '満足度'
-              // zeroLineColor: 'rgba(86,84,82,1)'
             },
             ticks: {
               beginAtZero: true,
               max: 100,
               min: -100,
-              stepsize: 10
+              stepsize: 1,
+              fontColor: 'rgba(86,84,82,1)'
             }
           }]
         }
@@ -69,11 +76,11 @@ export default {
   },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue
-      const age = []
-      this.$store.state.chart.contents.map((Age) => { // forEachじゃなくてmap使う
-        age.push(Age.age)
-      })
-      this.data.datasets[0].data = age // data()読まん
+      // const age = []
+      // this.$store.state.chart.contents.map((Age) => { // forEachではなくmap
+      //   age.push(Age.age)
+      // })
+      // this.data.datasets[0].data = age
     },
     setScore () {
       const score = []
@@ -147,7 +154,7 @@ export default {
         tooltipEl.style.position = 'absolute'
         tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px'
         tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px'
-        tooltipEl.style.backgroundcolor = 'rgba(204,204,204)'
+        tooltipEl.style.backgroundcolor = 'rgba(228,232,239,1)'
         tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily
         tooltipEl.style.fontSize = tooltipModel._bodyFontSize
         tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle
