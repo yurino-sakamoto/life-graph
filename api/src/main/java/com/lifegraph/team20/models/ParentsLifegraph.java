@@ -1,4 +1,4 @@
-//package com.lifegraph.team20.edit.models;
+//package com.lifegraph.team20.models;
 //
 //import java.util.List;
 //
@@ -20,7 +20,7 @@
 //@Table(name = "Parents_lifegraph")
 //public class ParentsLifegraph {
 //
-//	@Id
+////	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	protected long id;
 //
@@ -49,5 +49,4 @@
 //		this.user_id = user_id;
 //	}
 //}
-//
 ////@PrePersist→
