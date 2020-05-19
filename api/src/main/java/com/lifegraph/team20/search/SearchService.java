@@ -1,3 +1,5 @@
+//<jap>
+//
 //package com.lifegraph.team20.search;
 //
 //import java.util.List;
@@ -12,9 +14,16 @@
 //public class SearchService {
 //
 //	@Autowired
-//	SearchRepository repository;
+//	SearchRepository searchrepository;
 //
 //	public List<Search> getSearch() {
+//		return searchrepository.findAll();
+//	}
+//
+//	@Autowired
+//	ParentGraphRepository repository;
+//
+//	public List<parent_graph> getGraph() {
 //		return repository.findAll();
 //	}
 //}
