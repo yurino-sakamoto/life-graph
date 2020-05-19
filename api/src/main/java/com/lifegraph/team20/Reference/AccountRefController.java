@@ -28,15 +28,20 @@
 //    List<Map<String, Object>> arrangeAccountRef = uploadAccountRef(accountRef);
 //
 //    return arrangeAccountRef;
+//    // {id:2, authority:1, name:こうた}
 //  }
 //
 ////-----------------------------【SOLからデータを取得】----------------------------
+////select * from users
+//  // inner join user_roles on users.id = user_roles.user_id\n"
+//  // + "inner join roles on roles.id = user_roles.`role_id`;";
 //
 //  @Autowired
 //  private JdbcTemplate jdbcTemplate;
 //
 //  private List<AccountReference> selectUserInfo() {
-//    final String sql = "select id,authority,name from users";
+//    String loginMailAddress = ;
+//    final String sql = "select id,authority,name from users WHERE mail_address = " + loginMailAddress  ; // 誰の？
 //    return jdbcTemplate.query(sql, new RowMapper<AccountReference>() {
 //      public AccountReference mapRow(ResultSet rs, int rowNum) throws SQLException {
 //        return new AccountReference(rs.getInt("id"), rs.getInt("authority"), rs.getString("name"));
