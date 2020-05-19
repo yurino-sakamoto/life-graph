@@ -1,11 +1,11 @@
 CREATE TABLE `users` (
   `id` bigint NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `authority` int NOT NULL DEFAULT '1',
-  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `username` varchar(255) NOT NULL,
+  -- `authority` int NOT NULL DEFAULT '1',
+  -- `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  -- `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
@@ -20,6 +20,7 @@ CREATE TABLE `user_roles` (
   `user_id` bigint not null,
   `role_id` int not null,
   PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_id` (`user_id`,`role_id`),
   FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8MB4;
@@ -49,5 +50,5 @@ CREATE TABLE `child_graphs` (
   `name`
 )VALUES
 ('ROLE_USER'),
-('ROLE_MODERATOR'),
-('ROLE_ADMIN');
+('ROLE_ADMIN'),
+('ROLE_OWNER');
