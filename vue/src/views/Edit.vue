@@ -1,29 +1,37 @@
 <template>
   <div class="editorSection">
     <Header />
-    <span class="editTitle">
+    <div class="editTitle">
       編集
-    </span><br>
-    <span class="editButton">
+    </div>
+    <div class="backButon">
       <router-link to="/Top">
         Back
       </router-link>
-    </span>
+    </div>
     <div class="editInfo">
-      <p>グラフ情報入力</p>
       <div>
-        <p>
-          <label class="label" for="ageAdd">年齢:
-          </label>
-          <input v-model="ageAdd" type="text">歳
-        <!-- 入力即表示される -->
-        <!-- <p>{{ ageAdd }}</p> -->
-        </p>
-        <div class="e">
+        <div class="edit">
           <p>
-            <label class="label" for="ScoreAdd">満足度:
+            <label class="label">年齢:
             </label>
-            <input v-model="scoreAdd" type="text">％
+            <input
+              v-model="ageAdd"
+              type="number"
+            >歳
+          <!-- 入力即表示される -->
+          <!-- <p>{{ ageAdd }}</p> -->
+          </p>
+          <p>
+            <label
+              class="label"
+              for="ScoreAdd"
+            >満足度:
+            </label>
+            <input
+              v-model="scoreAdd"
+              type="number"
+            >％
           </p>
           <p>
             <label
@@ -32,27 +40,24 @@
             >
               コメント:
             </label>
-            <textarea
+            <input
               v-model="commentAdd"
-              placeholder="Add comments."
-            />
+              type="String"
+            >
           </p>
-          <button
-            class="clearForm"
-            href="#!"
-            @click="reset"
-          >
-            <div />
-            Reset
-          </button>
-          <!-- =#! クリックしてもどこにも遷移させない場合に指定 -->
-          <button
-            class="addForm"
-            href="#!"
-            @click="add"
-          >
-            Add
-          </button>
+            <button
+              class="clearForm"
+              @click="reset"
+            >
+              <!-- =#! いる？ クリックしてもどこにも遷移させない場合に指定 -->
+              Reset
+            </button>
+            <button
+              class="addForm"
+              @click="add"
+            >
+              Add
+            </button>
         </div>
       </div>
     </div>
@@ -77,13 +82,15 @@ export default {
   data () { // これでfunctionの役割
     // データの整理
     return {
-      // storeにつなぐ代わり??
       ageAdd: null,
       scoreAdd: null,
-      commentAdd: '' // '初期値はここに入れておく'
+      commentAdd: ''
     }
   },
-  computed: { // 編集する
+  computed: {
+    changeButtonText () {
+      return this.editIndex === -1 ? '追加' : '編集'
+    }
   },
   methods: {
     reset () {
@@ -95,15 +102,15 @@ export default {
       // console.clear(this.commentAdd)
     },
     add () {
-      // console.log(this.ageAdd)
-      // console.log(this.scoreAdd)
-      // console.log(this.commentAdd)
+      console.log(this.ageAdd)
+      console.log(this.scoreAdd)
+      console.log(this.commentAdd)
       const content = {
-        age: this.age,
-        score: this.score,
-        comment: this.comment
+        age: this.ageAdd,
+        score: this.scoreAdd,
+        comment: this.commentAdd
       }
-      this.$store.dispatch('chart/addContent', content)
+      this.$store.dispatch('chart/addContent', content) // chart/module化したときの約束(storeの階層化)。namespacedしてるから
       this.age = '' // add後に消す
       this.score = ''
       this.comment = ''
@@ -126,9 +133,14 @@ export default {
   color: #565452;
   font-size: 30px;
 }
-.editButton {
-  background: #FFF;
-  color: #565452;
+.backButton {
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  border-radius: 10px;
+  padding: 6px;
+  font-size: 12pt;
+  color:#FFF;
 }
 li {
   list-style: none;
@@ -137,27 +149,33 @@ li {
 }
 .editInfo {
   background:#FFF;
-  border-radius: 25px;
+  border-radius: 20px;
   color: #565452;
   width: 40%;
   height: 400px;
   font-size: 12pt;
   word-break: break-all;
-  margin: 30px auto;
+  margin: 10px auto;
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
 }
 .clearForm {
+  border: none;
+  outline: none;
   background:#FE5F52;
-  border-radius: 25px;
+  border-radius: 10px;
+  margin: 10px auto;
   padding: 6px;
   font-size: 12pt;
   color:#FFF;
 }
 .addForm {
+  border: none;
+  outline: none;
   background:#FE5F52;
-  border-radius: 25px;
+  border-radius: 10px;
+  margin: 20px auto;
   padding: 6px;
   font-size: 12pt;
   color:#FFF;
@@ -165,7 +183,7 @@ li {
 .editGraph {
   background:#FFF;
   color: #565452;
-  border-radius: 25px;
+  border-radius: 20px;
   width: 50%;
   height: 400px;
   font-size: 12pt;

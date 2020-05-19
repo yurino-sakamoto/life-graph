@@ -10,7 +10,7 @@ const config = {
   }
 }
 
-export default new Vuex.Store({
+export default {
   namespaced: true,
   state: {
     account: {
@@ -33,4 +33,4 @@ export default new Vuex.Store({
       })
     }
   }
-})
+}
