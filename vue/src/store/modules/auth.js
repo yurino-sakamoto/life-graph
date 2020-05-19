@@ -20,11 +20,12 @@ export default {
     },
     deleteToken (state) {
       state.token = ''
+      state.userId = ''
     }
   },
   actions: {
     create ({ commit }, data) {
-      const url = '/auth/login'
+      const url = '/api/auth/login'
       axios.post(url, data).then(res => commit('create', res.data))
         .catch(err => err)
     }
