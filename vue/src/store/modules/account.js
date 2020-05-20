@@ -11,7 +11,6 @@ export default {
   },
   mutations: {
     setAccount (state, payload) {
-      console.log(payload)
       state.acountInfo = payload
     },
     resetAccountInfo (state) { // ログアウト後に情報が残らないように
