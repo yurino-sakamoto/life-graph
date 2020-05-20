@@ -9,33 +9,8 @@ export default {
     contents: [
       {
         age: 0,
-        score: 30,
-        comment: 'あいうえお'
-      },
-      {
-        age: 5,
-        score: 80,
-        comment: 'あいうえお'
-      },
-      {
-        age: 10,
-        score: -10,
-        comment: 'あいうえお'
-      },
-      {
-        age: 15,
-        score: 40,
-        comment: 'あいうえお'
-      },
-      {
-        age: 20,
-        score: -80,
-        comment: 'あいうえお'
-      },
-      {
-        age: 25,
-        score: 100,
-        comment: 'あいうえお'
+        score: 0,
+        comment: ''
       }
     ],
     load: false,
