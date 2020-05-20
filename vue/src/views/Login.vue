@@ -1,7 +1,7 @@
 <template>
   <div class="loginSection">
     <div class="pageTitle">
-      人生グラフ
+      <h1>LifeGraph</h1>
     </div>
     <div class="loginID">
       <label for="username" />
@@ -9,7 +9,7 @@
       <label for="password" />
       <input v-model="password" type="password" placeholder="Password">
     </div>
-    <button class="button-panel" @click="login()">
+    <button class="btn" @click="login()">
       Sign in
     </button>
   </div>
@@ -47,25 +47,73 @@ export default {
 }
 </script>
 
-<style scoped>
-.loginSection{
-  height: 280px;
-  background-color: blanchedalmond;
+<style lang="scss" scoped>
+
+.loginSection {
+  background:#7448FF;
+  border-radius:6px;
+  padding:40px;
+  padding-top:30px;
+  width:300px;
+  margin:50px auto;
+  box-shadow:15px 15px 0px rgba(0,0,0,.1);
   text-align: center;
-  margin: 100px;
+  position: absolute;
+  bottom: 170px;
+  right: 200px;
+
+h1 {
+  text-align:center;
+  font-size:1.4em;
+  font-weight:700;
+  color:#ccc;
+  margin-bottom:24px;
 }
 
-.pageTitle{
-  font-size: 2rem;
-  padding: 50px 0px 0px 0px;
-  margin: 0px 0px 30px 0px;
+span {
+  font-weight:200;
 }
-.pageLogo{
-  margin: 10px 0px 10px 0px;
-  width: 50px;
-}
-.loginID,
-.loginPassword{
+
+label[for]{
   margin: 10px 90px 10px 20px;
+  display: block;
+}
+
+input:focus {
+    outline: none;
+}
+
+button{
+    cursor: pointer;
+}
+
+input {
+  width:250px;
+  background:#f5f5f5;
+  border:0;
+  padding:20px;
+  border-radius:6px;
+  margin-bottom:10px;
+  border:1px solid #eee;
+}
+
+.btn {
+  position:relative;
+  width:100%;
+  padding:20px;
+  border-radius:6px;
+  border:0;
+  background:#f26964;
+  font-size:1.2em;
+  color:#fff;
+  margin-top: 20px;
+  text-shadow:1px 1px 0px rgba(0,0,0,.1);
+  box-shadow:0px 3px 0px #c1524e;
+
+    :active {
+    top:3px;
+    box-shadow:none;
+    }
+  }
 }
 </style>

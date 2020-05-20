@@ -3,18 +3,15 @@ import axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    tenant: '',
     userId: '',
     token: ''
   },
   mutations: {
     create (state, data) {
-      state.tenant = ''
       state.token = data.token
       state.userId = data.id
     },
     destroy (state) {
-      state.tenant = ''
       state.userId = ''
       state.token = ''
     },
