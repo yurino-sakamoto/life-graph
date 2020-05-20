@@ -3,6 +3,7 @@
 //import java.sql.ResultSet;
 //import java.sql.SQLException;
 //import java.util.List;
+//import java.util.Optional;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@
 //import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.RestController;
 //
 //import com.lifegraph.team20.payload.request.SearchGraphInfo;
@@ -18,41 +20,36 @@
 //public class SearchController {
 //
 ////	private static final String LikeName = "悠";
-//	private static final String StartDate = "";
-//	private static final String UpdateDate = "";
+////	private static final String StartDate = "";
+////	private static final String UpdateDate = "";
 //
 //	@RequestMapping(value = "/search", method = RequestMethod.GET)
 //
-//	public ResponseEntity<List<SearchGraphInfo>> SearchGraphInfos(String sample){
-//		List<SearchGraphInfo> SearchGraphInfos = SelectSearchGraphInfo(sample);
+//	public ResponseEntity<List<SearchGraphInfo>> SearchGraphInfos(@RequestParam("LikeName") Optional<String> like_name, @RequestParam("start_date") Optional<String>start_date, @RequestParam("update_date") Optional<String> update_date){
+//		List<SearchGraphInfo> SearchGraphInfos = SelectSearchGraphInfo(like_name, start_date, update_date);
 //		return ResponseEntity.ok(SearchGraphInfos);
-//
 //	}
 //
 //	@Autowired
 //	private NamedParameterJdbcTemplate jdbcTemplate;
-//	private List<SearchGraphInfo> SelectSearchGraphInfo(String sample) {
+//	private List<SearchGraphInfo> SelectSearchGraphInfo(Optional<String> like_name, Optional<String> start_date, Optional<String> update_date) {
 //		String sql="";
-//
-////		if(LikeName != "") {
-//			final String sql1 =  "select `name`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where name like '%:LikeName%'";
+//		if(like_name != null) {
+//			final String sql1 =  "select `username`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where `username` like '%\"+like_name+\"%'";
 //			sql=sql1;
 ////			SqlParameterSource param = new MapSqlParameterSource().addValue("id", 1); 
-////		}else if(StartDate !=  "") {
-////			final String sqlStartDate =  "select `name`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where `created_at` like '%"+StartDate+"%'";
-////			sql=sqlStartDate;
-////		}else if(UpdateDate != "") {
-////			final String sqlUpdateDate =  "select `name`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where `updated_at` like '%"+UpdateDate+"%'";
-////			sql=sqlUpdateDate;
-////		}
-//		return jdbcTemplate.query(sql,param, new RowMapper<SearchGraphInfo>() {
+//		}else if(start_date !=  null && update_date != null) {
+//			final String sql2 =  "select `username`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where `created_at`,`updated_at` like '"+start_date+"' AND '"+update_date+"'";
+//			sql=sql2;
+//		}
+//		return jdbcTemplate.query(sql,new RowMapper<SearchGraphInfo>() {
 //			public SearchGraphInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
 //				return new SearchGraphInfo(rs.getString("name"), rs.getInt("user_id"),rs.getTimestamp("created_at"),rs.getTimestamp("updated_at"));
 //			}
 //		});
 //	}
 //}
-//
+
 
 //②成功
 //package com.lifegraph.team20.search;
