@@ -79,12 +79,8 @@ label[for]{
   display: block;
 }
 
-input:focus {
-    outline: none;
-}
-
 button{
-    cursor: pointer;
+  cursor: pointer;
 }
 
 input {
@@ -95,6 +91,10 @@ input {
   border-radius:6px;
   margin-bottom:10px;
   border:1px solid #eee;
+
+  :focus {
+    outline: none;
+  }
 }
 
 .btn {
@@ -111,8 +111,8 @@ input {
   box-shadow:0px 3px 0px #c1524e;
 
     :active {
-    top:3px;
-    box-shadow:none;
+      top:3px;
+      box-shadow:none;
     }
   }
 }
