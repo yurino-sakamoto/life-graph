@@ -1,36 +1,38 @@
 <template>
   <div class="headderSection">
     <div class="logoParent">
-      <router-link to="/">
+      <router-link to="/login">
         <img class="pageLogo" src="../assets/logo.png" alt="ロゴ">
       </router-link>
     </div>
     <div class="nav">
       <router-link to="/login">
-        Login
+        <li>Login</li>
       </router-link>|
       <router-link to="/edit">
-        Edit
+        <li>Edit</li>
       </router-link>|
       <router-link to="/search">
-        Search
+        <li>Search</li>
       </router-link>|
       <router-link to="/reference">
-        Reference
+        <li>Reference</li>
       </router-link>|
     </div>
     <router-view />
-    <div class="userName_authorityLevel">
-      <button class="logOutButton" @click="logout()">
-        ログアウト
-      </button>
-      <div class="userName">
-        ユーザー名：{{ userName }}
-      </div>
-      <div class="authorityLevel">
+    <ul class="acount">
+      <li class="userName">
+        User Name：{{ username }}
+      </li>
+      <li class="authority">
         Authority:{{ authority }}
-      </div>
-    </div>
+      </li>
+      <li>
+        <span tag="button" class="btn" @click="logout()">
+          Log Out
+        </span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -71,43 +73,113 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .headderSection{
-  height: 70px;
-  background-color: lightgrey;
-}
-
-.logoParent{
-  text-align: left;
-}
+  height: 80px;
+  width: 100%;
+  background-color: rgba(34, 49, 52, 0.9);
+  position : fixed;
+  top : 0;
 
 .pageLogo{
   width: 50px;
   margin: 13px 0px 0px 10px;
+  text-align: left;
 }
 
-.userName_authorityLevel {
-  position: relative;
-  bottom: 64px;
-  padding: 0pt 15pt 0pt 0pt;
-  text-align: right;
-}
-
-.userName{
+.nav {
+  position : fixed;
+  top : 0;
+  left: 35%;
+  z-index : 10;
+  font-size: 1.3rem;
+  color: white;
   font-weight: bold;
-  font-size: 1.5rem;
-  margin: 0pt 0pt 0pt 0pt;
+  text-shadow: 1px 1px 3px #000;
+  text-decoration: none;
+  transition: .3s;
+  padding: 15px 20px 5px  20px;
+  display: inline-block;
 }
 
-.authorityLevel{
-  margin: 0pt 0pt 0pt 0pt;
-}
+  li{
+    font-size: 1.3rem;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px #000;
+    text-decoration: none;
+    display: inline-block;
+    transition: .3s;
+    padding: 15px 20px 5px  20px;
+    position: relative;
+    top: 0px;
+    display: inline-block;
 
-.nav{
-  position: absolute;
-  top:800px;
-  font-size: 0.5rem;
-}
+    :hover {
+      opacity: 0.5;
+    }
 
+    ::after {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      content: '';
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: .3s;
+      transform: translateX(-50%);
+    }
+
+    :hover::after{
+      width: 100%;
+    }
+  }
+
+  .acount{
+    text-align: right;
+
+    .acount li{
+      line-height: 30px;
+      margin-right: 35px;
+      margin-top: 80px;
+      padding: 8px;
+      width: auto;
+      font-size: 18px;
+      display: inline-block;
+      text-decoration: none;
+      background-image: linear-gradient(-90deg, #FF006E, #FFD500);
+      border-color: transparent;
+      border-radius: 3px;/*角の丸み*/
+      font-weight: bold;
+      text-shadow: -1px -1px rgba(255, 255, 255, 0.44), 1px 1px rgba(0, 0, 0, 0.38);
+      text-align: center;
+    }
+  }
+
+  .btn{
+    display: inline-block;
+    width: 80px;
+    height: auto;
+    text-align: center;
+    font-size: 16px;
+    color: #FFF;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 4px;
+    background-image: linear-gradient(-90deg, #FF006E, #FFD500);
+    transition: .5s;
+    background-size: 100%;
+    position : fixed;
+    top : 0;
+    left: 90%;
+    z-index : 10;
+
+    :hover {
+      background-position: right center;
+    }
+  }
+}
 </style>
