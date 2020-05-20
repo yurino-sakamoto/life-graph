@@ -1,4 +1,5 @@
 package com.lifegraph.team20.payload.request;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -8,7 +9,7 @@ import lombok.Data;
 //HTTPリクエストを受け取るためのクラスここに情報の定義が集まっている
 
 @Data
-public class LifeGraphdata {
+public class LifeGraphData {
   @NotNull
   private long userId = 1;
   @NotNull
