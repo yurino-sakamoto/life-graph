@@ -62,9 +62,9 @@
           </tr>
           <button
             class="button"
-            v-on:click="removetext(age,score,comment)"
+            @click="removetext(age,score,comment)"
           >
-          リセット
+            リセット
           </button>
           <button
             class="button"
@@ -88,7 +88,7 @@
               v-for="(content,index) in contents"
               :key="index"
             >
-            <!-- わからん -->
+              <!-- わからん -->
               <td>
                 {{ content.age }}
               </td>
