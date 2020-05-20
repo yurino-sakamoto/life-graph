@@ -114,7 +114,6 @@ export default {
     padding: 15px 20px 5px  20px;
     position: relative;
     top: 0px;
-    display: inline-block;
 
     :hover {
       opacity: 0.5;
