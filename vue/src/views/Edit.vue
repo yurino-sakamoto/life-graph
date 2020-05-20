@@ -94,7 +94,7 @@
               <td>
                 {{ content.score }}
               </td>
-              <td class="comment">
+              <td class="commentTable">
                 {{ content.comment }}
               </td>
               <button
@@ -230,16 +230,15 @@ export default {
   font-size: 12pt;
   color:#FFF
 }
-/*
-.comment {
+.commentTable {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
-  } */
+  }
 .listInfo {
-  /* overflow: hidden; */
+  overflow: hidden;
   background:#FFF;
   border-radius: 20px;
   color: #565452;
