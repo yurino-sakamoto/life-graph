@@ -21,54 +21,54 @@
     </div>
     <router-view />
     <div class="userName_authorityLevel">
-      <p>Click here to log out↓</p>
-      <button class="btn btn-lg btn-fill" @click="logout">
-        Log Out
+      <button class="logOutButton" @click="logout()">
+        ログアウト
       </button>
       <div class="userName">
         ユーザー名：{{ userName }}
       </div>
       <div class="authorityLevel">
-        <p v-if="authority=='1'">
-          一般ユーザー
-        </p>
-        <p v-else-if="authority=='2'">
-          管理者
-        </p>
-        <p v-else>
-          オーナー
-        </p>
+        Authority:{{ authority }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// export default {
-//   data () {
-//     return {
-//       userName: '小澤コウタ',
-//       authority: '1'
-//     }
-//   },
-//   mounted () {  //ヘッダー表示と同時にdispatch
-//     this.$store.dispatch('accountAction');
-//   },
-//   computed: {
-//     Name () {
-//       this.userName = this.$store.getters.acountName
-//       return this.userName
-//     },
-//     Authority () {
-//       this.authority = this.$store.getters.acountAuthority
-//       return this.authority
-//     }
-//   }
-//   //   ,logout () {
-//   //     this.$store.commit('auth/deleteToken')  //authのstateのtokenを消す
-//   //     this.$router.push('/login')             //tokenが消されたあとログイン画面に遷移する
-//   // }
-// }
+export default {
+  data () {
+    return {
+      userName: '',
+      authority: ''
+    }
+  },
+  async mounted () { // ヘッダー表示と同時に起動
+    const userId = this.$store.state.auth.userId// 変数userIdを定義。ログイン情報。省略
+    await this.$store.dispatch('account/accountAction', { userId: userId })
+    this.setAccount()// ファイル内のメソッド呼び出し
+  },
+  methods: {
+    // dataのaccountにaccount.jsのstateの情報をsetする
+    setAccount () {
+      const stateAccount = this.$store.state.account.acountInfo
+      this.userName = stateAccount.username
+      const authority = stateAccount.name // 変数authorityを定義
+      if (authority === 'ROLE_USER') { // roleがROLE_USERのとき
+        this.authority = '一般ユーザー' // 一般ユーザーという値を返す
+      } else if (authority === 'ROLE_ADMIN') {
+        this.authority = '管理者'
+      } else { // roleが上記以外のとき
+        this.authority = 'オーナー'
+      }
+    },
+    // ログアウト（authのstateのtokenを消す）
+    logout () {
+      this.$store.commit('auth/deleteToken')// token削除。auth.jsのmutation呼び出し。
+      this.$store.commit('account/resetAccountInfo')// 上記の情報リセット。account.jsのmutation呼び出し。
+      this.$router.push('/login')// ログイン画面に遷移
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -111,8 +111,3 @@
 }
 
 </style>
-
-<!--
-取得した名前を表示
-if文
--->

@@ -5,15 +5,15 @@ package com.lifegraph.team20.Reference;
 public class AccountReference {
 // フィールド（クラス直下の属性郡）
   private int id;
-  private int authority;
+  private String username;
   private String name;
 
 // コンストラクタ（インスタンス化と同時にクラスに値を投げる。）
-  public AccountReference(int id, int authority, String name) {
+  public AccountReference(int id, String username, String name) {
 
     this.id = id;
-    this.authority = authority;
-    this.name = name;
+    this.username = username;
+    this.name = name;// roleのname
     // this.でインスタンスに値を渡す。
 
   }
@@ -26,12 +26,12 @@ public class AccountReference {
     this.id = id;
   }
 
-  public int getAuthority() {
-    return authority;
+  public String getUsername() {
+    return username;
   }
 
-  public void setAuthority(int authority) {
-    this.authority = authority;
+  public void setAuthority(String username) {
+    this.username = username;
   }
 
   public String getName() {
