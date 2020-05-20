@@ -22,6 +22,7 @@
                 ref="editor"
                 v-model="age"
                 type="number"
+                autocomplete="off"
                 @keyup.enter="changeContents"
               >
             </td>
@@ -38,7 +39,7 @@
                 ref="editor"
                 v-model="score"
                 type="number"
-                @keyup.enter="changeContents"
+                autocomplete="off"
               >
             </td>
           </tr>
@@ -56,27 +57,24 @@
                 cols="30"
                 rows="5"
                 placeholder="内容を入力してください。"
-                @keyup.enter="changeContents"
               />
             </td>
           </tr>
-        </table>
-        <div id="action">
           <button
-            id="reset"
-            @click="reset"
+            class="button"
+            v-on:click="removetext(age,score,comment)"
           >
-            クリア
+          リセット
           </button>
           <button
-            id="submit"
+            class="button"
             @click="add"
           >
             {{ changeButtonText }}
           </button>
-        </div>
+        </table>
       </div>
-      <div id="list">
+      <div class="listInfo">
         <table>
           <thead>
             <tr>
@@ -87,17 +85,23 @@
           </thead>
           <tbody v-if="isActive">
             <tr
-              v-for="content in contents"
-              :key="content.age"
-            >
-              <td>{{ content.age }}</td>
-              <td>{{ content.score }}</td>
-              <td>{{ content.comment }}</td>
+              v-for="(content,index) in contents"
+              :key="index"
+            ><!-- わからん -->
+              <td>
+                {{ content.age }}
+              </td>
+              <td>
+                {{ content.score }}
+              </td>
+              <td class="comment">
+                {{ content.comment }}
+              </td>
               <button
                 class="button"
                 @click="edit(index)"
               >
-                編集
+                修正
               </button>
               <button
                 class="button"
@@ -113,17 +117,17 @@
         class="button"
         @click="update()"
       >
-        更新
+        更新/編集完了？
       </button>
     </div>
-    <div class="chartArea">
+    <div class="editGraph">
       <div
         v-if="loaded"
         id="chart"
       >
         <Chart />
       </div>
-    </div>
+    </div><br><br>
   </div>
 </template>
 
@@ -138,16 +142,13 @@ export default {
   },
   data () {
     return {
+      age: '',
+      score: '',
+      comment: '',
       isActive: false,
-      contents: [
-        {
-          age: '',
-          score: '',
-          comment: ''
-        }
-      ],
+      contents: [], // ここに情報あると空のデータが存在してしまう
       load: true,
-      editIndex: -1
+      editIndex: -1 // 初期値-1だと
     }
   },
   computed: {
@@ -155,103 +156,69 @@ export default {
       return this.$store.state.chart.loaded
     },
     changeButtonText () {
-      return this.editIndex === -1 ? '追加' : '編集'
+      return this.editIndex === -1 ? '追加' : '完了'
     }
   },
   methods: {
-    reset () {
+    // テキストボックス値削除
+    removetext: function (removeitem) {
       this.age = ''
       this.score = ''
       this.comment = ''
-      // console.clear(this.age)
-      // console.clear(this.score)
-      // console.clear(this.comment)
     },
     add () {
       this.isActive = true
       if (this.editIndex === -1) { // ifの時addボタンの挙動
         this.contents.push({ age: this.age, score: this.score, comment: this.comment }) // 配列の最後に
-        this.age = ''
-        this.score = ''
-        this.comment = ''
       } else { // elseの時editボタンの挙動
-        this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment }) // splice配列の最初？ 配列から要素を削除・追加して組み替え
-        this.age = ''
-        this.score = ''
-        this.comment = ''
+        this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment }) // splice配列の最初？配列から要素を削除・追加して組み替え。１は第２引数で削除する数
         this.editIndex = -1
       }
-      // console.log(this.age)
-      // console.log(this.score)
-      // console.log(this.comment)
-
-      const content = {
-        age: this.age,
-        score: this.score,
-        comment: this.comment
-      }
-      this.$store.dispatch('addContent', content)
-    },
-    submit () {
-      this.isActive = true
-      if (this.age === '') return
-      const content = {
-        age: this.age,
-        score: this.score,
-        comment: this.comment
-      }
-      this.content.push(content)
-      this.$store.dispatch('addContent', content)
       this.age = ''
       this.score = ''
-      this.comment = ''
-    },
-    deleteContents (index) {
-      this.contents.splice(index, 1)
+      this.comment = '' // 上から読んでいく
+      const content = {
+        age: this.age,
+        score: this.score,
+        comment: this.comment
+      }
+      this.$store.dispatch('addContent', content)
     },
     edit (index) {
       this.editIndex = index
-      this.score = this.contents[index]
-      this.comment = this.contents[index]
+      this.age = this.contents[index].age // indexに応じたageが出てくる
+      this.score = this.contents[index].score
+      this.comment = this.contents[index].comment
       this.$refs.editor.focus() // フォーカスを設定
+    },
+    deleteContents (index) {
+      this.contents.splice(index, 1)
     }
   }
 }
 </script>
 
 <style>
-.editSection {
+#editSection {
   background: #F3F3F9;
-  width: 100%;
-  height: 1000px;
-  margin: 0 auto;
   text-align: center;
-  padding: 30px;
-  display: inline-block;
+}
+#input {
+  background:#FFF;
+  border-radius: 20px;
+  color: #565452;
+  width: 40%;
+  height: 400px;
+  font-size: 12pt;
+  word-break: break-all;
+  margin: 10px auto;
+  padding: 20px;
+  text-align: center;
+  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
 }
 .editTitle,h1 {
   color: #565452;
   font-size: 30px;
-}
-#reset {
-  border: none;
-  outline: none;
-  background:#FE5F52;
-  border-radius: 10px;
-  margin: 10px auto;
-  padding: 6px;
-  font-size: 12pt;
-  color:#FFF
-}
-#submit {
-  border: none;
-  outline: none;
-  background:#FE5F52;
-  border-radius: 10px;
-  margin: 10px auto;
-  padding: 6px;
-  font-size: 12pt;
-  color:#FFF
 }
 .button {
   border: none;
@@ -263,11 +230,20 @@ export default {
   font-size: 12pt;
   color:#FFF
 }
-.inputInfo {
+/*
+.comment {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  } */
+.listInfo {
+  /* overflow: hidden; */
   background:#FFF;
   border-radius: 20px;
   color: #565452;
-  width: 40%;
+  width: 60%;
   height: 400px;
   font-size: 12pt;
   word-break: break-all;
