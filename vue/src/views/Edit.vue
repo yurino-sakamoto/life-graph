@@ -87,7 +87,8 @@
             <tr
               v-for="(content,index) in contents"
               :key="index"
-            ><!-- わからん -->
+            >
+            <!-- わからん -->
               <td>
                 {{ content.age }}
               </td>
