@@ -6,18 +6,18 @@
       </router-link>
     </div>
     <div class="nav">
-      <router-link to="/top">
+      <router-link to="/top" class="topLink">
         Top
       </router-link>|
-      <router-link to="/edit">
+      <router-link to="/edit" class="topLink">
         Edit
       </router-link>|
-      <router-link to="/search">
+      <router-link to="/search" class="topLink">
         Search
       </router-link>|
-      <router-link to="/reference">
+      <router-link to="/reference" class="topLink">
         Reference
-      </router-link>|
+      </router-link>
     </div>
     <router-view />
     <ul>
@@ -71,18 +71,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style>
 
-.headderSection{
+.headerSection{
   height: 80px;
   width: 100%;
-  background-color: white;
-  position : fixed;
-  top : 0;
+  background-color: #FFF;
+  position: fixed;
+  top: 0;
+  border-radius: 0px 0px 10px 10px;
+}
 
 .pageLogo{
   width: 50px;
-  margin: 13px 0px 0px 10px;
   text-align: left;
 }
 
@@ -92,88 +93,91 @@ export default {
   left: 35%;
   z-index : 10;
   font-size: 1.3rem;
-  color: white;
+  color: #565452;
+  font-size: 16px;
   font-weight: bold;
-  text-shadow: 1px 1px 3px #000;
+  display: block;
+  text-align: center;
+  margin:20px;
   text-decoration: none;
   transition: .3s;
-  padding: 15px 20px 5px  20px;
+  padding: 15px 80px 5px  80px;
   display: inline-block;
-
-  :hover {
-      opacity: 0.5;
-    }
-
-    ::after {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      content: '';
-      width: 0;
-      height: 2px;
-      background-color: white;
-      transition: .3s;
-      transform: translateX(-50%);
-    }
-
-    :hover::after{
-      width: 100%;
-    }
 }
 
-  // li{
-  //   font-size: 1.3rem;
-  //   color: white;
-  //   text-shadow: 1px 1px 3px #000;
-  //   text-decoration: none;
-  //   display: inline-block;
-  //   transition: .3s;
-  //   padding: 15px 20px 5px  20px;
-  //   position: relative;
-  //   top: 0px;
+.topLink {
+  margin: 15px 800px 5px 800px;
+}
 
-  ul{
-    text-align: right;
+.hover {
+  opacity: 0.5;
+}
 
-    li{
-      color: white;
-      text-shadow: 1px 1px 3px #000;
-      padding: 15px;
-      width: 130px;
-      font-size: 16px;
-      font-weight: bold;
-      display: block;
-      background-image: linear-gradient(-90deg, #232526, #414345);
-      border-radius: 3px;
-      text-shadow: -1px -1px rgba(255, 255, 255, 0.44), 1px 1px rgba(0, 0, 0, 0.38);
-      text-align: center;
-      margin:20px;
-    }
-  }
+.after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  content: '';
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: .3s;
+  transform: translateX(-50%);
+}
 
-  .btn{
-    display: inline-block;
-    width: 70px;
-    height: auto;
-    text-align: center;
-    font-size: 16px;
-    color: #FFF;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 12px 24px;
-    border-radius: 4px;
-    background-image: linear-gradient(-90deg, #232526, #414345);
-    transition: .5s;
-    background-size: 100%;
-    position : fixed;
-    cursor: pointer;
-    top : 0;
-    left: 90%;
-    z-index : 10;
+.hover {
+  width: 100%;
+}
 
-    :hover {
-      background-position: right center;
-    }
-  }
+li {
+  font-size: 1.3rem;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  transition: .3s;
+  padding: 15px 20px 5px  20px;
+  position: relative;
+  top: 0px;
+}
+
+ul{
+  text-align: right
+}
+
+li{
+  color: #565452;
+  padding: 15px;
+  width: 130px;
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  border-radius: 3px;
+  text-align: center;
+  margin:20px;
+}
+
+.btn{
+  display: inline-block;
+  width: 70px;
+  height: auto;
+  text-align: center;
+  font-size: 16px;
+  color: #FFF;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 4px;
+  background: #7448FF;
+  transition: .5s;
+  background-size: 100%;
+  position : fixed;
+  cursor: pointer;
+  top : 0;
+  left: 90%;
+  z-index : 10;
+}
+
+hover {
+  background-position: right center;
 }
 </style>

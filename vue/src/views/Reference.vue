@@ -26,8 +26,10 @@ export default {
 <style scoped>
 
 .referenceSection {
+  background: #F3F3F9;
+  width: 100%;
+  height: 800px;
   margin-top: 80px;
-  background: radial-gradient(white, #E5E5E9);
   height: 800px;
 }
 

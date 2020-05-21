@@ -1,15 +1,12 @@
 <template>
-  <div id="editSection">
+  <div class="editSection">
     <div>
       <Header />
     </div>
-    <div class="editTitle">
-      編集
-    </div>
-    <div id="editForm">
+    <div class="editForm">
       <h1>Life Graph</h1>
-      <div id="input">
-        <table id="field">
+      <span class="inputInfo">
+        <table class="field">
           <tr>
             <th scope="row">
               <label for="age">
@@ -18,12 +15,11 @@
             </th>
             <td>
               <input
-                id="age"
                 ref="editor"
                 v-model="age"
+                class="age"
                 type="number"
                 autocomplete="off"
-                @keyup.enter="changeContents"
               >
             </td>
           </tr>
@@ -35,9 +31,9 @@
             </th>
             <td>
               <input
-                id="score"
                 ref="editor"
                 v-model="score"
+                class="score"
                 type="number"
                 autocomplete="off"
               >
@@ -51,9 +47,9 @@
             </th>
             <td>
               <textarea
-                id="comment"
                 ref="editor"
                 v-model="comment"
+                class="comment"
                 cols="30"
                 rows="5"
                 placeholder="内容を入力してください。"
@@ -73,8 +69,6 @@
             {{ changeButtonText }}
           </button>
         </table>
-      </div>
-      <div class="listInfo">
         <table>
           <thead>
             <tr>
@@ -99,13 +93,13 @@
                 {{ content.comment }}
               </td>
               <button
-                class="button"
+                class="smallButton"
                 @click="edit(index)"
               >
                 修正
               </button>
               <button
-                class="button"
+                class="smallButton"
                 @click="deleteContents(index)"
               >
                 削除
@@ -113,7 +107,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </span>
       <button
         class="button"
         @click="update()"
@@ -121,14 +115,14 @@
         更新/編集完了？
       </button>
     </div>
-    <div class="editGraph">
+    <span class="editGraph">
       <div
         v-if="loaded"
-        id="chart"
+        class="chart"
       >
         <Chart />
       </div>
-    </div><br><br>
+    </span><br><br>
   </div>
 </template>
 
@@ -200,11 +194,72 @@ export default {
 </script>
 
 <style>
-#editSection {
+.editSection {
   background: #F3F3F9;
-  text-align: center;
+  width: 100%;
+  height: 800px
 }
-#input {
+.editForm {
+  background: #FFF;
+  border-radius: 10px;
+  color: #565452;
+  width: 40%;
+  height: 400px;
+  font-size: 12pt;
+  word-break: break-all;
+  margin: 10px auto;
+  text-align: center;
+  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+  display:inline-block;
+}
+.editGraph {
+  background: #FFF;
+  border-radius: 10px;
+  color: #565452;
+  width: 40%;
+  height: 400px;
+  font-size: 12pt;
+  word-break: break-all;
+  margin: 10px auto;
+  text-align: center;
+  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+  display:inline-block;
+}
+h1 {
+  color: #565452;
+  font-size: 30px;
+}
+button {
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  border-radius: 10px;
+  margin: 10px auto;
+  padding: 6px;
+  font-size: 12pt;
+  color:#FFF;
+  cursor: pointer
+}
+.smallButton {
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  border-radius: 25%;
+  margin: 10px auto;
+  padding: 6px;
+  font-size: 12pt;
+  color:#FFF;
+  cursor: pointer
+}
+.commentTable {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  }
+
+/* #inputInfo {
   background:#FFF;
   border-radius: 20px;
   color: #565452;
@@ -213,11 +268,10 @@ export default {
   font-size: 12pt;
   word-break: break-all;
   margin: 10px auto;
-  padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
 }
-.editTitle,h1 {
+h1 {
   color: #565452;
   font-size: 30px;
 }
@@ -264,5 +318,5 @@ export default {
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
-}
+} */
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div class="top">
+  <div class="topSection">
     <Header />
-    <div class="topSection">
+    <div class="top">
       <h1>This is your LifeGraph</h1>
       <chart class="topChart" />
     </div>
@@ -25,10 +25,12 @@ export default {
 
 <style scoped>
 
-.top {
+.topSection {
+  background: #F3F3F9;
+  width: 100%;
+  height: 800px;
   margin-top: 80px;
-  background: radial-gradient(white, #E5E5E9);
-  height: 700px;
+  height: 700px
 }
 
 h1 {
