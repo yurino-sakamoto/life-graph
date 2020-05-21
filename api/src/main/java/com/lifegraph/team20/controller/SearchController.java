@@ -19,10 +19,6 @@
 //@RestController
 //public class SearchController {
 //
-////	private static final String LikeName = "悠";
-////	private static final String StartDate = "";
-////	private static final String UpdateDate = "";
-//
 //	@RequestMapping(value = "/search", method = RequestMethod.GET)
 //
 //	public ResponseEntity<List<SearchGraphInfo>> SearchGraphInfos(@RequestParam("LikeName") Optional<String> like_name, @RequestParam("start_date") Optional<String>start_date, @RequestParam("update_date") Optional<String> update_date){
@@ -34,12 +30,12 @@
 //	private NamedParameterJdbcTemplate jdbcTemplate;
 //	private List<SearchGraphInfo> SelectSearchGraphInfo(Optional<String> like_name, Optional<String> start_date, Optional<String> update_date) {
 //		String sql="";
-//		if(like_name != null) {
+//		if(like_name.isPresent()) {
 //			final String sql1 =  "select `username`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where `username` like '%\"+like_name+\"%'";
 //			sql=sql1;
-////			SqlParameterSource param = new MapSqlParameterSource().addValue("id", 1); 
-//		}else if(start_date !=  null && update_date != null) {
-//			final String sql2 =  "select `username`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where `created_at`,`updated_at` like '"+start_date+"' AND '"+update_date+"'";
+//		}else if(start_date.isPresent() && update_date.isPresent()) {
+//			final String sql2 =  "select `username`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id where \n" +
+//					"(`created_at` like '%\"+start_date+\"%') AND (`updated_at` like '%\"+update_date+\"%')";
 //			sql=sql2;
 //		}
 //		return jdbcTemplate.query(sql,new RowMapper<SearchGraphInfo>() {

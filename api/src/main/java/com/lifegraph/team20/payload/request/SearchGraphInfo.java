@@ -2,13 +2,14 @@
 //
 //import java.sql.Timestamp;
 //
+//
 //public class SearchGraphInfo {
 //	private String name;
 //	private int user_id;
 //	private Timestamp created_at;
 //	private Timestamp updated_at;
 //
-//	public SearchGraphInfo( String name, int user_id, Timestamp created_at, Timestamp updated_at) {
+//	public SearchGraphInfo(String name, int user_id, Timestamp created_at, Timestamp updated_at) {
 //		this.setName(name);
 //		this.setId(user_id);
 //		this.setCreated(created_at);
