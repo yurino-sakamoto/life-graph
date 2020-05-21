@@ -77,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements ApplicationContextAware{
 //  @Override
 //  protected void configure(HttpSecurity http) throws Exception {
-//    http.csrf().disable().authorizeRequests().antMatchers("/life-graphs").permitAll().anyRequest().authenticated();
+//    http.csrf().disable().authorizeRequests().antMatchers("/life-graphs/new").permitAll().anyRequest().authenticated();
 //  }
 //}
 //@Configuration
