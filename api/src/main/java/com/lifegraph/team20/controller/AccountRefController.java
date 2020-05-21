@@ -1,4 +1,4 @@
-package com.lifegraph.team20.Reference;
+package com.lifegraph.team20.controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lifegraph.team20.payload.response.AccountReference;
+
 //-----------------------------Controller定義----------------------------
 @RestController
 public class AccountRefController {
@@ -25,11 +27,8 @@ public class AccountRefController {
   // 「RequestMappingの{id}」が「@PathVariable("id") Integer id のid」になる。{id}はログイン情報。
   public ResponseEntity<AccountReference> responseReference(@PathVariable("id") Integer id) {
 
-    // メソッド① ： 3つのテーブルからデータを取得・整理（ログイン担当のテーブル構成）
     AccountReference accountRef = selectUserInfo(id);
-
     return ResponseEntity.ok(accountRef);
-    // {id:1, username:yu3, name:ROLE_USER}
   }
 
 //-----------------------------【SOLからデータを取得】----------------------------
@@ -45,7 +44,7 @@ public class AccountRefController {
     AccountReference selectInfo = jdbcTemplate.queryForObject(sql, param, new RowMapper<AccountReference>() {
       // 「queryForObject」1つのオブジェクト（ここではレコード）のみ取得。「(sql, param,」でSQL文が完成。
       public AccountReference mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new AccountReference(rs.getInt("id"), rs.getString("username"), rs.getString("name"));// nameは権限
+        return new AccountReference(rs.getLong("id"), rs.getString("username"), rs.getString("name"));// nameは権限
       }
     });
     return selectInfo;

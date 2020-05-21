@@ -44,13 +44,13 @@ export default {
   },
   async mounted () { // ヘッダー表示と同時に起動
     const userId = this.$store.state.auth.userId// 変数userIdを定義。ログイン情報。省略
-    await this.$store.dispatch('account/accountAction', { userId: userId })
+    await this.$store.dispatch('account/accountAction', userId)
     this.setAccount()// ファイル内のメソッド呼び出し
   },
   methods: {
     // dataのaccountにaccount.jsのstateの情報をsetする
     setAccount () {
-      const stateAccount = this.$store.state.account.acountInfo
+      const stateAccount = this.$store.state.account.acountInfo // ストア全体のstateの中のaccount.jsの中のacountInfoというstateの値
       this.username = stateAccount.username
       const authority = stateAccount.name // 変数authorityを定義
       if (authority === 'ROLE_USER') { // roleがROLE_USERのとき
@@ -63,9 +63,12 @@ export default {
     },
     // ログアウト（authのstateのtokenを消す）
     logout () {
-      this.$store.commit('auth/deleteToken')// token削除。auth.jsのmutation呼び出し。
-      this.$store.commit('account/resetAccountInfo')// 上記の情報リセット。account.jsのmutation呼び出し。
-      this.$router.push('/login')// ログイン画面に遷移
+      // token削除。auth.jsのmutation呼び出し。
+      this.$store.commit('auth/deleteToken')
+      // 上記の情報リセット。account.jsのmutation呼び出し。
+      this.$store.commit('account/resetAccountInfo')
+      // ログイン画面に遷移
+      this.$router.push('/login')
     }
   }
 }
