@@ -1,13 +1,13 @@
 <template>
   <div class="headderSection">
     <div class="logoParent">
-      <router-link to="/">
+      <router-link to="/login">
         <img class="pageLogo" src="../assets/logo.png" alt="ロゴ">
       </router-link>
     </div>
     <div class="nav">
-      <router-link to="/login">
-        Login
+      <router-link to="/top">
+        Top
       </router-link>|
       <router-link to="/edit">
         Edit
@@ -20,99 +20,160 @@
       </router-link>|
     </div>
     <router-view />
-    <div class="userName_authorityLevel">
-      <p>Click here to log out↓</p>
-      <button class="btn btn-lg btn-fill" @click="logout">
+    <ul>
+      <li>
+        User Name : {{ username }}
+      </li>
+      <li>
+        Authority : {{ authority }}
+      </li>
+      <span tag="button" class="btn" @click="logout()">
         Log Out
-      </button>
-      <div class="userName">
-        ユーザー名：{{ userName }}
-      </div>
-      <div class="authorityLevel">
-        <p v-if="authority=='1'">
-          一般ユーザー
-        </p>
-        <p v-else-if="authority=='2'">
-          管理者
-        </p>
-        <p v-else>
-          オーナー
-        </p>
-      </div>
-    </div>
+      </span>
+    </ul>
   </div>
 </template>
 
 <script>
-// export default {
-//   data () {
-//     return {
-//       userName: '小澤コウタ',
-//       authority: '1'
-//     }
-//   },
-//   mounted () {  //ヘッダー表示と同時にdispatch
-//     this.$store.dispatch('accountAction');
-//   },
-//   computed: {
-//     Name () {
-//       this.userName = this.$store.getters.acountName
-//       return this.userName
-//     },
-//     Authority () {
-//       this.authority = this.$store.getters.acountAuthority
-//       return this.authority
-//     }
-//   }
-//   //   ,logout () {
-//   //     this.$store.commit('auth/deleteToken')  //authのstateのtokenを消す
-//   //     this.$router.push('/login')             //tokenが消されたあとログイン画面に遷移する
-//   // }
-// }
+export default {
+  data () {
+    return {
+      username: '',
+      authority: ''
+    }
+  },
+  async mounted () { // ヘッダー表示と同時に起動
+    const userId = this.$store.state.auth.userId// 変数userIdを定義。ログイン情報。省略
+    await this.$store.dispatch('account/accountAction', { userId: userId })
+    this.setAccount()// ファイル内のメソッド呼び出し
+  },
+  methods: {
+    // dataのaccountにaccount.jsのstateの情報をsetする
+    setAccount () {
+      const stateAccount = this.$store.state.account.acountInfo
+      this.username = stateAccount.username
+      const authority = stateAccount.name // 変数authorityを定義
+      if (authority === 'ROLE_USER') { // roleがROLE_USERのとき
+        this.authority = 'User' // 一般ユーザーという値を返す
+      } else if (authority === 'ROLE_ADMIN') {
+        this.authority = 'Admin'
+      } else { // roleが上記以外のとき
+        this.authority = 'Owner'
+      }
+    },
+    // ログアウト（authのstateのtokenを消す）
+    logout () {
+      this.$store.commit('auth/deleteToken')// token削除。auth.jsのmutation呼び出し。
+      this.$store.commit('account/resetAccountInfo')// 上記の情報リセット。account.jsのmutation呼び出し。
+      this.$router.push('/login')// ログイン画面に遷移
+    }
+  }
+}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .headderSection{
-  height: 70px;
-  background-color: lightgrey;
-}
-
-.logoParent{
-  text-align: left;
-}
+  height: 80px;
+  width: 100%;
+  background-color: white;
+  position : fixed;
+  top : 0;
 
 .pageLogo{
   width: 50px;
   margin: 13px 0px 0px 10px;
+  text-align: left;
 }
 
-.userName_authorityLevel {
-  position: relative;
-  bottom: 64px;
-  padding: 0pt 15pt 0pt 0pt;
-  text-align: right;
-}
-
-.userName{
+.nav {
+  position : fixed;
+  top : 0;
+  left: 35%;
+  z-index : 10;
+  font-size: 1.3rem;
+  color: white;
   font-weight: bold;
-  font-size: 1.5rem;
-  margin: 0pt 0pt 0pt 0pt;
+  text-shadow: 1px 1px 3px #000;
+  text-decoration: none;
+  transition: .3s;
+  padding: 15px 20px 5px  20px;
+  display: inline-block;
+
+  :hover {
+      opacity: 0.5;
+    }
+
+    ::after {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      content: '';
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: .3s;
+      transform: translateX(-50%);
+    }
+
+    :hover::after{
+      width: 100%;
+    }
 }
 
-.authorityLevel{
-  margin: 0pt 0pt 0pt 0pt;
-}
+  // li{
+  //   font-size: 1.3rem;
+  //   color: white;
+  //   text-shadow: 1px 1px 3px #000;
+  //   text-decoration: none;
+  //   display: inline-block;
+  //   transition: .3s;
+  //   padding: 15px 20px 5px  20px;
+  //   position: relative;
+  //   top: 0px;
 
-.nav{
-  position: absolute;
-  top:800px;
-  font-size: 0.5rem;
-}
+  ul{
+    text-align: right;
 
+    li{
+      color: white;
+      text-shadow: 1px 1px 3px #000;
+      padding: 15px;
+      width: 130px;
+      font-size: 16px;
+      font-weight: bold;
+      display: block;
+      background-image: linear-gradient(-90deg, #232526, #414345);
+      border-radius: 3px;
+      text-shadow: -1px -1px rgba(255, 255, 255, 0.44), 1px 1px rgba(0, 0, 0, 0.38);
+      text-align: center;
+      margin:20px;
+    }
+  }
+
+  .btn{
+    display: inline-block;
+    width: 70px;
+    height: auto;
+    text-align: center;
+    font-size: 16px;
+    color: #FFF;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 4px;
+    background-image: linear-gradient(-90deg, #232526, #414345);
+    transition: .5s;
+    background-size: 100%;
+    position : fixed;
+    cursor: pointer;
+    top : 0;
+    left: 90%;
+    z-index : 10;
+
+    :hover {
+      background-position: right center;
+    }
+  }
+}
 </style>
-
-<!--
-取得した名前を表示
-if文
--->

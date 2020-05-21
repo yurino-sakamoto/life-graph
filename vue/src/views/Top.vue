@@ -2,19 +2,7 @@
   <div class="top">
     <Header />
     <div class="topSection">
-      <h1 class="mainMessage">
-        これは人生グラフのサイトです。
-      </h1>
-      <div class="searchButtonParent">
-        <router-link to="/search">
-          <img class="searchButton" src="../assets/logo.png" alt="検索">
-        </router-link>
-      </div>
-      <div class="registerButtonParent">
-        <router-link to="/edit">
-          <img class="registerButton" src="../assets/logo.png" alt="検索">
-        </router-link>
-      </div>
+      <h1>This is your LifeGraph</h1>
       <chart class="topChart" />
     </div>
   </div>
@@ -37,34 +25,23 @@ export default {
 
 <style scoped>
 
-.mainMessage{
+.top {
+  margin-top: 80px;
+  background: radial-gradient(white, #E5E5E9);
+  height: 700px;
+}
+
+h1 {
   text-align: center;
-}
-
-.searchButtonParent{
-  text-align: left;
-}
-.searchButton{
-  width: 40px;
-  margin: 0px 0px 0px 100px;
-}
-
-.registerButtonParent{
-  text-align: right;
-}
-
-.registerButton{
-  position: relative;
-  bottom: 42px;
-  width: 40px;
-  margin: 0px 100px 0px 0px;
+  padding: 30px;
+  font-size: 70px;
+  font-weight: bold;
 }
 
 .topChart{
-  width: 500px;
-  margin: 0px auto;
+  width: 1000px;
+  text-align: center;
+  margin: auto;
 }
 
 </style>
-
-<!--chartを描画-->

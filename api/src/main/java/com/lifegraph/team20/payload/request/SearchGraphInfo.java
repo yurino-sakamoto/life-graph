@@ -1,4 +1,4 @@
-//package com.lifegraph.team20.search;
+//package com.lifegraph.team20.payload.request;
 //
 //import java.sql.Timestamp;
 //
