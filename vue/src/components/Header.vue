@@ -104,14 +104,14 @@ export default {
   padding: 15px 80px 5px  80px;
   display: inline-block;
 }
-
+/*
 .topLink {
   margin: 15px 800px 5px 800px;
 }
 
 .hover {
   opacity: 0.5;
-}
+} */
 
 .after {
   position: absolute;
@@ -125,9 +125,9 @@ export default {
   transform: translateX(-50%);
 }
 
-.hover {
+/* hover {
   width: 100%;
-}
+} */
 
 li {
   font-size: 1.3rem;
@@ -144,6 +144,7 @@ ul{
   text-align: right
 }
 
+/*
 li{
   color: #565452;
   padding: 15px;
@@ -154,7 +155,7 @@ li{
   border-radius: 3px;
   text-align: center;
   margin:20px;
-}
+} */
 
 .btn{
   display: inline-block;
@@ -176,8 +177,8 @@ li{
   left: 90%;
   z-index : 10;
 }
-
+/*
 hover {
   background-position: right center;
-}
+} */
 </style>

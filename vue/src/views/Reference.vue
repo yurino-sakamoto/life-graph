@@ -29,8 +29,7 @@ export default {
   background: #F3F3F9;
   width: 100%;
   height: 800px;
-  margin-top: 80px;
-  height: 800px;
+  margin-top: 80px
 }
 
 .searchButtonParent{

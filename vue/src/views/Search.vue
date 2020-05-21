@@ -129,10 +129,8 @@ input:focus {
   border-radius: 25px;
   margin: 10px auto;
   font-size: 12pt;
-  cursor: pointer;
-  position:relative;
   max-width: 100px;
-  height: 50px;
+  height: 50px
 }
 
 /* cursor: pointer
