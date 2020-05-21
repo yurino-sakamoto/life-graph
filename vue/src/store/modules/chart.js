@@ -13,7 +13,6 @@ export default {
   },
   mutations: {
     addContentMutation (state, payload) {
-      console.log(payload)
       state.contents = payload
     }
   },
