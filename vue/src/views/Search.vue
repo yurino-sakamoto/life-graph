@@ -4,7 +4,8 @@
     <h1>Let`s Search LifeGraph</h1>
     <div class="form-item">
       <label for="username" />
-      <input v-model="username" type="username" placeholder="UserName">
+      <input v-model="username" placeholder="UserName">
+      <!-- 範囲指定しなければいけない↓ -->
       <label for="date" />
       <input v-model="date" type="date">
       <button class="btn" @click="login()">

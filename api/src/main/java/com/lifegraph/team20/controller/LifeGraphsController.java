@@ -5,9 +5,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lifegraph.team20.Service.LifeGraphService;
@@ -15,21 +16,38 @@ import com.lifegraph.team20.payload.request.RegisterRequest;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/life-graphs")
 public class LifeGraphsController {
 
-  @Autowired
-  private LifeGraphService service;
+	@Autowired
+	private LifeGraphService service;
 
-  // 保存（APIで使い分ける 問題点：1テーブル）
-  @PostMapping(value = "/new")
-  public ResponseEntity<Void> postContent(@RequestBody @Valid RegisterRequest request) {
+	// 保存（APIで使い分ける 問題点：1テーブル）
+	@PostMapping(value = "/life-graphs")
+	public ResponseEntity<Void> postContent(@RequestBody @Valid RegisterRequest request) {
+		service.register(request);
 
-    service.register(request);
+		//TODO URL指定をする
+		return ResponseEntity.created(null).build();
+	}
 
-    return ResponseEntity.created(null).build();
-  }
+	//TODO 管理者権限関連の設定
+	//パスパラメータを受け取れていない（/1のこと パスバリアブルでidを取得すると1が返却（調べる））
+	//削除（現状、問題点：1テーブルのみ）
+	@DeleteMapping(value = "/{parentId}")
+	public ResponseEntity<Void> deleteTable(@PathVariable("parentId") long parentId) {
+//		パスバリアブル
+		//デリートの手順
+		//持っておいて欲しいもの（user_id,Authority）
+		//①
+		//②
+		//管理者権限以上・削除などののビジネスロジックを実行↓↓
+		service.deleteTable(parentId);
+		return ResponseEntity.noContent().build();
+	}
 }
+
+
+
 
 //    //保存（APIで使い分ける　問題点：1テーブル）
 //    @RequestMapping(value = "/new",method = RequestMethod.POST)
@@ -50,18 +68,6 @@ public class LifeGraphsController {
 //    content.setId(id);
 //    return contentService.updateContent(content);
 //  }
-//
-////    //削除（現状、問題点：1テーブルのみ）
-////    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-////    public ResponseEntity<?> postContent(@RequestBody ResisterRequest resisterRequest) {
-////
-////
-////    	//管理者権限以上
-////    	//テーブル全部削除
-////    	contentService.deleteContent(resisterRequest.getParent_id());
-////
-////    return (ResponseEntity<?>) ResponseEntity.ok();
-////    }
 //}
 //
 ////新規登録：ボタンが押される
