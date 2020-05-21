@@ -18,7 +18,7 @@ export default {
     }
   },
   actions: {
-    async accountAction ({ commit }, { userId }) { // 引数としてuserId（ログイン情報）
+    async accountAction ({ commit }, userId) { // 引数としてuserId（ログイン情報）
       const url = '/api/accountReference/' + userId
       await axios.get(url).then(res => commit('setAccount', res.data))
         .catch(err => err)

@@ -66,7 +66,9 @@ export default {
       responsive: true
     }
   },
-  mounted () {
+  async  mounted () {
+    const userId = this.$store.state.auth.userId // 変数userIdを定義。ログイン情報。省略
+    await this.$store.dispatch('chart/addContent', userId)
     this.setAge()
     this.setScore()
     this.setComment()
@@ -76,15 +78,15 @@ export default {
   },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue
-      // const age = []
-      // this.$store.state.chart.contents.map((Age) => { // forEachではなくmap
-      //   age.push(Age.age)
-      // })
-      // this.data.datasets[0].data = age
+      const age = []
+      this.$store.state.chart.contents.map((Year) => { // forEachではなくmap
+        age.push(Year.age)// ageにAgeの中のageを全てプッシュ
+      })
+      this.data.datasets[0].data = age
     },
     setScore () {
       const score = []
-      this.$store.state.chart.contents.map((Score) => {
+      this.$store.state.chart.contents.map((Score) => { // contentsのp中のidの中を回せば良い？
         score.push(Score.score)
       })
       this.data.datasets[0].data = score

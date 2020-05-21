@@ -21,6 +21,7 @@ export default {
     }
   },
   actions: {
+    // ログインボタンを押すと起動。userIdとtokenが更新される。
     create ({ commit }, data) {
       const url = '/api/auth/login'
       axios.post(url, data).then(res => commit('create', res.data))
