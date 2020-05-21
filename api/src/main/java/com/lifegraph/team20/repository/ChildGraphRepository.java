@@ -6,5 +6,7 @@ import com.lifegraph.team20.models.ChildGraph;
 
 public interface ChildGraphRepository extends JpaRepository<ChildGraph, Long> {
 
+	//別で指定することによって、(Entityジャなくてもいける説？もしくは型が一致してるから？);
+	//
   long deleteByParentId(Long parentId);
 }

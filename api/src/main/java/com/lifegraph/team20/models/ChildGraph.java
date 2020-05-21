@@ -24,7 +24,7 @@ public class ChildGraph {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
   @Column(name = "parent_id")
   private Long parentId;
