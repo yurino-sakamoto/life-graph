@@ -48,6 +48,7 @@ public class LifeGraphsController {
 
 
 
+
 //    //保存（APIで使い分ける　問題点：1テーブル）
 //    @RequestMapping(value = "/new",method = RequestMethod.POST)
 //    Parentdata postContent(@RequestBody Parentdata parentdata) {
