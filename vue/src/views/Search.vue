@@ -1,31 +1,18 @@
 <template>
   <div class="search">
     <Header />
-    <div class="searchTitle">
-      life_graph
-    </div>
-    <!-- header -->
-    <header>
-      <h1 class="headline">
-        <a>Search</a>
-      </h1>
-    </header>
-    <div class="username">
-      <form action="confirm.php" method="post">
-        ユーザーネーム：<input type="text" name="yourname">
-      </form>
-    </div>
-    <div class="kousin">
-      <label for="num">更新日時：</label>
-      <input id="num" type="number" name="kousin-num">
-    </div>
-    <div class="button">
-      <input type="submit" value="Search">
+    <h1>Let`s Search LifeGraph</h1>
+    <div class="form-item">
+      <label for="username" />
+      <input v-model="username" type="username" placeholder="UserName">
+      <label for="date" />
+      <input v-model="date" type="date">
+      <button class="btn" @click="login()">
+        Search
+      </button>
     </div>
     <footer>
-      <h2>
-        <a>検索結果</a>
-      </h2>
+      <h2>検索結果</h2>
       <table id="sampleTable">
         <tr>
           <th>見出し</th>
@@ -65,123 +52,167 @@ export default {
 }
 </script>
 
-<style>
-.searchTitle{
-    font-family: initial;
+<style lang="scss" scoped>
+.search {
+  margin-top: 80px;
+  background: radial-gradient(white, #E5E5E9);
+  height: 100%;;
+
+  h1 {
     text-align: center;
+    padding: 30px;
+    font-size: 50px;
+    font-weight: bold;
+  }
+
+  h2 {
+    text-align: center;
+    padding: 20px;
     font-size: 40px;
-    height: 0px;
-    margin: 100px;
-    padding:0px 0px 0px 0px;
-}
-.site-search{
-    font-size:px;
+    font-weight: bold;
+  }
+
+  .form-item {
+    margin-bottom: 0.75em;
+    width: 100%;
+    margin: 3em auto;
+    padding: 0 1em;
+    max-width: 370px;
+    position: relative;
+
+    input {
+      background: #fafafa;
+      border-bottom: 2px solid #e9e9e9;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1em;
+      height: 50px;
+      width: 100%;
+      font: 15px/24px sans-serif;
+      box-sizing: border-box;
+      padding: 0.3em;
+      transition: 0.3s;
+      letter-spacing: 1px;
+      color: #aaaaaa;
+      border: 1px solid #1b2538;
+      border-radius: 4px;
+      margin: .4rem 0;
+    }
+  }
+
+  .form-item input:focus {
+    border: 1px solid #da3c41;
+    outline: none;
+    box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
+  }
+
+  .btn {
+    position:relative;
+    padding: 0.3em;
+    width: 100%;
+    max-width: 370px;
+    height: 50px;
+    border-radius:6px;
+    border:0;
+    background:#f26964;
+    font-size:1.2em;
+    color:#fff;
+    text-shadow:1px 1px 0px rgba(0,0,0,.1);
+    box-shadow:0px 3px 0px #c1524e;
+    cursor: pointer;
+
+      :active {
+        top:3px;
+        box-shadow:none;
+      }
+    }
+
+  .tsImgArea{
+    line-height: 1;
+  }
+  /* 昇順降順 */
+  .tsImg{
+    display    : inline-block;
+    width      : 8px;
+    height     : 6px;
+    background : #eee;
+    border     : 1px solid #777;
+    margin     : 1px 3px;
+    padding    : 3px;
+    cursor     : pointer;
+
+    :hover{
+      background : #FFD700;
+    }
+
+    &path{
+      fill: #777;
+    }
+  }
+
+  #sampleTable {
+    width          : 100%;
+    border-collapse: collapse;         /* 境界線結合 */
+    border-spacing : 0;                /* 罫線間余白 */
+    font-size      : 9pt;              /* 文字サイズ */
+    background-color: gray;
+    position: relative;
+    height: auto;
+    min-height: 100%;
+
+    &th {
+      text-align    : center;            /* 文字位置   */
+      font-weight   : bold;              /* 太文字     */
+      padding       : 6px 5px;          /* 余白       */
+      white-space   : nowrap;
+    }
+    &td {
+      text-align    : center;            /* 文字位置   */
+      padding       : 6px 5px;           /* 余白       */
+      white-space   : nowrap;
+    }
+  }
+
+  /* ふったーCSS */
+  .nav-links{
+    padding:2em;
+    display:flex;
+    justify-content:center;
+  }
+  a,span{
+    width:50px;
+    height:50px;
+    margin:2px;
+    line-height:50px;
+    text-align:center;
+    font-size:14px;
+    font-weight:bold;
+    text-decoration:none;
+    background:#fff;
+    color:#222;
+  }
+  a:hover{
+    background:gold;
+    border-radius:100%;
+  }
+  .current{
+    background:gold;
+    border-radius:100%;
+  }
+  .dots{
+    background:none;
+  }
+  .headline{
+    font-size: 42px;
+  }
+  .nav-list {
+    text-align: center;
+    padding: 10px 0;
     margin: 0 auto;
-    text-align: center;
+  }
+  .nav-list-item {
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+  }
 }
-.label {
-    display: block;
-    font: 1rem 'Fira Sans', sans-serif;
-    text-align: center;
-}
-.username {
-  padding: 5px;
-}
-.button {
-  padding: 15px;
-  /* box-shadow: 0 0 8px rgba(0,0,0, .4); */
-}
-.tsImgArea{
-  line-height: 1;
-}
-/* 昇順降順 */
-.tsImg{
-  display    : inline-block;
-  width      : 8px;
-  height     : 6px;
-  background : #eee;
-  border     : 1px solid #777;
-  margin     : 1px 3px;
-  padding    : 3px;
-  cursor     : pointer;
-}
-.tsImg:hover{
-  background : #FFD700;
-}
-.tsImg path{
-  fill       : #777;
-}
-#sampleTable {
-  width          : 100%;
-  border-collapse: collapse;         /* 境界線結合 */
-  border-spacing : 0;                /* 罫線間余白 */
-  font-size      : 9pt;              /* 文字サイズ */
-}
-#sampleTable th {
-  text-align    : center;            /* 文字位置   */
-  font-weight   : bold;              /* 太文字     */
-  padding       : 6px 5px;          /* 余白       */
-  white-space   : nowrap;
-}
-#sampleTable td {
-  text-align    : center;            /* 文字位置   */
-  padding       : 6px 5px;           /* 余白       */
-  white-space   : nowrap;
-}
-/* ふったーCSS */
-.nav-links{
-  padding:2em;
-  display:flex;
-  justify-content:center;
-  background:#f3f3f3;
-}
-a,span{
-  width:50px;
-  height:50px;
-  margin:2px;
-  line-height:50px;
-  text-align:center;
-  font-size:14px;
-  font-weight:bold;
-  text-decoration:none;
-  background:#fff;
-  color:#222;
-}
-a:hover{
-  background:gold;
-  border-radius:100%;
-}
-.current{
-  background:gold;
-  border-radius:100%;
-}
-.dots{
-  background:none;
-}
-
-header {
-  width: 100%;
-  padding: 15px 0;
-  margin: 0 auto;
-  text-align: center;
-}
-.headline{
-  font-size: 42px;
-}
-.nav-list {
-  text-align: center;
-  padding: 10px 0;
-  margin: 0 auto;
-}
-.nav-list-item {
-  list-style: none;
-  display: inline-block;
-  margin: 0 20px;
-}
-
-input,
-label {
-    margin: .4rem 0;
-}
-
 </style>
