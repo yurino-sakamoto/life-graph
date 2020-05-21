@@ -4,7 +4,7 @@
       <h1>LifeGraph</h1>
       <div class="loginID">
         <label for="username" />
-        <input v-model="username" type="username" placeholder="UserName">
+        <input v-model="username" placeholder="UserName">
         <label for="password" />
         <input v-model="password" type="password" placeholder="Password">
       </div>

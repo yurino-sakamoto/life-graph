@@ -1,9 +1,7 @@
 <template>
   <div class="headderSection">
     <div class="logoParent">
-      <router-link to="/login">
-        <img class="pageLogo" src="../assets/logo.png" alt="ロゴ">
-      </router-link>
+      <img class="pageLogo" src="../assets/logo.png" alt="ロゴ">
     </div>
     <div class="nav">
       <router-link to="/top">
