@@ -6,32 +6,30 @@
       </router-link>
     </div>
     <div class="nav">
-      <router-link to="/login">
-        <li>Login</li>
+      <router-link to="/top">
+        Top
       </router-link>|
       <router-link to="/edit">
-        <li>Edit</li>
+        Edit
       </router-link>|
       <router-link to="/search">
-        <li>Search</li>
+        Search
       </router-link>|
       <router-link to="/reference">
-        <li>Reference</li>
+        Reference
       </router-link>|
     </div>
     <router-view />
-    <ul class="acount">
-      <li class="userName">
-        User Name：{{ username }}
-      </li>
-      <li class="authority">
-        Authority:{{ authority }}
+    <ul>
+      <li>
+        User Name : {{ username }}
       </li>
       <li>
-        <span tag="button" class="btn" @click="logout()">
-          Log Out
-        </span>
+        Authority : {{ authority }}
       </li>
+      <span tag="button" class="btn" @click="logout()">
+        Log Out
+      </span>
     </ul>
   </div>
 </template>
@@ -40,7 +38,7 @@
 export default {
   data () {
     return {
-      userName: '',
+      username: '',
       authority: ''
     }
   },
@@ -53,14 +51,14 @@ export default {
     // dataのaccountにaccount.jsのstateの情報をsetする
     setAccount () {
       const stateAccount = this.$store.state.account.acountInfo
-      this.userName = stateAccount.username
+      this.username = stateAccount.username
       const authority = stateAccount.name // 変数authorityを定義
       if (authority === 'ROLE_USER') { // roleがROLE_USERのとき
-        this.authority = '一般ユーザー' // 一般ユーザーという値を返す
+        this.authority = 'User' // 一般ユーザーという値を返す
       } else if (authority === 'ROLE_ADMIN') {
-        this.authority = '管理者'
+        this.authority = 'Admin'
       } else { // roleが上記以外のとき
-        this.authority = 'オーナー'
+        this.authority = 'Owner'
       }
     },
     // ログアウト（authのstateのtokenを消す）
@@ -78,7 +76,7 @@ export default {
 .headderSection{
   height: 80px;
   width: 100%;
-  background-color: rgba(34, 49, 52, 0.9);
+  background-color: white;
   position : fixed;
   top : 0;
 
@@ -101,21 +99,8 @@ export default {
   transition: .3s;
   padding: 15px 20px 5px  20px;
   display: inline-block;
-}
 
-  li{
-    font-size: 1.3rem;
-    color: white;
-    font-weight: bold;
-    text-shadow: 1px 1px 3px #000;
-    text-decoration: none;
-    display: inline-block;
-    transition: .3s;
-    padding: 15px 20px 5px  20px;
-    position: relative;
-    top: 0px;
-
-    :hover {
+  :hover {
       opacity: 0.5;
     }
 
@@ -134,32 +119,41 @@ export default {
     :hover::after{
       width: 100%;
     }
-  }
+}
 
-  .acount{
+  // li{
+  //   font-size: 1.3rem;
+  //   color: white;
+  //   text-shadow: 1px 1px 3px #000;
+  //   text-decoration: none;
+  //   display: inline-block;
+  //   transition: .3s;
+  //   padding: 15px 20px 5px  20px;
+  //   position: relative;
+  //   top: 0px;
+
+  ul{
     text-align: right;
 
-    .acount li{
-      line-height: 30px;
-      margin-right: 35px;
-      margin-top: 80px;
-      padding: 8px;
-      width: auto;
-      font-size: 18px;
-      display: inline-block;
-      text-decoration: none;
-      background-image: linear-gradient(-90deg, #FF006E, #FFD500);
-      border-color: transparent;
-      border-radius: 3px;/*角の丸み*/
+    li{
+      color: white;
+      text-shadow: 1px 1px 3px #000;
+      padding: 15px;
+      width: 130px;
+      font-size: 16px;
       font-weight: bold;
+      display: block;
+      background-image: linear-gradient(-90deg, #232526, #414345);
+      border-radius: 3px;
       text-shadow: -1px -1px rgba(255, 255, 255, 0.44), 1px 1px rgba(0, 0, 0, 0.38);
       text-align: center;
+      margin:20px;
     }
   }
 
   .btn{
     display: inline-block;
-    width: 80px;
+    width: 70px;
     height: auto;
     text-align: center;
     font-size: 16px;
@@ -168,10 +162,11 @@ export default {
     font-weight: bold;
     padding: 12px 24px;
     border-radius: 4px;
-    background-image: linear-gradient(-90deg, #FF006E, #FFD500);
+    background-image: linear-gradient(-90deg, #232526, #414345);
     transition: .5s;
     background-size: 100%;
     position : fixed;
+    cursor: pointer;
     top : 0;
     left: 90%;
     z-index : 10;

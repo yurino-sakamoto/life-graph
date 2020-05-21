@@ -24,6 +24,13 @@ export default {
 </script>
 
 <style scoped>
+
+.referenceSection {
+  margin-top: 80px;
+  background: radial-gradient(white, #E5E5E9);
+  height: 800px;
+}
+
 .searchButtonParent{
   text-align: left;
 }
@@ -38,5 +45,3 @@ export default {
   margin: 0px auto;
 }
 </style>
-
-<!--取得したグラフを表示-->
