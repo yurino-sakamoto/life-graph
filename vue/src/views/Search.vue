@@ -111,7 +111,6 @@ export default {
     width: 100%;
     max-width: 370px;
     height: 50px;
-    padding:0.3em;
     border-radius:6px;
     border:0;
     background:#f26964;
