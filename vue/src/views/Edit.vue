@@ -118,7 +118,7 @@
         class="button"
         @click="update()"
       >
-        更新/編集完了？
+        更新
       </button>
     </div>
     <div class="editGraph">
@@ -194,6 +194,9 @@ export default {
     },
     deleteContents (index) {
       this.contents.splice(index, 1)
+    },
+    update () {
+      this.$store.dispatch('chart/startEditAPI')
     }
   }
 }
