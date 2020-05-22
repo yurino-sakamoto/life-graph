@@ -1,48 +1,67 @@
-package com.lifegraph.team20.controller;
+//package com.lifegraph.team20.controller;
+//
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
+//import java.util.List;
+//import java.util.Optional;
+//import java.util.StringJoiner;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.http.ResponseEntity;
+//import org.springframework.jdbc.core.JdbcTemplate;
+//import org.springframework.jdbc.core.RowMapper;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RestController;
+//
+//import com.lifegraph.team20.payload.request.SearchGraphInfo;
+//
+//@RestController
+//public class SearchController {
+//
+//	@RequestMapping(value = "/search", method = RequestMethod.GET)
+//	public ResponseEntity<List<SearchGraphInfo>> SearchGraphInfos(@RequestParam("likeName") Optional<String>likeName, @RequestParam("startDate") Optional<String>startDate, @RequestParam("updateDate")Optional<String>updateDate){
+//		List<SearchGraphInfo> SearchGraphInfos = SelectSearchGraphInfo(likeName, startDate, updateDate);
+//		return ResponseEntity.ok(SearchGraphInfos);
+//	}
+//
+//	@Autowired
+//	private JdbcTemplate jdbcTemplate;
+//	private List<SearchGraphInfo> SelectSearchGraphInfo(Optional<String> likeName, Optional<String> startDate, Optional<String> updateDate) {
+//		String sql =  "select `username`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id ";
+//		StringJoiner sj = new StringJoiner("and", "where", ";");
+//		//名前検索
+//		if (likeName.isPresent()) {
+//			sj.add("username = '%" + likeName + "%'");
+//		}
+//		if (updateDate.isPresent()) {
+//			sj.add(updateDate + " <= 'updated_at'");
+//		}
+//		if (updateDate.isPresent()) {
+//			sj.add("'updated_at' <= " + updateDate);
+//		}
+//		sql += sj.toString();
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
+//		sj.toString();
+//		where name = '%" + <likeName> + "%'
+//		and <updateDate> + " <= uodated_at"
+//	    and updated_at <= " + <updateDate>
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.lifegraph.team20.payload.request.SearchGraphInfo;
-
-@RestController
-public class SearchController {
-
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ResponseEntity<List<SearchGraphInfo>> SearchGraphInfos(@RequestParam("likeName") Optional<String>likeName, @RequestParam("startDate") Optional<String>startDate, @RequestParam("updateDate")Optional<String>updateDate){
-		List<SearchGraphInfo> SearchGraphInfos = SelectSearchGraphInfo(likeName, startDate, updateDate);
-		return ResponseEntity.ok(SearchGraphInfos);
-	}
-
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	private List<SearchGraphInfo> SelectSearchGraphInfo(Optional<String> likeName, Optional<String> startDate, Optional<String> updateDate) {
-		String sql =  "select `username`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id ";
-		if(likeName.isPresent()) {
-			sql += "where username like '%"+likeName.get()+"%'";
-		}else if(startDate.isPresent() && updateDate.isPresent()) {
-			sql  += "WHERE `updated_at` BETWEEN "+startDate.get()+" AND "+updateDate.get()+"";
+//		if(likeName.isPresent()) {
+//			sql += "where username like '%"+likeName.get()+"%'";
+//		}else if(startDate.isPresent() && updateDate.isPresent()) {
+//			sql  += "WHERE `updated_at` BETWEEN "+startDate.get()+" AND "+updateDate.get()+"";
 //		}else if(updateDate.isPresent()) {
 //			sql  += "WHERE `updated_at` BETWEEN "+updateDate.get()+" AND "+updateDate.get()+"";
-		}
-		return jdbcTemplate.query(sql,new RowMapper<SearchGraphInfo>() {
-			public SearchGraphInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return new SearchGraphInfo(rs.getString("username"), rs.getInt("user_id"),rs.getTimestamp("created_at"),rs.getTimestamp("updated_at"));
-			}
-		});
-	}
-}
+//		}
+//		return jdbcTemplate.query(sql,new RowMapper<SearchGraphInfo>() {
+//			public SearchGraphInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				return new SearchGraphInfo(rs.getString("username"), rs.getInt("user_id"),rs.getTimestamp("created_at"),rs.getTimestamp("updated_at"));
+//			}
+//		});
+//	}
+//}
 
 
 //②成功
