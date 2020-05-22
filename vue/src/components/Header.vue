@@ -77,9 +77,12 @@ export default {
 .headderSection{
   height: 80px;
   width: 100%;
-  background-color: white;
-  position : fixed;
-  top : 0;
+  background-color: #FFF;
+  position: fixed;
+  top: 0;
+  border-radius: 0px 0px 10px 10px;
+  z-index: 1
+}
 
 .pageLogo{
   width: 50px;
@@ -171,10 +174,5 @@ export default {
     top : 0;
     left: 90%;
     z-index : 10;
-
-    :hover {
-      background-position: right center;
-    }
   }
-}
 </style>

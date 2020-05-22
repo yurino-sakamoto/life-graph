@@ -78,11 +78,17 @@ export default {
   },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue
+<<<<<<< Updated upstream
       const age = []
       this.$store.state.chart.contents.map((Year) => { // forEachではなくmap
         age.push(Year.age)// ageにAgeの中のageを全てプッシュ
       })
       this.data.datasets[0].data = age
+=======
+      this.data.datasets[0].data = this.$store.state.chart.contents.map((content) => {
+        return content.age
+      })
+>>>>>>> Stashed changes
     },
     setScore () {
       const score = []
@@ -139,7 +145,7 @@ export default {
               style += '; border-color:' + colors.borderColor
               style += '; border-width: 2px'
               var span = '<span style="' + style + '"></span>'
-              if (com[comNum] !== null) {
+              if (com[comNum] !== null) { // ここが問題、コメント取得
                 innerHtml += '<tr><td>' + span + '満足度:' + body + '%' + '</td></tr>' + 'コメント:' + com[comNum]
               } else {
                 innerHtml += '<tr><td>' + span + '満足度:' + body + '%' + '</td></tr>'
