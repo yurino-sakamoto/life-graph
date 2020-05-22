@@ -42,7 +42,7 @@ export default {
             },
             ticks: {
               beginAtZero: true,
-              max: 25,
+              max: 100,
               min: 0,
               stepsize: 1
             }
@@ -66,6 +66,11 @@ export default {
       responsive: true
     }
   },
+  computed: {
+    checkContents () {
+      return this.$store.state.chart.contents
+    }
+  },
   async  mounted () {
     const userId = this.$store.state.auth.userId // 変数userIdを定義。ログイン情報。省略
     await this.$store.dispatch('chart/addContent', userId)
@@ -78,9 +83,11 @@ export default {
   },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue
-      this.data.datasets[0].data = this.$store.state.chart.contents.map((content) => {
-        return content.age
+      const age = []
+      this.$store.state.chart.contents.map((Age) => { // contentsのp中のidの中を回せば良い？
+        age.push(Age.age)
       })
+      this.data.datasets[0].data = age
     },
     setScore () {
       const score = []
@@ -90,9 +97,10 @@ export default {
       this.data.datasets[0].data = score
     },
     setComment () {
-      const comment = []
-      this.$store.state.chart.contents.map((Comment) => {
-        comment.push(Comment.comment)
+      // 用意したcommentsという箱に、contents.ageという配列を持ったageと、contents.commentという配列を持った
+      // commentをObjectとしてpushする
+      const comments = this.checkContents.map((content) => {
+        return { age: content.age, comment: content.comment }
       })
       // tooltip設定
       // https://misc.0o0o.org/chartjs-doc-ja/configuration/tooltip.html#%E5%A4%96%E9%83%A8%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%83%84%E3%83%BC%E3%83%AB%E3%83%81%E3%83%83%E3%83%97
@@ -125,10 +133,9 @@ export default {
         if (tooltipModel.body) {
           var titleLines = tooltipModel.title
           var bodyLines = tooltipModel.body.map(getBody)
-          var com = comment
           var innerHtml = '<thead>'
           titleLines.forEach(function (age) {
-            var comNum = age - 0// ここ修正必須
+            var comment = comments.find(contents => contents.age === age).comment
             innerHtml += '<tr><th>' + age + '</th></tr>'
             innerHtml += '</thead><tbody>'
             bodyLines.forEach(function (body, i) {
@@ -137,8 +144,8 @@ export default {
               style += '; border-color:' + colors.borderColor
               style += '; border-width: 2px'
               var span = '<span style="' + style + '"></span>'
-              if (com[comNum] !== null) { // ここが問題、コメント取得
-                innerHtml += '<tr><td>' + span + '満足度:' + body + '%' + '</td></tr>' + 'コメント:' + com[comNum]
+              if (comment) {
+                innerHtml += '<tr><td>' + span + '満足度:' + body + '%' + '</td></tr>' + 'コメント:' + comment
               } else {
                 innerHtml += '<tr><td>' + span + '満足度:' + body + '%' + '</td></tr>'
               }
