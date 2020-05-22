@@ -78,17 +78,9 @@ export default {
   },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue
-<<<<<<< Updated upstream
-      const age = []
-      this.$store.state.chart.contents.map((Year) => { // forEachではなくmap
-        age.push(Year.age)// ageにAgeの中のageを全てプッシュ
-      })
-      this.data.datasets[0].data = age
-=======
       this.data.datasets[0].data = this.$store.state.chart.contents.map((content) => {
         return content.age
       })
->>>>>>> Stashed changes
     },
     setScore () {
       const score = []
