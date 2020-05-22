@@ -31,7 +31,6 @@
     </ul>
   </div>
 </template>
-
 <script>
 export default {
   data () {
@@ -71,25 +70,18 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
-
 .headderSection{
   height: 80px;
   width: 100%;
-  background-color: #FFF;
-  position: fixed;
-  top: 0;
-  border-radius: 0px 0px 10px 10px;
-  z-index: 1
-}
-
-.pageLogo{
+  background-color: white;
+  position : fixed;
+  top : 0;
+  .pageLogo{
   width: 50px;
   margin: 13px 0px 0px 10px;
   text-align: left;
 }
-
 .nav {
   position : fixed;
   top : 0;
@@ -103,11 +95,9 @@ export default {
   transition: .3s;
   padding: 15px 20px 5px  20px;
   display: inline-block;
-
   :hover {
       opacity: 0.5;
     }
-
     ::after {
       position: absolute;
       bottom: 0;
@@ -119,12 +109,10 @@ export default {
       transition: .3s;
       transform: translateX(-50%);
     }
-
     :hover::after{
       width: 100%;
     }
 }
-
   // li{
   //   font-size: 1.3rem;
   //   color: white;
@@ -135,10 +123,8 @@ export default {
   //   padding: 15px 20px 5px  20px;
   //   position: relative;
   //   top: 0px;
-
   ul{
     text-align: right;
-
     li{
       color: white;
       text-shadow: 1px 1px 3px #000;
@@ -154,7 +140,6 @@ export default {
       margin:20px;
     }
   }
-
   .btn{
     display: inline-block;
     width: 70px;
@@ -174,5 +159,9 @@ export default {
     top : 0;
     left: 90%;
     z-index : 10;
+    :hover {
+      background-position: right center;
+    }
   }
+}
 </style>

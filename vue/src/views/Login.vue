@@ -1,30 +1,19 @@
 <template>
-  <div class="loginSection">
-    <div>
-      <Header />
-    </div>
-    <div class="titleLogo">
-      Life<br>
-      Graph
-    </div>
+  <div class="loginPage">
     <div class="login">
-      <h1>ログイン</h1>
-      <div class="loginForm">
-        <label for="username" />
-        <input v-model="username" class="loginFrom" type="username" placeholder="UserName">
-        <label for="password" />
-        <input v-model="password" class="loginFrom" type="password" placeholder="Password">
-        <button class="btn" @click="login()">
-          Sign in
-        </button>
-      </div>
+        <h1>LifeGraph</h1>
+        <div class="loginID">
+          <label for="username" />
+          <input v-model="username" placeholder="UserName">
+          <label for="password" />
+          <input v-model="password" type="password" placeholder="Password">
+          </div>
       <button class="btn" @click="login()">
         Sign in
       </button>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data () {
@@ -57,70 +46,69 @@ export default {
 }
 </script>
 
-<style>
-.loginSection {
-  background: #F3F3F9;
-}
+<style lang="scss" scoped>
+.loginPage {
+    background-image: linear-gradient(-90deg, #D3CCE3, #E9E4F0);
+    background: radial-gradient(white, #E5E5E9);
+    height: 770px;
 
-/* LifeGraph */
-.titleLogo {
-  color: #565452;
-  font-size: 10em;
-  line-height: 0.8em;
-  letter-spacing: -1px;
-  font-weight: 900;
-  margin: 30px 0 0 30px
-}
+  .login {
+    background:#7448FF;
+    border-radius:6px;
+    padding:40px;
+    padding-top:30px;
+    width:300px;
+    margin:50px auto;
+    box-shadow:15px 15px 0px rgba(0,0,0,.1);
+    text-align: center;
+    position: absolute;
+    bottom: 170px;
+    right: 200px;
+  }
 
-.login {
-  background:#FFF;
-  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
-  border-radius:6px;
-  padding:40px;
-  padding-top:30px;
-  width:300px;
-  margin:50px auto;
-  text-align: center;
-  position: absolute;
-  bottom: 170px;
-  right: 200px;
-}
+  h1 {
+    text-align:center;
+    font-size:1.4em;
+    font-weight:700;
+    color:#ccc;
+    margin-bottom:24px;
+  }
 
-.loginForm {
-  background: #000
-}
+  label[for]{
+    margin: 10px 90px 10px 20px;
+    display: block;
+  }
 
-h1 {
-  text-align:center;
-  font-size:1.4em;
-  font-weight:700;
-  color:#565452;
-  margin-bottom:24px;
-}
+  input {
+    width:250px;
+    background:#f5f5f5;
+    border:0;
+    padding:20px;
+    border-radius:6px;
+    margin-bottom:10px;
+    border:1px solid #eee;
+    :focus {
+      outline: none;
+    }
+  }
 
-/* .input {
-  width:250px;
-  background:#f5f5f5;
-  border:0;
-  padding:20px;
-  border-radius:6px;
-  margin-bottom:10px;
-  border:1px solid #eee;
-} */
-
-.btn {
-  background:#7448FF;
-  color:#fff;
-    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
-  border-radius:5px;
-  position:relative;
-  width:100%;
-  padding:20px;
-
-  border:0;
-  font-size:1.2em;
-  margin-top: 20px;
-  text-shadow:1px 1px 0px rgba(0,0,0,.1);
-  cursor: pointer;
+  .btn {
+    position:relative;
+    width:100%;
+    padding:20px;
+    border-radius:6px;
+    border:0;
+    background:#f26964;
+    font-size:1.2em;
+    color:#fff;
+    margin-top: 20px;
+    text-shadow:1px 1px 0px rgba(0,0,0,.1);
+    box-shadow:0px 3px 0px #c1524e;
+    cursor: pointer;
+    :active {
+      top:3px;
+      box-shadow:none;
+    }
+  }
 }
 </style>
