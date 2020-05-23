@@ -3,11 +3,8 @@
     <div>
       <Header />
     </div>
-    <div class="editTitle">
-      編集
-    </div>
     <div id="editForm">
-      <h1>Life Graph</h1>
+      <h1>編集</h1>
       <div id="input">
         <table id="field">
           <tr>
@@ -82,8 +79,6 @@
         <div v-if="scoreCheck">
           スコアが不正です
         </div>
-      </div>
-      <div class="listInfo">
         <table>
           <thead>
             <tr>
@@ -108,13 +103,13 @@
                 {{ content.comment }}
               </td>
               <button
-                class="button"
+                class="editButton"
                 @click="edit(index)"
               >
                 修正
               </button>
               <button
-                class="button"
+                class="deleteButton"
                 @click="deleteContents(index)"
               >
                 削除
@@ -123,7 +118,7 @@
           </tbody>
         </table>
         <button
-          class="button, reload"
+          class="updateButton, reload"
           @click="update()"
         >
           更新
@@ -259,6 +254,7 @@ export default {
   text-align: center;
   /* padding:100px; */
 }
+
 #input {
   background:#FFF;
   border-radius: 20px;
@@ -272,23 +268,89 @@ export default {
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
 }
-.editTitle,h1 {
+
+th {
+  text-align: left;
+}
+
+td {
+  text-align: left;
+  padding: 0;
+}
+
+h1 {
   color: #565452;
-  font-size: 30px;
+  font-size: 40px;
+  padding-top: 80px;
 }
 .button {
+  width: 90px;
   border: none;
   outline: none;
   background:#FE5F52;
-  border-radius: 10px;
-  margin: 10px auto;
-  padding: 6px;
+  color: #FFF;
+  border-radius: 30px;
+  margin: 0 5px;
+  padding: 4px 8px;
   font-size: 12pt;
-  color:#FFF
+  cursor: pointer;
 }
 
 .button.disabled {
   background: #ffbab3;
+  cursor: pointer;
+}
+
+.editButton {
+  width: 70px;
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  color: #FFF;
+  border-radius: 30px;
+  margin: 0 5px;
+  padding: 4px 8px;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+.deleteButton {
+  width: 70px;
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  color: #FFF;
+  border-radius: 30px;
+  margin: 0 -250px 0 0;
+  padding: 4px 8px;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+.updateButton {
+  width: 90px;
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  color: #FFF;
+  border-radius: 30px;
+  margin: 0 5px;
+  padding: 4px 8px;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+.reload {
+  width: 90px;
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  color: #FFF;
+  border-radius: 30px;
+  margin: 0 5px;
+  padding: 4px 8px;
+  font-size: 12pt;
+  cursor: pointer;
 }
 
 .commentTable {
@@ -298,25 +360,12 @@ export default {
   -webkit-text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   }
-.listInfo {
-  overflow: hidden;
-  background:#FFF;
-  border-radius: 20px;
-  color: #565452;
-  width: 60%;
-  height: 400px;
-  font-size: 12pt;
-  word-break: break-all;
-  margin: 10px auto;
-  padding: 20px;
-  text-align: center;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
-}
+
 .editGraph {
   background:#FFF;
   color: #565452;
   border-radius: 20px;
-  width: 50%;
+  width: 700px;
   height: 400px;
   font-size: 12pt;
   word-break: break-all;
@@ -329,5 +378,9 @@ export default {
   position : absolute;
   bottom : 20px;
   right : 20px;
+}
+
+#chart {
+  padding: 8px 12px 8px 6px;
 }
 </style>

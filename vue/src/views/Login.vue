@@ -1,7 +1,6 @@
 <template>
-  <div class="loginPage">
+  <div class="loginSection">
     <div class="login">
-      <h1>LifeGraph</h1>
       <div class="loginID">
         <label for="username" />
         <input v-model="username" placeholder="UserName">
@@ -15,6 +14,7 @@
   </div>
 </template>
 <script>
+
 export default {
   data () {
     return {
@@ -47,10 +47,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.loginPage {
-    background-image: linear-gradient(-90deg, #D3CCE3, #E9E4F0);
-    background: radial-gradient(white, #E5E5E9);
-    height: 770px;
+.loginSection {
+  background: #F3F3F9;
+  height: 760px;
 
   .login {
     background:#7448FF;
@@ -64,14 +63,6 @@ export default {
     position: absolute;
     bottom: 170px;
     right: 200px;
-  }
-
-  h1 {
-    text-align:center;
-    font-size:1.4em;
-    font-weight:700;
-    color:#ccc;
-    margin-bottom:24px;
   }
 
   label[for]{
