@@ -8,7 +8,7 @@
       <div id="input">
         <table id="field">
           <tr>
-            <th scope="row">
+            <th class="th1" scope="row">
               <label for="age">
                 年齢
               </label>
@@ -23,9 +23,14 @@
                 @keyup.enter="changeContents"
               >
             </td>
+            <th class="th1" scope="row">
+              <label for="age">
+                歳
+              </label>
+            </th>
           </tr>
           <tr>
-            <th scope="row">
+            <th class="th1" scope="row">
               <label for="score">
                 満足度
               </label>
@@ -39,6 +44,11 @@
                 autocomplete="off"
               >
             </td>
+            <th scope="row">
+              <label for="age">
+                %
+              </label>
+            </th>
           </tr>
           <tr>
             <th scope="row">
@@ -59,20 +69,22 @@
           </tr>
         </table>
         <button
-          class="button"
+          class="resetButton"
           @click="removetext(age,score,comment)"
         >
           リセット
         </button>
         <button
-          class="button"
+          class="addButton"
           :disabled="!inputCheck || ageCheck || scoreCheck"
           :class="{'disabled': ageCheck || scoreCheck || !inputCheck}"
           @click="add"
         >
           {{ changeButtonText }}
         </button>
-        <div class="warning">※スコアは-100から100の範囲で指定してください。</div>
+        <div class="warning">
+          ※スコアは-100から100の範囲で指定してください。
+        </div>
         <div v-if="ageCheck">
           年齢が不正です
         </div>
@@ -82,9 +94,9 @@
         <table>
           <thead>
             <tr>
-              <th>年齢</th>
-              <th>スコア</th>
-              <th>コメント</th>
+              <th class="th2">年齢</th>
+              <th class="th2">満足度</th>
+              <th class="th2">コメント</th>
             </tr>
           </thead>
           <tbody v-if="isActive">
@@ -125,14 +137,14 @@
         </button>
       </div>
     </div>
-    <div class="editGraph">
+    <d class="editGraph">
       <div
         v-if="loaded"
         id="chart"
       >
         <Chart />
       </div>
-    </div><br><br>
+    </d><br><br>
   </div>
 </template>
 
@@ -251,6 +263,8 @@ export default {
 <style>
 .editSection {
   background: #F3F3F9;
+  width: 100%;
+  height: 760px;
   text-align: center;
   /* padding:100px; */
 }
@@ -261,41 +275,83 @@ export default {
 }
 
 #input {
+  float: left;
   background:#FFF;
   border-radius: 20px;
   color: #565452;
-  width: 40%;
-  height: 400px;
+  width: 450px;
+  height: 500px;
   font-size: 12pt;
   word-break: break-all;
-  margin: 10px auto;
+  margin:0 5px 0 70px;
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
 }
 
-th {
+.editGraph {
+  float: right;
+  background:#FFF;
+  color: #565452;
+  border-radius: 20px;
+  width: 700px;
+  height: 500px;
+  font-size: 12pt;
+  word-break: break-all;
+  margin: 0 70px 0 -50px;
+  padding: 20px;
+  text-align: center;
+  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+}
+
+.th1 {
   text-align: left;
+  /* padding: 0 10px; */
+  width: 50px
+}
+
+.th2 {
+  text-align: left;
+  /* padding: 0 10px; */
+  width: 60px；
 }
 
 td {
   text-align: left;
   padding: 0;
+  width: 30px;
 }
 
 h1 {
   color: #565452;
   font-size: 40px;
   padding-top: 80px;
+  text-align: left;
+  margin: 10px 0 30px 40px;
 }
-.button {
-  width: 90px;
+.resetButton {
+  width: 100px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background:rgb(204,204,204);
+  color: #FFF;
+  border-radius: 30px;
+  margin: 0 0 0 80px 0;
+  padding: 4px 8px;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+.addButton {
+  width: 100px;
+  height: 40px;
   border: none;
   outline: none;
   background:#FE5F52;
   color: #FFF;
   border-radius: 30px;
-  margin: 0 0 0 40px;
+  margin: 0 -200px 0 8px;
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
@@ -313,7 +369,7 @@ h1 {
   background:#FE5F52;
   color: #FFF;
   border-radius: 30px;
-  margin: 0 5px;
+  margin: 0 30px 0 5px;
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
@@ -345,8 +401,6 @@ h1 {
   cursor: pointer;
 }
 
-/* reload消した */
-
 .commentTable {
   white-space: nowrap;
   overflow: hidden;
@@ -355,23 +409,10 @@ h1 {
   -o-text-overflow: ellipsis;
   }
 
-.editGraph {
-  background:#FFF;
-  color: #565452;
-  border-radius: 20px;
-  width: 700px;
-  height: 400px;
-  font-size: 12pt;
-  word-break: break-all;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
-}
 .reload {
   position : absolute;
-  bottom : 20px;
-  right : 20px;
+  bottom : 30px;
+  right : 30px;
 }
 
 #chart {
