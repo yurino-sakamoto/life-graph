@@ -30,7 +30,7 @@ export default {
       return this.$store.state.auth.token
     },
     loginError () {
-      console.log(this.$store.state.auth.error)
+      // console.log(this.$store.state.auth.error)
       return this.$store.state.auth.error
     }
   },
