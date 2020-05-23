@@ -11,7 +11,7 @@ export default {
         datasets: [
           {
             label: '人生グラフ',
-            backgroundColor: 'rgba(255,153,50)',
+            backgroundColor: 'rgba(254,95,82,1)',
             data: [],
             fillColor: 'rgba(254,95,82,0.6)', // 線から下端までを塗りつぶす色
             strokeColor: 'rgba(254,95,82,1)', //  折れ線の色

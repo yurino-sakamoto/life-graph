@@ -7,13 +7,7 @@ Vue.use(Vuex)
 export default {
   namespaced: true, // 名前空間
   state: {
-    contents: [
-      {
-        age: 10,
-        score: 90,
-        comment: 'あああ'
-      }
-    ],
+    contents: [],
     load: false,
     loaded: true
   },

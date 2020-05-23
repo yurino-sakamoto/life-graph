@@ -1,5 +1,5 @@
 <template>
-  <div id="editSection">
+  <div class="editSection">
     <div>
       <Header />
     </div>
@@ -72,7 +72,7 @@
         >
           {{ changeButtonText }}
         </button>
-        <div>＊スコアは<br>-100から100の範囲で<br>指定してください。</div>
+        <div class="warning">※スコアは-100から100の範囲で指定してください。</div>
         <div v-if="ageCheck">
           年齢が不正です
         </div>
@@ -249,10 +249,15 @@ export default {
 </script>
 
 <style>
-#editSection {
+.editSection {
   background: #F3F3F9;
   text-align: center;
   /* padding:100px; */
+}
+
+.warning {
+  font-size: 12px;
+  text-align: right
 }
 
 #input {
@@ -290,7 +295,7 @@ h1 {
   background:#FE5F52;
   color: #FFF;
   border-radius: 30px;
-  margin: 0 5px;
+  margin: 0 0 0 40px;
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
