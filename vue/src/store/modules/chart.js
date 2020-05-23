@@ -15,8 +15,8 @@ export default {
     addContentMutation (state, payload) {
       state.contents = payload
     },
-    EditMutation (state, payload) {
-      state.contents = payload
+    addDataMutation (state, contents) {
+      state.contents = contents
     }
   },
   actions: {
@@ -25,9 +25,12 @@ export default {
       await axios.get(url).then(res => commit('addContentMutation', res.data))
         .catch(err => err)
     },
-    async startEditAPI ({ commit }) {
-      const url = '/api/life-graphs/'
-      await axios.post(url).then(res => commit('EditMutation', res.data))
+    addData ({ commit }, contents) {
+      commit('addDataMutation', contents)
+    },
+    async editContent ({ commit }, apiContents) {
+      const url = '/life-graphs'
+      axios.post(url, apiContents).then(res => commit(res.data))
         .catch(err => err)
     }
   }
