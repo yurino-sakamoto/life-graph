@@ -4,33 +4,42 @@
       <img class="pageLogo" src="../assets/logo.png" alt="ロゴ">
     </div>
     <div class="nav">
-      <router-link to="/top">
-        Top
-      </router-link>|
-      <router-link to="/edit">
-        Edit
-      </router-link>|
-      <router-link to="/search">
-        Search
-      </router-link>|
-      <router-link to="/reference">
-        Reference
-      </router-link>|
+      <div class="navTop">
+        <router-link to="/top">
+          Top
+        </router-link>
+      </div>
+      <div class="navTop">
+        <router-link to="/edit">
+          Edit
+        </router-link>
+      </div>
+      <div class="navTop">
+        <router-link to="/search">
+          Search
+        </router-link>
+      </div>
+      <div class="navTop">
+        <router-link to="/reference">
+          Reference
+        </router-link>
+      </div>
     </div>
     <router-view />
     <ul>
       <li>
-        User Name : {{ username }}
+        ユーザー : {{ username }}
       </li>
       <li>
-        Authority : {{ authority }}
+        権限 : {{ authority }}
       </li>
       <span tag="button" class="btn" @click="logout()">
-        Log Out
+        ログアウト
       </span>
     </ul>
   </div>
 </template>
+
 <script>
 export default {
   data () {
@@ -70,18 +79,24 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
+
 .headderSection{
   height: 80px;
   width: 100%;
-  background-color: white;
-  position : fixed;
-  top : 0;
-  .pageLogo{
+  background-color: #FFF;
+  position: fixed;
+  top: 0;
+  z-index: 1
+}
+
+.pageLogo{
   width: 50px;
   margin: 13px 0px 0px 10px;
   text-align: left;
 }
+
 .nav {
   position : fixed;
   top : 0;
@@ -95,9 +110,11 @@ export default {
   transition: .3s;
   padding: 15px 20px 5px  20px;
   display: inline-block;
+
   :hover {
       opacity: 0.5;
     }
+
     ::after {
       position: absolute;
       bottom: 0;
@@ -109,10 +126,12 @@ export default {
       transition: .3s;
       transform: translateX(-50%);
     }
+
     :hover::after{
       width: 100%;
     }
 }
+
   // li{
   //   font-size: 1.3rem;
   //   color: white;
@@ -123,8 +142,10 @@ export default {
   //   padding: 15px 20px 5px  20px;
   //   position: relative;
   //   top: 0px;
+
   ul{
     text-align: right;
+
     li{
       color: white;
       text-shadow: 1px 1px 3px #000;
@@ -140,28 +161,18 @@ export default {
       margin:20px;
     }
   }
+
   .btn{
-    display: inline-block;
-    width: 70px;
-    height: auto;
-    text-align: center;
-    font-size: 16px;
-    color: #FFF;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 12px 24px;
-    border-radius: 4px;
-    background-image: linear-gradient(-90deg, #232526, #414345);
-    transition: .5s;
-    background-size: 100%;
-    position : fixed;
-    cursor: pointer;
-    top : 0;
-    left: 90%;
-    z-index : 10;
-    :hover {
-      background-position: right center;
-    }
+  background:#7448FF;
+  text-align: center;
+  font-weight: 900;
+  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+  border-radius: 40px;
+  display:inline-block;
+  padding: 12px;
+  border:0;
+  font-size: 1em;
+  text-shadow:1px 1px 0px rgba(0,0,0,.1);
+  cursor: pointer;
   }
-}
 </style>

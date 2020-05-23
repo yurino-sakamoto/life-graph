@@ -1,19 +1,28 @@
 <template>
-  <div class="loginPage">
+  <div class="loginSection">
+    <div class="titleLogo">
+      Life<br>
+      Graph
+    </div>
     <div class="login">
-      <h1>LifeGraph</h1>
-      <div class="loginID">
-        <label for="username" />
-        <input v-model="username" placeholder="UserName">
-        <label for="password" />
-        <input v-model="password" type="password" placeholder="Password">
+      <h1>ログイン</h1>
+      <div class="textBox">
+        <label class="label1">ユーザー名</label>
+        <input v-model="username" class="text" type="textbox">
+        <br>
       </div>
+      <div class="textBox">
+        <label class="label2">パスワード</label>
+        <input v-model="password" class="text" type="textbox">
+      </div>
+      <br>
       <button class="btn" @click="login()">
-        Sign in
+        ログイン
       </button>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   data () {
@@ -46,69 +55,206 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.loginPage {
-    background-image: linear-gradient(-90deg, #D3CCE3, #E9E4F0);
-    background: radial-gradient(white, #E5E5E9);
-    height: 770px;
+<style>
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
-  .login {
-    background:#7448FF;
-    border-radius:6px;
-    padding:40px;
-    padding-top:30px;
-    width:300px;
-    margin:50px auto;
-    box-shadow:15px 15px 0px rgba(0,0,0,.1);
-    text-align: center;
-    position: absolute;
-    bottom: 170px;
-    right: 200px;
+.loginSection {
+  background: #F3F3F9;
+  height: 760px;
+  /* background-size: cover; */
+}
+
+/* LifeGraph */
+.titleLogo {
+  color: #565452;
+  font-size: 14em;
+  line-height: 0.8em;
+  letter-spacing: -4px;
+  font-weight: 900;
+  margin: -10px;
+  padding: 30px 0 0 30px;
+  animation-name: sample01;
+  animation-duration:2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes sample01 {
+  0% {
+  opacity: 0;
+  transform: translateX(-30px);
   }
-
-  h1 {
-    text-align:center;
-    font-size:1.4em;
-    font-weight:700;
-    color:#ccc;
-    margin-bottom:24px;
+  50%{
+    opacity: 1;
+    transform: translateX(0);
   }
-
-  label[for]{
-    margin: 10px 90px 10px 20px;
-    display: block;
-  }
-
-  input {
-    width:250px;
-    background:#f5f5f5;
-    border:0;
-    padding:20px;
-    border-radius:6px;
-    margin-bottom:10px;
-    border:1px solid #eee;
-    :focus {
-      outline: none;
-    }
-  }
-
-  .btn {
-    position:relative;
-    width:100%;
-    padding:20px;
-    border-radius:6px;
-    border:0;
-    background:#f26964;
-    font-size:1.2em;
-    color:#fff;
-    margin-top: 20px;
-    text-shadow:1px 1px 0px rgba(0,0,0,.1);
-    box-shadow:0px 3px 0px #c1524e;
-    cursor: pointer;
-    :active {
-      top:3px;
-      box-shadow:none;
-    }
+  100% {
+  opacity:1;
+  transform: translate(0px);
   }
 }
+
+.login {
+  background:#FFF;
+  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+  border-radius:18px;
+  width:400px;
+  height: 250px;
+  text-align: center;
+  padding: 15px;
+  position: absolute;
+  top: 350px;
+  right: 90px;
+}
+
+h1 {
+  text-align:center;
+  font-size:1.2em;
+  font-weight:600;
+  color:#565452;
+  margin-top: 6px;
+}
+
+.loginArea {
+  text-align: center;
+}
+
+.btn {
+  background:#7448FF;
+  color:#fff;
+  position: inline-block;
+  text-align: center;
+  font-weight: 900;
+  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+  border-radius: 40px;
+  position:relative;
+  width: 130px;
+  height: 50px;
+  padding-bottom: 6px;
+  border:0;
+  font-size:1.25em;
+  margin: 10px -90px 14px 100px;
+  text-shadow:1px 1px 0px rgba(0,0,0,.1);
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: 0;
+  }
+
+.textBox {
+  display: block;
+  flex-direction: column;
+  align-items: center;
+  width:250px;
+  /* background:#f5f5f5; */
+  position: relative;
+  text-align: center;
+  /* padding: 15px; */
+  font-size: 20px;
+  outline: none;
+  color: #565452;
+  font-weight: 500;
+  border:0;
+  /* border-radius: 30px; */
+  height: 45px;
+}
+
+.textBox .text {
+  font-weight: 500;
+  width: calc(100% - 2vw);
+  height: 27px;
+  padding-left: 0.5vw;
+  background-color: transparent;
+  color: #565452;
+  position: absolute;
+  bottom: 0px;
+  outline: none;
+  border-style: solid;
+  border-color: #E3E7EA;
+  border-width: 0px 0px 2px 0px;
+  font-size: 20px;
+  -webkit-transition: border-color 0.45s linear;
+  transition: border-color 0.45s linear;
+}
+
+.label1 {
+  position: inline-block;
+  margin:  -10px 0 80px -100px;
+  font-size: 16px;
+}
+.label2 {
+  position: inline-block;
+  margin:  -10px 0 80px -100px;
+  font-size: 16px;
+}
+
+.textBox > input.text:focus {
+  border-color: #7448FF;
+}
+/*
+.textBox .label {
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 1;
+  color: #C0C0C0;
+  position: absolute;
+  padding-left: 0.5vw;
+  bottom: 3px;
+  font-size: 20px;
+  font-weight: 300;
+  -webkit-transition-property: opacity bottom font-size;
+  transition-property: opacity bottom font-size;
+  -webkit-transition-duration: 0.45s;
+  transition-duration: 0.45s;
+  -webkit-transition-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
+  transition-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
+} */
+/*
+.textBox .error {
+  position: absolute;
+  margin-top: 48px;
+  width: 100%;
+  color: #e74c3c;
+  text-align: center;
+} */
+/*
+.textBox > input.text:focus ~ .label, .textBox > input.text:not([value=""]) ~ .label {
+  opacity: 1;
+  z-index: 1;
+  bottom: 55%;
+  font-size: 12px;
+} */
+/*
+.textBox > input.text:focus ~ .label {
+  color: #7448FF;
+} */
+/*
+.textBox ::-webkit-input-placeholder
+  color: #2B2B2B;
+  font-size: 20px;
+  font-weight: 200;
+  font-family: 'Roboto', sans-serif;
+} */
+/*
+.textBox ::-moz-placeholder {
+  color: #2B2B2B;
+  font-size: 20px;
+  font-weight: 200;
+  font-family: 'Roboto', sans-serif;
+} */
+/*
+.textBox :-ms-input-placeholder {
+  color: #2B2B2B;
+  font-size: 20px;
+  font-weight: 200;
+  font-family: 'Roboto', sans-serif;
+} */
+/*
+.textBox :-moz-placeholder {
+  color: #2B2B2B;
+  font-size: 20px;
+  font-weight: 200;
+  font-family: 'Roboto', sans-serif;
+}
+*/
 </style>
