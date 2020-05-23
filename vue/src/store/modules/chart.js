@@ -29,7 +29,7 @@ export default {
       commit('addDataMutation', contents)
     },
     async editContent ({ commit }, apiContents) {
-      const url = '/life-graphs'
+      const url = 'api/life-graphs'
       axios.post(url, apiContents).then(res => commit(res.data))
         .catch(err => err)
     }
