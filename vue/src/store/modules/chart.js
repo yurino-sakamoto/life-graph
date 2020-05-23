@@ -14,9 +14,6 @@ export default {
   mutations: {
     addContentMutation (state, payload) {
       state.contents = payload
-    },
-    resetContents (state) {
-      state.contents = [] // destroyedでstateを空に
     }
   },
   actions: {
