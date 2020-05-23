@@ -239,7 +239,7 @@ export default {
         children: this.$store.state.chart.contents
       }
       // console.log(apiContents)
-      this.$store.dispatch('chart/editContent', this.apiContents)
+      this.$store.dispatch('chart/editContent', apiContents)
     }
   }
 }
