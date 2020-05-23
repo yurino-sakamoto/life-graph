@@ -132,10 +132,6 @@ export default {
     }
 }
 
-.navTop {
-
-}
-
   // li{
   //   font-size: 1.3rem;
   //   color: white;
