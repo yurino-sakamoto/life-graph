@@ -1,4 +1,4 @@
-<template>
+ed<template>
   <div id="app">
     <router-view />
     <head>
