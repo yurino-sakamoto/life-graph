@@ -14,16 +14,16 @@
               </label>
             </th>
             <th>
-            <td>
-              <input
-                id="age"
-                ref="editor"
-                v-model="age"
-                type="number"
-                autocomplete="off"
-                @keyup.enter="changeContents"
-              >
-            </td>
+              <td>
+                <input
+                  id="age"
+                  ref="editor"
+                  v-model="age"
+                  type="number"
+                  autocomplete="off"
+                  @keyup.enter="changeContents"
+                >
+              </td>
             </th>
           </tr>
           <tr>
@@ -87,9 +87,15 @@
         <table>
           <thead>
             <tr>
-              <th class="th2">年齢</th>
-              <th class="th2">満足度</th>
-              <th class="th2">コメント</th>
+              <th class="th2">
+                年齢
+              </th>
+              <th class="th2">
+                満足度
+              </th>
+              <th class="th2">
+                コメント
+              </th>
             </tr>
           </thead>
           <tbody>
