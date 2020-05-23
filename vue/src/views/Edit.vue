@@ -60,19 +60,24 @@
               />
             </td>
           </tr>
-          <button
-            class="button"
-            @click="removetext(age,score,comment)"
-          >
-            リセット
-          </button>
-          <button
-            class="button"
-            @click="add"
-          >
-            {{ changeButtonText }}
-          </button>
         </table>
+        <div v-if="ageCheck">
+          年齢が不正です
+        </div>
+        <button
+          class="button"
+          @click="removetext(age,score,comment)"
+        >
+          リセット
+        </button>
+        <button
+          class="button"
+          :disabled="!inputCheck"
+          :class="{'disabled': ageCheck}"
+          @click="add"
+        >
+          {{ changeButtonText }}
+        </button>
       </div>
       <div class="listInfo">
         <table>
@@ -118,7 +123,7 @@
         class="button"
         @click="update()"
       >
-        更新/編集完了？
+        更新
       </button>
     </div>
     <div class="editGraph">
@@ -143,8 +148,8 @@ export default {
   },
   data () {
     return {
-      age: '',
-      score: '',
+      age: null,
+      score: null,
       comment: '',
       isActive: false,
       contents: [], // ここに情報あると空のデータが存在してしまう
@@ -158,9 +163,27 @@ export default {
     },
     changeButtonText () {
       return this.editIndex === -1 ? '追加' : '完了'
+    },
+    inputCheck () {
+      return this.age && this.score
+    },
+    ageCheck () {
+      return this.age < 0 || this.age > 100
     }
   },
+  mounted () {
+    this.setContents()
+  },
   methods: {
+    setContents () {
+      this.contents = this.$store.state.chart.contents.map((content) => {
+        return {
+          age: content.age,
+          score: content.score,
+          comment: content.comment
+        }
+      })
+    },
     // テキストボックス値削除
     removetext: function (removeitem) {
       this.age = ''
@@ -170,20 +193,28 @@ export default {
     add () {
       this.isActive = true
       if (this.editIndex === -1) { // ifの時addボタンの挙動
-        this.contents.push({ age: this.age, score: this.score, comment: this.comment }) // 配列の最後に
+        this.contents.push(
+          {
+            age: this.age,
+            score: this.score,
+            comment: this.comment
+          })
       } else { // elseの時editボタンの挙動
-        this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment }) // splice配列の最初？配列から要素を削除・追加して組み替え。１は第２引数で削除する数
+        this.contents.splice(
+          this.editIndex,
+          1,
+          {
+            age: this.age,
+            score: this.score,
+            comment: this.comment
+          }
+        )// splice配列の最初？配列から要素を削除・追加して組み替え。１は第２引数で削除する数
         this.editIndex = -1
       }
       this.age = ''
       this.score = ''
-      this.comment = '' // 上から読んでいく
-      const content = {
-        age: this.age,
-        score: this.score,
-        comment: this.comment
-      }
-      this.$store.dispatch('addContent', content)
+      this.comment = ''
+      // console.log(this.contents)
     },
     edit (index) {
       this.editIndex = index
@@ -194,6 +225,21 @@ export default {
     },
     deleteContents (index) {
       this.contents.splice(index, 1)
+    },
+    update () {
+      this.$store.dispatch(
+        'chart/addData',
+        this.contents
+      )
+      const currentParentId = this.$store.state.chart.contents[0].parentId
+      const currentUserId = 1
+      const apiContents = {
+        parentId: currentParentId,
+        userId: currentUserId,
+        children: this.$store.state.chart.contents
+      }
+      // console.log(apiContents)
+      this.$store.dispatch('chart/editContent', apiContents)
     }
   }
 }

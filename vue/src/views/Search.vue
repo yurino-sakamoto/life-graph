@@ -14,21 +14,9 @@
     </div>
     <footer>
       <h2>検索結果</h2>
-      <table id="sampleTable">
-        <tr>
-          <th>見出し</th>
-          <thcmanSortBtn>a</thcmanSortBtn>
-          <thcmanSortBtn>b</thcmanSortBtn>
-          <thcmanSortBtn>c</thcmanSortBtn>
-          <thcmanSortBtn>d</thcmanSortBtn>
-          <thcmanSortBtn>e</thcmanSortBtn>
-        </tr>
-        <tr><th>行1</th><td>4</td><td>1</td><td>DEFGH</td><td>あいう</td><td>100</td></tr>
-        <tr><th>行2</th><td>3</td><td>100</td><td>abc</td><td>かきく</td><td>10,000</td></tr>
-        <tr><th>行3</th><td>5</td><td>20</td><td>ijkl</td><td>さしす</td><td>1,000</td></tr>
-        <tr><th>行4</th><td>1</td><td>9</td><td>MNOP</td><td>たちつ</td><td>10</td></tr>
-        <tr><th>行5</th><td>2</td><td>80</td><td>qr</td><td>なにぬ</td><td>100,000</td></tr>
-      </table>
+      <div v-if:>
+        検索内容の結果を表示するところ
+      </div>
       <div class="nav-links">
         <a class="prev page-numbers" href="">«</a>
         <a class="page-numbers" href="">1</a>
@@ -49,6 +37,11 @@ export default {
   name: 'App',
   components: {
     Header
+  },
+  methods: {
+    login () {
+      this.$store.dispatch('chart/searchAPI')
+    }
   }
 }
 </script>
