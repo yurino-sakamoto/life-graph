@@ -340,18 +340,7 @@ h1 {
   cursor: pointer;
 }
 
-.reload {
-  width: 90px;
-  border: none;
-  outline: none;
-  background:#FE5F52;
-  color: #FFF;
-  border-radius: 30px;
-  margin: 0 5px;
-  padding: 4px 8px;
-  font-size: 12pt;
-  cursor: pointer;
-}
+/* reload消した */
 
 .commentTable {
   white-space: nowrap;
