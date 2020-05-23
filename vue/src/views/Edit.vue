@@ -320,10 +320,6 @@ td {
   width: 30px;
 }
 
-table {
-  text-overflow: 15em;
-}
-
 h1 {
   color: #565452;
   font-size: 40px;
