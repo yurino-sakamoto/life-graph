@@ -1,7 +1,7 @@
 <template>
   <div class="headderSection">
     <div class="logoParent">
-      <!-- <img class="pageLogo" src="../assets/logo.png" alt="ロゴ"> -->
+      <img class="pageLogo" src="../assets/logologo.png" alt="ロゴ">
     </div>
     <div class="nav">
       <router-link to="/top" class="link">
@@ -17,7 +17,7 @@
     <router-view />
     <ul>
       <li>
-        User Name : {{ username }}
+        User : {{ username }}
       </li>
       <li>
         Authority : {{ authority }}
@@ -76,9 +76,10 @@ export default {
   position : fixed;
   top : 0;
   .pageLogo{
-  width: 50px;
-  margin: 13px 0px 0px 10px;
-  text-align: left;
+  width: 60px;
+  position: absolute;
+  left: 10px;
+  margin: 20px 10px 10px 10px;
 }
 .nav {
   position : fixed;
@@ -111,11 +112,10 @@ export default {
       width: 100%;
     }
     .link {
-      padding: 0 20px 20px 0;
+      padding: 0 50px 50px 0;
       color: #565452;
-      font-size: 30px;
+      font-size: 36px;
       text-shadow: none;
-      text-align: center;
       text-decoration: none;
     }
 }
@@ -144,8 +144,8 @@ export default {
     text-decoration: none;
     font-weight: bold;
     padding: 12px 24px;
-    border-radius: 4px;
-    background-image: linear-gradient(-90deg, #232526, #414345);
+    border-radius: 30px;
+    background: #7448FF;
     transition: .5s;
     background-size: 100%;
     position : fixed;

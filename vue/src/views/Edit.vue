@@ -273,11 +273,11 @@ export default {
   background:#FFF;
   border-radius: 20px;
   color: #565452;
-  width: 600px;
-  height: 600px;
+  width: 550px;
+  height: 500px;
   font-size: 12pt;
   word-break: break-all;
-  margin:0 5px 0 50px;
+  margin:0 2px 0 70px;
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
@@ -292,10 +292,14 @@ export default {
   height: 400px;
   font-size: 12pt;
   word-break: break-all;
-  margin: 0 50px 0 -50px;
+  margin: 0 70px 0 -2px;
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+}
+
+.field {
+  margin: 0 auto;
 }
 
 .th1 {
@@ -307,7 +311,8 @@ export default {
 .th2 {
   text-align: left;
   padding: 0 10px;
-  width: 70px；
+  width: 70px;
+  background: #000;
 }
 
 td {
@@ -331,6 +336,7 @@ h1 {
   color: #FFF;
   border-radius: 30px;
   right: 136px;
+  bottom: 360px;
   position: absolute;
   padding: 4px 8px;
   font-size: 12pt;
@@ -346,6 +352,7 @@ h1 {
   color: #FFF;
   border-radius: 30px;
   right: 30px;
+  bottom: 360px;
   position: absolute;
   padding: 4px 8px;
   font-size: 12pt;
