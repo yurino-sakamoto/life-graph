@@ -47,7 +47,7 @@ export default {
   methods: {
     // dataのaccountにaccount.jsのstateの情報をsetする
     setAccount () {
-      const stateAccount = this.$store.state.account.acountInfo // ストア全体のstateの中のaccount.jsの中のacountInfoというstateの値
+      const stateAccount = this.$store.state.account.accountInfo // ストア全体のstateの中のaccount.jsの中のacountInfoというstateの値
       this.username = stateAccount.username
       const authority = stateAccount.name // 変数authorityを定義
       if (authority === 'ROLE_USER') { // roleがROLE_USERのとき

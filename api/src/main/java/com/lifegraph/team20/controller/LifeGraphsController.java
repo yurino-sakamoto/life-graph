@@ -104,7 +104,7 @@ public class LifeGraphsController {
     SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
     Account selectInfo = jdbcTemplate.queryForObject(sql, param, new RowMapper<Account>() {
       public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Account(rs.getLong("id"), rs.getString("username"), rs.getString("name"));
+        return new Account(rs.getLong("id"), rs.getString("username"), rs.getString("name"));// nameはroleテーブルのname（権限）
       }
     });
     return selectInfo;

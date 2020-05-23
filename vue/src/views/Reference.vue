@@ -6,7 +6,7 @@
         <img class="searchButton" src="../assets/logo.png" alt="検索">
       </router-link>
     </div>
-    <Chart class="referenceChart" />
+    <Chart v-bind="UserId" class="referenceChart" />
   </div>
 </template>
 
@@ -19,6 +19,12 @@ export default {
   components: {
     Header,
     Chart
+  },
+  data () {
+    return {
+      UserId: parseInt(this.$route.params.userId)
+      // 不明：これで検索された人のIDに結びつくのはなぜか？（search終了後）
+    }
   }
 }
 </script>
