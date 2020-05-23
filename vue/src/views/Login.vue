@@ -11,6 +11,9 @@
         Sign in
       </button>
     </div>
+    <div v-if="loginError">
+      エラーです
+    </div>
   </div>
 </template>
 <script>
@@ -25,12 +28,19 @@ export default {
   computed: {
     token () {
       return this.$store.state.auth.token
+    },
+    loginError () {
+      // console.log(this.$store.state.auth.error)
+      return this.$store.state.auth.error
     }
   },
   watch: {
     token (newToken) {
       this.$router.push('/top')
     }
+  },
+  created () {
+    this.$store.commit('auth/clearError')
   },
   methods: {
     login () {
@@ -60,9 +70,6 @@ export default {
     margin:50px auto;
     box-shadow:15px 15px 0px rgba(0,0,0,.1);
     text-align: center;
-    position: absolute;
-    bottom: 170px;
-    right: 200px;
   }
 
   label[for]{

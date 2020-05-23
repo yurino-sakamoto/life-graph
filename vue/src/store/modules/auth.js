@@ -4,7 +4,8 @@ export default {
   namespaced: true,
   state: {
     userId: '',
-    token: ''
+    token: '',
+    error: ''
   },
   mutations: {
     create (state, data) {
@@ -18,6 +19,12 @@ export default {
     deleteToken (state) {
       state.token = ''
       state.userId = ''
+    },
+    error (state, err) {
+      state.error = err
+    },
+    clearError (state) {
+      state.error = ''
     }
   },
   actions: {
@@ -25,7 +32,7 @@ export default {
     create ({ commit }, data) {
       const url = '/api/auth/login'
       axios.post(url, data).then(res => commit('create', res.data))
-        .catch(err => err)
+        .catch(err => commit('error', err))
     }
   }
 }

@@ -8,14 +8,38 @@
       <!-- 範囲指定しなければいけない↓ -->
       <label for="date" />
       <input v-model="date" type="date">
-      <button class="btn" @click="login()">
+      〜〜
+      <label for="date" />
+      <input v-model="date" type="date">
+      <button class="btn" @click="searchUser()">
         Search
       </button>
     </div>
     <footer>
-      <h2>検索結果</h2>
-      <div v-if:>
-        検索内容の結果を表示するところ
+      <!-- 最後にv-if="serchShow()"を入れてメソッドが動いたら表示という風にする -->
+      <div>
+        <h2>検索結果</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ユーザー名</th>
+              <th>日時</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(searchResults,index) in contents" :key="index">
+              <td>{{ index + 1 }}</td>
+              <td>{{ content.name }}</td>
+              <td>{{ content.created }}</td>
+              <button @click="userReference()">
+                参照
+              </button>
+              <button v-if="authCheck()" @click="deleteGraphData(index, id)">
+                削除
+              </button>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div class="nav-links">
         <a class="prev page-numbers" href="">«</a>
@@ -38,9 +62,35 @@ export default {
   components: {
     Header
   },
+  data () {
+    return {
+      name: null,
+      created: null,
+      isActive: false,
+      serchResults: [],
+      load: true,
+      editIndex: -1
+    }
+  },
   methods: {
-    login () {
-      this.$store.dispatch('chart/searchAPI')
+    searchUser () {
+      this.$store.dispatch('search/searchAPI')
+    },
+    // TODO 管理者関連のの記述
+    // authCheck () {
+    //   const auth = this.$store.
+    //   if ( auth === ROLE_USER || auth === ROLE_ADMIN) {
+
+    //   } else {
+
+    //   }
+    // }
+    deleteGraphData (index, userID) {
+      if (confirm('削除ok?')) {
+        const userId = this.$store.state.auth.userId
+        this.$store.dispatch('search/deleteGraphData', userId)
+        this.filteredItems.splice(index, 1)
+      }
     }
   }
 }

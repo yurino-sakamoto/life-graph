@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default {
   namespaced: true,
   state: {
-    accountInfo: ''
+    accountInfo: []
   },
   mutations: {
     setAccount (state, payload) {
