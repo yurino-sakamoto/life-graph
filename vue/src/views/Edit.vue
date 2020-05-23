@@ -10,9 +10,10 @@
           <tr>
             <th class="th1" scope="row">
               <label for="age">
-                年齢
+                年齢(歳)
               </label>
             </th>
+            <th>
             <td>
               <input
                 id="age"
@@ -23,16 +24,12 @@
                 @keyup.enter="changeContents"
               >
             </td>
-            <th class="th1" scope="row">
-              <label for="age">
-                歳
-              </label>
             </th>
           </tr>
           <tr>
             <th class="th1" scope="row">
               <label for="score">
-                満足度
+                満足度(%)
               </label>
             </th>
             <td>
@@ -44,14 +41,9 @@
                 autocomplete="off"
               >
             </td>
-            <th scope="row">
-              <label for="age">
-                %
-              </label>
-            </th>
           </tr>
           <tr>
-            <th scope="row">
+            <th class="th1" scope="row">
               <label for="comment">
                 コメント
               </label>
@@ -83,7 +75,8 @@
           {{ changeButtonText }}
         </button>
         <div class="warning">
-          ※スコアは-100から100の範囲で指定してください。
+          <br><p>※スコアは-100から100の範囲で指定してください。</p>
+          <p>※コメントは250文字以内で入力してください。</p><br>
         </div>
         <div v-if="ageCheck">
           年齢が不正です
@@ -115,22 +108,22 @@
                 {{ content.comment }}
               </td>
               <button
-                class="editButton"
-                @click="edit(index)"
-              >
-                修正
-              </button>
-              <button
                 class="deleteButton"
                 @click="deleteContents(index)"
               >
                 削除
               </button>
+              <button
+                class="editButton"
+                @click="edit(index)"
+              >
+                修正
+              </button>
             </tr>
           </tbody>
         </table>
         <button
-          class="updateButton, reload"
+          class="button, reload"
           @click="update()"
         >
           更新
@@ -264,14 +257,15 @@ export default {
 .editSection {
   background: #F3F3F9;
   width: 100%;
-  height: 760px;
+  height: 900px;
   text-align: center;
   /* padding:100px; */
 }
 
 .warning {
   font-size: 12px;
-  text-align: right
+  text-align: right;
+  line-height: 60%;
 }
 
 #input {
@@ -279,11 +273,11 @@ export default {
   background:#FFF;
   border-radius: 20px;
   color: #565452;
-  width: 450px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   font-size: 12pt;
   word-break: break-all;
-  margin:0 5px 0 70px;
+  margin:0 5px 0 50px;
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
@@ -294,11 +288,11 @@ export default {
   background:#FFF;
   color: #565452;
   border-radius: 20px;
-  width: 700px;
-  height: 500px;
+  width: 600px;
+  height: 400px;
   font-size: 12pt;
   word-break: break-all;
-  margin: 0 70px 0 -50px;
+  margin: 0 50px 0 -50px;
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
@@ -306,19 +300,18 @@ export default {
 
 .th1 {
   text-align: left;
-  /* padding: 0 10px; */
-  width: 50px
+  padding: 0 2px 8px 0;
+  width: 80px
 }
 
 .th2 {
   text-align: left;
-  /* padding: 0 10px; */
-  width: 60px；
+  padding: 0 10px;
+  width: 70px；
 }
 
 td {
   text-align: left;
-  padding: 0;
   width: 30px;
 }
 
@@ -337,7 +330,8 @@ h1 {
   background:rgb(204,204,204);
   color: #FFF;
   border-radius: 30px;
-  margin: 0 0 0 80px 0;
+  right: 136px;
+  position: absolute;
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
@@ -351,7 +345,8 @@ h1 {
   background:#FE5F52;
   color: #FFF;
   border-radius: 30px;
-  margin: 0 -200px 0 8px;
+  right: 30px;
+  position: absolute;
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
@@ -362,34 +357,37 @@ h1 {
   cursor: pointer;
 }
 
-.editButton {
-  width: 70px;
-  border: none;
-  outline: none;
-  background:#FE5F52;
-  color: #FFF;
-  border-radius: 30px;
-  margin: 0 30px 0 5px;
-  padding: 4px 8px;
-  font-size: 12pt;
-  cursor: pointer;
-}
-
 .deleteButton {
+  position: absolute;
+  right: 108px;
+  width: 70px;
+  border: none;
+  outline: none;
+  background:rgb(204,204,204);
+  color: #FFF;
+  border-radius: 30px;
+  padding: 4px 8px;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+.editButton {
+  position : absolute;
+  right : 30px;
   width: 70px;
   border: none;
   outline: none;
   background:#FE5F52;
   color: #FFF;
   border-radius: 30px;
-  margin: 0 -250px 0 0;
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
 }
 
-.updateButton {
+button {
   width: 90px;
+  height: 40px;
   border: none;
   outline: none;
   background:#FE5F52;
