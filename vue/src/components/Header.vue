@@ -132,16 +132,16 @@ export default {
     }
 }
 
-  // li{
-  //   font-size: 1.3rem;
-  //   color: white;
-  //   text-shadow: 1px 1px 3px #000;
-  //   text-decoration: none;
-  //   display: inline-block;
-  //   transition: .3s;
-  //   padding: 15px 20px 5px  20px;
-  //   position: relative;
-  //   top: 0px;
+li{
+    font-size: 1.3rem;
+    color: white;
+    text-shadow: 1px 1px 3px #000;
+    text-decoration: none;
+    display: inline-block;
+    transition: .3s;
+    padding: 15px 20px 5px  20px;
+    position: relative;
+    top: 0px;
 
   ul{
     text-align: right;
@@ -175,4 +175,5 @@ export default {
   text-shadow:1px 1px 0px rgba(0,0,0,.1);
   cursor: pointer;
   }
+}
 </style>

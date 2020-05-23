@@ -7,7 +7,7 @@ export default {
   data () {
     return {
       data: {
-        labels: ['0', '5', '10', '15', '20', '25', '30'],
+        labels: [],
         datasets: [
           {
             label: '人生グラフ',
@@ -39,12 +39,6 @@ export default {
               display: true,
               labelString: '年齢',
               fontColor: 'rgba(86,84,82,1)'
-            },
-            ticks: {
-              beginAtZero: true,
-              max: 100,
-              min: 0,
-              stepsize: 1
             }
           }],
           yAxes: [{
@@ -55,7 +49,7 @@ export default {
             },
             ticks: {
               beginAtZero: true,
-              max: 100,
+              suggestedmax: 100,
               min: -100,
               stepsize: 1,
               fontColor: 'rgba(86,84,82,1)'

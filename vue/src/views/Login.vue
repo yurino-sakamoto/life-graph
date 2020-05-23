@@ -60,7 +60,7 @@ export default {
 
 .loginSection {
   background: #F3F3F9;
-  height: 760px;
+  height: 710px;
   /* background-size: cover; */
 }
 
@@ -103,7 +103,7 @@ export default {
   padding: 15px;
   position: absolute;
   top: 350px;
-  right: 90px;
+  right: 100px;
 }
 
 h1 {
@@ -137,9 +137,33 @@ h1 {
   cursor: pointer;
 }
 
+input {
+  width:250px;
+  background:#f5f5f5;
+  border:0;
+  padding:20px;
+  border-radius:6px;
+  margin-bottom:10px;
+  border:1px solid #eee;
+}
+
+:focus {
+  outline: none;
+}
+
 .btn:focus {
   outline: 0;
   }
+
+input {
+  width:250px;
+  background:#f5f5f5;
+  border:0;
+  padding:20px;
+  border-radius:6px;
+  margin-bottom:10px;
+  border:1px solid #eee;
+}
 
 .textBox {
   display: block;
