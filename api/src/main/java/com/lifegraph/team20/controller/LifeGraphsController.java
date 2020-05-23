@@ -14,11 +14,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lifegraph.team20.Service.LifeGraphService;
@@ -47,7 +46,7 @@ public class LifeGraphsController {
   // 削除（現状、問題点：1テーブルのみ）
   @DeleteMapping(value = "/{parentId}")
   public ResponseEntity<Void> deleteTable(@PathVariable("parentId") long parentId) {
-//		パスバリアブル
+    // パスバリアブル
     // デリートの手順
     // 持っておいて欲しいもの（user_id,Authority）
     // ①
@@ -57,38 +56,39 @@ public class LifeGraphsController {
     return ResponseEntity.noContent().build();
   }
 
-//    //保存（APIで使い分ける　問題点：1テーブル）
-//    @RequestMapping(value = "/new",method = RequestMethod.POST)
-//    Parentdata postContent(@RequestBody Parentdata parentdata) {
-//    	return contentService.postContent(parentdata);
-//    }
+  // //保存（APIで使い分ける 問題点：1テーブル）
+  // @RequestMapping(value = "/new",method = RequestMethod.POST)
+  // Parentdata postContent(@RequestBody Parentdata parentdata) {
+  // return contentService.postContent(parentdata);
+  // }
 
-//  // 見るやつ（いらん）
-//  @RequestMapping(value = "/a", method = RequestMethod.GET)
-//  List<ChildGraph> getContent() {
-//    //
-//    return contentService.getContent();
-//  }
-//
-//  // 更新（APIで使い分ける）
-//  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//  ChildGraph putTweet(@PathVariable("id") Integer id, @RequestBody ChildGraph content) {
-//    content.setId(id);
-//    return contentService.updateContent(content);
-//  }
-//}
-//
-////新規登録：ボタンが押される
-////親テーブルと小テーブルの情報が追加（/new）
-////親テーブル：user_id
-////小テーブル：id、parent_id、comment、age、score
-//
-////変更の場合（/{id}）
-////親テーブル：user_id
-////小テーブル：id、parent_id、comment、age、score
+  // // 見るやつ（いらん）
+  // @RequestMapping(value = "/a", method = RequestMethod.GET)
+  // List<ChildGraph> getContent() {
+  // //
+  // return contentService.getContent();
+  // }
+  //
+  // // 更新（APIで使い分ける）
+  // @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+  // ChildGraph putTweet(@PathVariable("id") Integer id, @RequestBody ChildGraph
+  // content) {
+  // content.setId(id);
+  // return contentService.updateContent(content);
+  // }
+  // }
+  //
+  //// 新規登録：ボタンが押される
+  //// 親テーブルと小テーブルの情報が追加（/new）
+  //// 親テーブル：user_id
+  //// 小テーブル：id、parent_id、comment、age、score
+  //
+  //// 変更の場合（/{id}）
+  //// 親テーブル：user_id
+  //// 小テーブル：id、parent_id、comment、age、score
 
-//アカウント参照API＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  @RequestMapping(value = "/accountReference/{id}", method = RequestMethod.GET)
+  // アカウント参照API＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  @GetMapping("/accountReference/{id}")
   public ResponseEntity<Account> responseReference(@PathVariable("id") Integer id) {
 
     Account accountRef = selectUserInfo(id);
@@ -110,19 +110,16 @@ public class LifeGraphsController {
     return selectInfo;
   }
 
-//人生グラフ参照API＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // 人生グラフ参照API＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   @RestController
   public class ReferenceController {
 
-    @RequestMapping(value = "/reference/{userId}", method = RequestMethod.GET)
+    @GetMapping("/reference/{userId}")
     public ResponseEntity<List<ChildGraph>> responseReference(@PathVariable("userId") Integer userId) {
 
       List<ChildGraph> childRef = selectChildRef(userId);
       return ResponseEntity.ok(childRef);
     }
-
-    @Autowired
-    private NamedParameterJdbcTemplate jdbcTemplate;
 
     private List<ChildGraph> selectChildRef(Integer userId) {
       final String sql = "select * from child_graphs where parent_id = (select id from parent_graphs where user_id = :userId);";
