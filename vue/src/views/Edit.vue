@@ -214,7 +214,7 @@ export default {
       this.age = ''
       this.score = ''
       this.comment = ''
-      console.log(this.contents)
+      // console.log(this.contents)
     },
     edit (index) {
       this.editIndex = index
@@ -238,7 +238,7 @@ export default {
         userId: currentUserId,
         children: this.$store.state.chart.contents
       }
-      console.log(apiContents)
+      // console.log(apiContents)
       this.$store.dispatch('chart/editContent', this.apiContents)
     }
   }
