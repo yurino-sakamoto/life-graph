@@ -9,7 +9,7 @@ export default {
   state: {
     contents: [],
     load: false,
-    loaded: true
+    loaded: false
   },
   mutations: {
     addContentMutation (state, payload) {
@@ -17,6 +17,9 @@ export default {
     },
     addDataMutation (state, contents) {
       state.contents = contents
+    },
+    clear (state) {
+      state.contents = []
     }
   },
   actions: {
@@ -28,9 +31,9 @@ export default {
     addData ({ commit }, contents) {
       commit('addDataMutation', contents)
     },
-    async editContent ({ commit }, apiContents) {
+    editContent (apiContents) {
       const url = 'api/life-graphs'
-      axios.post(url, apiContents).then(res => commit(res.data))
+      axios.post(url, apiContents)
         .catch(err => err)
     }
   }

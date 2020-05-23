@@ -69,7 +69,7 @@
         </button>
         <button
           class="button"
-          :disabled="!inputCheck || ageCheck || scoreCheck"
+          :disabled="!inputCheck || ageCheck || scoreCheck || ageExistCheck"
           :class="{'disabled': ageCheck || scoreCheck || !inputCheck}"
           @click="add"
         >
@@ -92,12 +92,11 @@
               <th>コメント</th>
             </tr>
           </thead>
-          <tbody v-if="isActive">
+          <tbody>
             <tr
               v-for="(content,index) in contents"
               :key="index"
             >
-              <!-- わからん -->
               <td>
                 {{ content.age }}
               </td>
@@ -176,6 +175,9 @@ export default {
     },
     scoreCheck () {
       return this.score < -100 || this.score > 100
+    },
+    ageExistCheck () {
+      return this.contents.find(content => content.age === this.age)
     }
   },
   mounted () {
@@ -246,8 +248,9 @@ export default {
         children: this.$store.state.chart.contents
       }
       this.$store.dispatch('chart/editContent', apiContents)
-      // console.log(apiContents)
-      this.$store.dispatch('chart/addContent', apiContents)
+      console.log(apiContents)
+      const userId = this.$store.state.auth.userId
+      this.$store.dispatch('chart/addContent', userId)
     }
   }
 }
