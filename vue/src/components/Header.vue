@@ -1,32 +1,29 @@
 <template>
   <div class="headderSection">
     <div class="logoParent">
-      <img class="pageLogo" src="../assets/logo.png" alt="ロゴ">
+      <img class="pageLogo" src="../assets/logologo.png" alt="ロゴ">
     </div>
     <div class="nav">
-      <router-link to="/top">
+      <router-link to="/top" class="link">
         Top
-      </router-link>|
-      <router-link to="/edit">
+      </router-link>
+      <router-link to="/edit" class="link">
         Edit
-      </router-link>|
-      <router-link to="/search">
+      </router-link>
+      <router-link to="/search" class="link">
         Search
-      </router-link>|
-      <router-link to="/reference">
-        Reference
-      </router-link>|
+      </router-link>
     </div>
     <router-view />
     <ul>
       <li>
-        User Name : {{ username }}
+        User : {{ username }}
       </li>
       <li>
         Authority : {{ authority }}
       </li>
       <span tag="button" class="btn" @click="logout()">
-        Log Out
+        ログアウト
       </span>
     </ul>
   </div>
@@ -72,22 +69,24 @@ export default {
 </script>
 <style lang="scss" scoped>
 .headderSection{
+  z-index: 3;
   height: 80px;
   width: 100%;
   background-color: white;
   position : fixed;
   top : 0;
   .pageLogo{
-  width: 50px;
-  margin: 13px 0px 0px 10px;
-  text-align: left;
+  width: 60px;
+  position: absolute;
+  left: 10px;
+  margin: 20px 10px 10px 10px;
 }
 .nav {
   position : fixed;
   top : 0;
   left: 35%;
   z-index : 10;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: white;
   font-weight: bold;
   text-shadow: 1px 1px 3px #000;
@@ -109,54 +108,49 @@ export default {
       transition: .3s;
       transform: translateX(-50%);
     }
-    :hover::after{
+    :hover::after {
       width: 100%;
     }
-}
-  // li{
-  //   font-size: 1.3rem;
-  //   color: white;
-  //   text-shadow: 1px 1px 3px #000;
-  //   text-decoration: none;
-  //   display: inline-block;
-  //   transition: .3s;
-  //   padding: 15px 20px 5px  20px;
-  //   position: relative;
-  //   top: 0px;
-  ul{
-    text-align: right;
-    li{
-      color: white;
-      text-shadow: 1px 1px 3px #000;
-      padding: 15px;
-      width: 130px;
-      font-size: 16px;
-      font-weight: bold;
-      display: block;
-      background-image: linear-gradient(-90deg, #232526, #414345);
-      border-radius: 3px;
-      text-shadow: -1px -1px rgba(255, 255, 255, 0.44), 1px 1px rgba(0, 0, 0, 0.38);
-      text-align: center;
-      margin:20px;
+    .link {
+      padding: 0 50px 50px 0;
+      color: #565452;
+      font-size: 36px;
+      text-shadow: none;
+      text-decoration: none;
     }
-  }
+}
+    ul{
+      text-align: right;
+      li{
+        color: #565452;
+        width: 130px;
+        font-size: 16px;
+        font-weight: bold;
+        display: block;
+        border-radius: 3px;
+        text-align: center;
+        margin: 0 0 0 1090px;
+        white-space: nowrap;
+        text-align: left;
+      }
+    }
   .btn{
     display: inline-block;
     width: 70px;
     height: auto;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     color: #FFF;
     text-decoration: none;
     font-weight: bold;
     padding: 12px 24px;
-    border-radius: 4px;
-    background-image: linear-gradient(-90deg, #232526, #414345);
+    border-radius: 30px;
+    background: #7448FF;
     transition: .5s;
     background-size: 100%;
     position : fixed;
     cursor: pointer;
-    top : 0;
+    top : 20px;
     left: 90%;
     z-index : 10;
     :hover {
