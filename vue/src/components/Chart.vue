@@ -81,6 +81,9 @@ export default {
     // console.log(this.data)
     // console.log(this.options)
   },
+  destroyed () {
+    this.$store.commit('chart/resetContents')
+  },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue
       const age = []
