@@ -61,9 +61,6 @@
             </td>
           </tr>
         </table>
-        <div v-if="ageCheck">
-          年齢が不正です
-        </div>
         <button
           class="button"
           @click="removetext(age,score,comment)"
@@ -72,12 +69,19 @@
         </button>
         <button
           class="button"
-          :disabled="!inputCheck"
-          :class="{'disabled': ageCheck}"
+          :disabled="!inputCheck || ageCheck || scoreCheck"
+          :class="{'disabled': ageCheck || scoreCheck || !inputCheck}"
           @click="add"
         >
           {{ changeButtonText }}
         </button>
+        <div>＊スコアは<br>-100から100の範囲で<br>指定してください。</div>
+        <div v-if="ageCheck">
+          年齢が不正です
+        </div>
+        <div v-if="scoreCheck">
+          スコアが不正です
+        </div>
       </div>
       <div class="listInfo">
         <table>
@@ -169,6 +173,9 @@ export default {
     },
     ageCheck () {
       return this.age < 0 || this.age > 100
+    },
+    scoreCheck () {
+      return this.score < -100 || this.score > 100
     }
   },
   mounted () {
@@ -214,7 +221,7 @@ export default {
       this.age = ''
       this.score = ''
       this.comment = ''
-      // console.log(this.contents)
+      console.log(this.contents)
     },
     edit (index) {
       this.editIndex = index
@@ -232,14 +239,15 @@ export default {
         this.contents
       )
       const currentParentId = this.$store.state.chart.contents[0].parentId
-      const currentUserId = 1
+      const currentUserId = this.$store.state.auth.userId
       const apiContents = {
         parentId: currentParentId,
         userId: currentUserId,
         children: this.$store.state.chart.contents
       }
-      // console.log(apiContents)
       this.$store.dispatch('chart/editContent', apiContents)
+      console.log(apiContents)
+      this.$store.dispatch('chart/addContent', apiContents)
     }
   }
 }
@@ -277,6 +285,11 @@ export default {
   font-size: 12pt;
   color:#FFF
 }
+
+.button.disabled {
+  background: #ffbab3;
+}
+
 .commentTable {
   white-space: nowrap;
   overflow: hidden;
