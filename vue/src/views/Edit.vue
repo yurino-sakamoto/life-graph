@@ -122,13 +122,13 @@
             </tr>
           </tbody>
         </table>
+        <button
+          class="button, reload"
+          @click="update()"
+        >
+          更新
+        </button>
       </div>
-      <button
-        class="button"
-        @click="update()"
-      >
-        更新
-      </button>
     </div>
     <div class="editGraph">
       <div
@@ -257,6 +257,7 @@ export default {
 #editSection {
   background: #F3F3F9;
   text-align: center;
+  /* padding:100px; */
 }
 #input {
   background:#FFF;
@@ -323,5 +324,10 @@ export default {
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+}
+.reload {
+  position : absolute;
+  bottom : 20px;
+  right : 20px;
 }
 </style>
