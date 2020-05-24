@@ -9,7 +9,8 @@ export default {
   state: {
     contents: [],
     load: false,
-    loaded: false
+    loaded: false,
+    error: ''
   },
   mutations: {
     addContentMutation (state, payload) {
@@ -20,6 +21,12 @@ export default {
     },
     clear (state) {
       state.contents = []
+    },
+    error (state, err) {
+      state.error = err
+    },
+    clearError (state) {
+      state.error = ''
     }
   },
   actions: {
@@ -31,10 +38,12 @@ export default {
     addData ({ commit }, contents) {
       commit('addDataMutation', contents)
     },
-    editContent (apiContents) {
+    async editContent ({ dispatch, commit }, apiContents) {
+      // console.log(apiContents)
       const url = 'api/life-graphs'
-      axios.post(url, apiContents)
-        .catch(err => err)
+      await axios.post(url, apiContents)
+        .catch(err => commit('error', err))
+      dispatch('addContent', apiContents.userId)
     }
   }
 }
