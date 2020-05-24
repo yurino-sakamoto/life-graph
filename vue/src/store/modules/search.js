@@ -10,6 +10,7 @@ Vue.use(Vuex)
 // ④情報を取り出し、検索結果画面に詰める
 
 export default {
+  namespaced: true,
   state: {
     searchItems: [],
     error: ''
@@ -27,8 +28,10 @@ export default {
   },
   actions: {
     searchAPI ({ commit }, data) {
+      // console.log('actionにきたよー！')
       const url = '/api/search'
       axios.get(url, data).then(res => commit('searchAPI', res.data))
+      // console.log('API終了')
     },
     deleteGraphData ({ commit }, userId) {
       const url = '/api/life-graphs/' + userId

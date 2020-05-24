@@ -18,7 +18,7 @@
           </div>
           <div class="textBox">
             <label class="label2">パスワード</label>
-            <input v-model="password" class="text" type="textbox">
+            <input v-model="password" class="text" type="password">
           </div>
         </div>
         <button class="btn" @click="login()">
