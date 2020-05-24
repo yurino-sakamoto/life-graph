@@ -17,14 +17,13 @@
 //	@Autowired
 //	private JdbcTemplate jdbcTemplate;
 //
-//	public List<SearchResultSet> searchGraphs(String sql) {
-//		return jdbcTemplate.query(sql, new RowMapper<SearchResultSet>() {
-//			public SearchResultSet mapRow(ResultSet rs, int rowNum) throws SQLException {
-//				return new SearchGraphInfo(rs.getString("username"), rs.getInt("user_id"),rs.getTimestamp("created_at"),
+//	public List<SearchGraphInfo> searchGraphs(String sql) {
+//		return jdbcTemplate.query(sql, new RowMapper<SearchGraphInfo>() {
+//			public SearchGraphInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				return new SearchGraphInfo(rs.getString("username"), rs.getLong("user_id"),rs.getTimestamp("created_at"),
 //						rs.getTimestamp("updated_at"));
 //			}
 //		});
 //	}
-//
 //}
 

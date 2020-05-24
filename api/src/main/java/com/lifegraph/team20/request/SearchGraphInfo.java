@@ -1,22 +1,23 @@
-//package com.lifegraph.team20.request;
-//
-//import java.sql.Timestamp;
-//
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//
-//@Data
-//@AllArgsConstructor
-//public class SearchGraphInfo {
-//
-//	private String username;
-//
-//	private Long user_id;
-//
-//	private Timestamp created_at;
-//
-//	private Timestamp updated_at;
-//}
+package com.lifegraph.team20.request;
+
+import java.sql.Timestamp;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class SearchGraphInfo {
+
+    private String username;
+
+	private Long user_id;
+
+	private Timestamp created_at;
+
+	private Timestamp updated_at;
+}
+
 
 
 
