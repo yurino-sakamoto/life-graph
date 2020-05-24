@@ -1,8 +1,8 @@
 <template>
-  <div class="top">
+  <div class="topSection">
     <Header />
-    <div class="topSection">
-      <h1>This is your LifeGraph</h1>
+    <h1>This is your LifeGraph</h1>
+    <div class="topModule">
       <chart class="topChart" />
     </div>
   </div>
@@ -27,21 +27,37 @@ export default {
 
 <style scoped>
 
-.top {
+.topSection {
   margin-top: 80px;
   background: radial-gradient(white, #E5E5E9);
   height: 700px;
 }
 
-h1 {
+/* .topModule {
+  background:#FFF;
+  color: #565452;
+  border-radius: 20px;
+  width: 800px;
+  height: 1000px;
+  font-size: 12pt;
+  word-break: break-all;
+  margin: 0 auto;
+  padding: 20px;
   text-align: center;
-  padding: 30px;
+} */
+
+h1 {
+  text-align: left;
+  margin: 10px 0 0 40px;
   font-size: 70px;
-  font-weight: bold;
+  font-weight: 800;
+  line-height: 0.8em;
+  letter-spacing: -1px;
 }
 
-.topChart{
-  width: 1000px;
+.topChart {
+  width: 700px;
+  height: auto;
   text-align: center;
   margin: auto;
 }
