@@ -28,10 +28,10 @@ export default {
   },
   actions: {
     searchAPI ({ commit }, data) {
-      console.log('actionにきたよー！')
+      // console.log('actionにきたよー！')
       const url = '/api/search'
       axios.get(url, data).then(res => commit('searchAPI', res.data))
-      console.log('API終了')
+      // console.log('API終了')
     },
     deleteGraphData ({ commit }, userId) {
       const url = '/api/life-graphs/' + userId
