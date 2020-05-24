@@ -1,11 +1,6 @@
 <template>
   <div class="referenceSection">
     <Header />
-    <div class="searchButtonParent" @click="resetData">
-      <router-link to="/search">
-        <img class="searchButton" src="../assets/logo.png" alt="検索">
-      </router-link>
-    </div>
     <Chart v-bind="referenceId" class="referenceChart" />
   </div>
 </template>
@@ -25,11 +20,6 @@ export default {
     return {
       referenceId: parseInt(this.$route.params.userId)
       // アクセス前のページでuserIdを指定している。parseIntはint型変換。これをチャートがバインド。
-    }
-  },
-  methods: {
-    resetData () { // ヘッダーのボタンクリックでグラフのデータ初期化。
-      this.$store.commit('chart/resetContents')
     }
   }
 }
