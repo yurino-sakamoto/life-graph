@@ -86,10 +86,10 @@ public class LifeGraphService {
 		//ちょっと謎深い
 		// delete all by parent id
 		System.out.println("全消しの前");
-		System.out.println(request.getParentId() instanceof Long);
-		long parentId = 14;
+//		System.out.println(request.getParentId() instanceof Long);
+//		long parentId = 14;
 //		childRepository.deleteByParentId(parentId);
-		parentRepository.deleteById(parentId);
+		parentRepository.deleteById(request.getParentId());
 		System.out.println("全消し終了");
 
 		//List<Children>をchildrenEntitiesという変数名にし、Childrenの情報を持ってきて、

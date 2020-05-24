@@ -257,7 +257,7 @@ export default {
         'chart/addData',
         this.contents
       )
-      const currentParentId = 10
+      const currentParentId = this.$store.state.chart.contents[0].parentId
       const currentUserId = this.$store.state.auth.userId
       const apiContents = {
         parentId: currentParentId,
