@@ -3,7 +3,7 @@
     <Header />
     <div class="topSection">
       <h1>This is your LifeGraph</h1>
-      <chart v-bind="UserId" class="topChart" />
+      <chart class="topChart" />
     </div>
   </div>
 </template>
@@ -19,11 +19,8 @@ export default {
     Header,
     Chart
   },
-  data () {
-    return {
-      UserId: this.$store.state.accountInfo.id
-      // account.jsのstateに取得したログイン者のidのチャートを描画する
-    }
+  created () {
+    this.$store.commit('chart/clear')
   }
 }
 </script>

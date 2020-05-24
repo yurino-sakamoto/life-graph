@@ -50,6 +50,7 @@ public class LifeGraphService {
 		LocalDateTime now = LocalDateTime.now();
 
 		//親テーブルがすでにある時
+		System.out.println("親の分岐に入るよ");
 		if (request.getParentId() != null) {
 			//ParentのレポジトリからID検索をして、parentにする（entityを書き換える）それ以外はエラー文
 			// 更新の場合
@@ -68,22 +69,28 @@ public class LifeGraphService {
 		try {
 			//普通パターンparentを詰める
 			parent = parentRepository.save(parent);
+			System.out.println("親保存終了");
 		} catch (DataIntegrityViolationException e) {
 			throw new IllegalStateException("already exits parent graph. user id : " + request.getUserId(), e);
 			}
 
-		//小テーブルで使うためにrequestにpatrntのidを詰める
+		//子テーブルで使うためにrequestにpatrntのidを詰める
 		// set parentId to request
 		request.setParentId(parent.getId());
 	}
 
 
-	//小テーブルのおはなし
+	//子テーブルのおはなし
 	private void registerChildren(RegisterRequest request) {
 		//parent_idが一致するものを全部消す
 		//ちょっと謎深い
 		// delete all by parent id
-		childRepository.deleteByParentId(request.getParentId());
+		System.out.println("全消しの前");
+//		System.out.println(request.getParentId() instanceof Long);
+//		long parentId = 14;
+//		childRepository.deleteByParentId(parentId);
+		parentRepository.deleteById(request.getParentId());
+		System.out.println("全消し終了");
 
 		//List<Children>をchildrenEntitiesという変数名にし、Childrenの情報を持ってきて、
 		//ストリームとマップを使って形を変換parentIDと子供の情報という1:1の関係に変換！！
@@ -94,23 +101,15 @@ public class LifeGraphService {
 		}).collect(Collectors.toList());
 
 		//それで集めてきたものを全部保存する（Entity形式）
+		System.out.println("全部保存する直前");
 		childRepository.saveAll(childrenEntities);
+		System.out.println("全部保存できたよ！");
 	}
 
 	//削除APIの作成
 		public void deleteTable(long parentId) {
-
-//			if(deleteRequest.getName() == "ROLE_USER") {
-//				//消さない
-//				//エラーを返す
-//				//405
-	//
-//			}else {
-				//消す
-				childRepository.deleteByParentId(parentId);
-//				//ここあってんの？？↓型を無理やり変換してるけど
+//				childRepository.deleteByParentId(parentId);
 				parentRepository.deleteById(parentId);
-//			}
 		}
 
 	//メモ↓↓

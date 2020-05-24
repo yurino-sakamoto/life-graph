@@ -1,36 +1,35 @@
 <template>
-  <div id="editSection">
+  <div class="editSection">
     <div>
       <Header />
     </div>
-    <div class="editTitle">
-      編集
-    </div>
     <div id="editForm">
-      <h1>Life Graph</h1>
+      <h1>編集</h1>
       <div id="input">
         <table id="field">
           <tr>
-            <th scope="row">
+            <th class="th1" scope="row">
               <label for="age">
-                年齢
+                年齢(歳)
               </label>
             </th>
-            <td>
-              <input
-                id="age"
-                ref="editor"
-                v-model="age"
-                type="number"
-                autocomplete="off"
-                @keyup.enter="changeContents"
-              >
-            </td>
+            <th>
+              <td>
+                <input
+                  id="age"
+                  ref="editor"
+                  v-model="age"
+                  type="number"
+                  autocomplete="off"
+                  @keyup.enter="changeContents"
+                >
+              </td>
+            </th>
           </tr>
           <tr>
-            <th scope="row">
+            <th class="th1" scope="row">
               <label for="score">
-                満足度
+                満足度(%)
               </label>
             </th>
             <td>
@@ -44,7 +43,7 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">
+            <th class="th1" scope="row">
               <label for="comment">
                 コメント
               </label>
@@ -62,72 +61,84 @@
           </tr>
         </table>
         <button
-          class="button"
+          class="resetButton"
           @click="removetext(age,score,comment)"
         >
           リセット
         </button>
         <button
           class="button"
-          :disabled="!inputCheck || ageCheck || scoreCheck"
+          :disabled="!inputCheck || ageCheck || scoreCheck || ageExistCheck"
           :class="{'disabled': ageCheck || scoreCheck || !inputCheck}"
           @click="add"
         >
           {{ changeButtonText }}
         </button>
-        <div>＊スコアは<br>-100から100の範囲で<br>指定してください。</div>
+        <div class="warning">
+          <br><p>※スコアは-100から100の範囲で指定してください。</p>
+          <p>※コメントは250文字以内で入力してください。</p><br>
+        </div>
         <div v-if="ageCheck">
           年齢が不正です
         </div>
         <div v-if="scoreCheck">
           スコアが不正です
         </div>
-      </div>
-      <div class="listInfo">
-        <table>
-          <thead>
-            <tr>
-              <th>年齢</th>
-              <th>スコア</th>
-              <th>コメント</th>
-            </tr>
-          </thead>
-          <tbody v-if="isActive">
-            <tr
-              v-for="(content,index) in contents"
-              :key="index"
-            >
-              <!-- わからん -->
-              <td>
-                {{ content.age }}
-              </td>
-              <td>
-                {{ content.score }}
-              </td>
-              <td class="commentTable">
-                {{ content.comment }}
-              </td>
-              <button
-                class="button"
-                @click="edit(index)"
+        <div v-if="editError">
+          更新に失敗しました。
+        </div>
+        <div class="listInfo">
+          <table>
+            <thead>
+              <tr>
+                <th class="th2">
+                  年齢(歳)
+                </th>
+                <th class="th2">
+                  満足度(%)
+                </th>
+                <th class="th2">
+                  コメント
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(content,index) in contents"
+                :key="index"
               >
-                修正
-              </button>
-              <button
-                class="button"
-                @click="deleteContents(index)"
-              >
-                削除
-              </button>
-            </tr>
-          </tbody>
-        </table>
-        <button
-          class="button, reload"
-          @click="update()"
-        >
-          更新
-        </button>
+                <td class="addRecord">
+                  {{ content.age }}
+                </td>
+                <td class="addRecord">
+                  {{ content.score }}
+                </td>
+                <td class="commentTable, addRecord">
+                  {{ content.comment }}
+                </td>
+                <button
+                  class="deleteButton"
+                  @click="deleteContents(index)"
+                >
+                  削除
+                </button>
+                <button
+                  class="editButton"
+                  @click="edit(index)"
+                >
+                  修正
+                </button>
+              </tr>
+            </tbody>
+          </table>
+          <div class="marginConfig" />
+          <button
+            class="button, reload"
+            @click="update()"
+          >
+            更新
+          </button>
+        </div>
       </div>
     </div>
     <div class="editGraph">
@@ -176,7 +187,16 @@ export default {
     },
     scoreCheck () {
       return this.score < -100 || this.score > 100
+    },
+    ageExistCheck () {
+      return this.contents.find(content => content.age === this.age)
+    },
+    editError () {
+      return this.$store.state.chart.error
     }
+  },
+  created () {
+    this.$store.commit('chart/clearError')
   },
   mounted () {
     this.setContents()
@@ -247,87 +267,192 @@ export default {
       }
       this.$store.dispatch('chart/editContent', apiContents)
       // console.log(apiContents)
-      this.$store.dispatch('chart/addContent', apiContents)
+      // const userId = this.$store.state.auth.userId
+      // this.$store.dispatch('chart/addContent', userId)
     }
   }
 }
 </script>
 
 <style>
-#editSection {
+.editSection {
   background: #F3F3F9;
+  width: 100%;
+  height: 900px;
   text-align: center;
   /* padding:100px; */
 }
+
+.warning {
+  font-size: 12px;
+  text-align: right;
+  line-height: 60%;
+}
+
 #input {
+  float: left;
   background:#FFF;
   border-radius: 20px;
   color: #565452;
-  width: 40%;
-  height: 400px;
+  width: 620px;
   font-size: 12pt;
   word-break: break-all;
-  margin: 10px auto;
+  margin:0 2px 0 50px;
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
 }
-.editTitle,h1 {
-  color: #565452;
-  font-size: 30px;
+
+.marginConfig {
+  height: 90px;
+  background: #FFF;
 }
+
+.editGraph {
+  float: right;
+  background:#FFF;
+  color: #565452;
+  border-radius: 20px;
+  width: 600px;
+  height: 400px;
+  font-size: 12pt;
+  word-break: break-all;
+  margin: 0 50px 0 -2px;
+  padding: 20px;
+  text-align: center;
+  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+}
+
+.field {
+  margin: 0 auto;
+}
+
+.th1 {
+  text-align: left;
+  padding: 0 2px 8px 0;
+  width: 80px
+}
+
+.th2 {
+  text-align: left;
+  padding: 0 10px;
+  width: 80px;
+}
+
+td {
+  text-align: left;
+  padding: 0 10px;
+  width: 64px;
+}
+
+.addRecord {
+  padding: 30px 0;
+}
+
+tr {
+  height: auto;
+  /* margin: 200px 0; */
+}
+
+h1 {
+  color: #565452;
+  font-size: 40px;
+  padding-top: 80px;
+  text-align: left;
+  margin: 10px 0 30px 40px;
+}
+.resetButton {
+  width: 100px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background:rgb(204,204,204);
+  color: #FFF;
+  border-radius: 30px;
+  right: 136px;
+  top: 120px;
+  position: absolute;
+  padding: 4px 8px;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+/* add */
 .button {
+  width: 100px;
+  height: 40px;
   border: none;
   outline: none;
   background:#FE5F52;
-  border-radius: 10px;
-  margin: 10px auto;
-  padding: 6px;
+  color: #FFF;
+  border-radius: 30px;
+  right: 30px;
+  top: 120px;
+  position: absolute;
+  padding: 4px 8px;
   font-size: 12pt;
-  color:#FFF
+  cursor: pointer;
 }
 
 .button.disabled {
   background: #ffbab3;
+  cursor: pointer;
+}
+
+.deleteButton {
+  position: absolute;
+  right: 96px;
+  width: 60px;
+  border: none;
+  outline: none;
+  background:rgb(204,204,204);
+  color: #FFF;
+  padding: 4px;
+  border-radius: 30px;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+.editButton {
+  position : absolute;
+  right : 30px;
+  width: 60px;
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  color: #FFF;
+  padding: 4px;
+  border-radius: 30px;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+/* 更新 */
+button {
+  width: 90px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background:#FE5F52;
+  color: #FFF;
+  border-radius: 30px;
+  margin: 0 5px;
+  padding: 4px 8px;
+  font-size: 12pt;
+  cursor: pointer;
 }
 
 .commentTable {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
+  width: 240px;
   }
-.listInfo {
-  overflow: hidden;
-  background:#FFF;
-  border-radius: 20px;
-  color: #565452;
-  width: 60%;
-  height: 400px;
-  font-size: 12pt;
-  word-break: break-all;
-  margin: 10px auto;
-  padding: 20px;
-  text-align: center;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
-}
-.editGraph {
-  background:#FFF;
-  color: #565452;
-  border-radius: 20px;
-  width: 50%;
-  height: 400px;
-  font-size: 12pt;
-  word-break: break-all;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
-}
+
 .reload {
   position : absolute;
-  bottom : 20px;
-  right : 20px;
+  bottom : 30px;
+  right : 30px;
+}
+
+#chart {
+  padding: 8px 12px 8px 6px;
 }
 </style>

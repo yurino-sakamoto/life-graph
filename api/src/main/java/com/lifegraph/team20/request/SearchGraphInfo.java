@@ -1,20 +1,61 @@
+package com.lifegraph.team20.request;
+
+import java.sql.Timestamp;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class SearchGraphInfo {
+
+    private String username;
+
+	private Long user_id;
+
+	private Timestamp created_at;
+
+	private Timestamp updated_at;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //package com.lifegraph.team20.payload.request;
 //
 //import java.sql.Timestamp;
 //
+//import lombok.Data;
 //
+//@Data
 //public class SearchGraphInfo {
 //	private String username;
 //	private int user_id;
 //	private Timestamp created_at;
 //	private Timestamp updated_at;
 //
-//	public SearchGraphInfo(String username, int user_id, Timestamp created_at, Timestamp updated_at) {
-//		this.setName(username);
-//		this.setId(user_id);
-//		this.setCreated(created_at);
-//		this.setUpdated(updated_at);
-//	}
+//		public SearchGraphInfo(String username, int user_id, Timestamp created_at, Timestamp updated_at) {
+//			this.setUsername(username);
+//			this.setUser_id(user_id);
+//			this.setCreated_at(created_at);
+//			this.setUpdated_at(updated_at);
+//		}
+// }
 //
 //	public String getName() {
 //		return username;

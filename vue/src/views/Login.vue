@@ -26,10 +26,14 @@
         </button>
       </div>
     </div>
+    <div v-if="loginError">
+      エラーです
+    </div>
   </div>
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -40,12 +44,19 @@ export default {
   computed: {
     token () {
       return this.$store.state.auth.token
+    },
+    loginError () {
+      // console.log(this.$store.state.auth.error)
+      return this.$store.state.auth.error
     }
   },
   watch: {
     token (newToken) {
       this.$router.push('/top')
     }
+  },
+  created () {
+    this.$store.commit('auth/clearError')
   },
   methods: {
     login () {

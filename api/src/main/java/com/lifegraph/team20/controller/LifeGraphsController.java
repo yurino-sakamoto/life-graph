@@ -44,14 +44,8 @@ public class LifeGraphsController {
   // TODO 管理者権限関連の設定
   // パスパラメータを受け取れていない（/1のこと パスバリアブルでidを取得すると1が返却（調べる））
   // 削除（現状、問題点：1テーブルのみ）
-  @DeleteMapping(value = "/{parentId}")
+  @DeleteMapping(value = "/life-graphs/{parentId}")
   public ResponseEntity<Void> deleteTable(@PathVariable("parentId") long parentId) {
-    // パスバリアブル
-    // デリートの手順
-    // 持っておいて欲しいもの（user_id,Authority）
-    // ①
-    // ②
-    // 管理者権限以上・削除などののビジネスロジックを実行↓↓
     service.deleteTable(parentId);
     return ResponseEntity.noContent().build();
   }
