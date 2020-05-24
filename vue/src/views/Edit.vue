@@ -60,6 +60,10 @@
             </td>
           </tr>
         </table>
+        <div class="warning">
+          <br><p>※スコアは-100から100の範囲で指定してください。</p>
+          <p>※コメントは250文字以内で入力してください。</p><br>
+        </div>
         <button
           class="resetButton"
           @click="removetext(age,score,comment)"
@@ -74,10 +78,6 @@
         >
           {{ changeButtonText }}
         </button>
-        <div class="warning">
-          <br><p>※スコアは-100から100の範囲で指定してください。</p>
-          <p>※コメントは250文字以内で入力してください。</p><br>
-        </div>
         <div v-if="ageCheck">
           年齢が不正です
         </div>
@@ -88,7 +88,7 @@
           更新に失敗しました。
         </div>
         <div class="listInfo">
-          <table>
+          <table class="tableRecord">
             <thead>
               <tr>
                 <th class="th2">
@@ -113,7 +113,7 @@
                 <td class="addRecord">
                   {{ content.score }}
                 </td>
-                <td class="commentTable, addRecord">
+                <td class="commentTable">
                   {{ content.comment }}
                 </td>
                 <button
@@ -285,8 +285,11 @@ export default {
 
 .warning {
   font-size: 12px;
-  text-align: right;
+  text-align: left;
   line-height: 60%;
+  left: 340px;
+  bottom: 90px;
+  position: relative;
 }
 
 #input {
@@ -324,7 +327,11 @@ export default {
 }
 
 .field {
-  margin: 0 auto;
+  margin: 0 0 30px 0;
+}
+
+.tableRecord {
+  margin: 20px 0 0 0;
 }
 
 .th1 {
@@ -339,14 +346,25 @@ export default {
   width: 80px;
 }
 
+.listInfo {
+  margin: 50px 0 0 0;
+}
+
 td {
   text-align: left;
-  padding: 0 10px;
+  padding: 0 5px;
   width: 64px;
 }
 
 .addRecord {
-  padding: 30px 0;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.commentTable {
+  width: 240px;
+  padding: 5px 0 5px 16px;
+  text-align: left;
 }
 
 tr {
@@ -359,7 +377,7 @@ h1 {
   font-size: 40px;
   padding-top: 80px;
   text-align: left;
-  margin: 10px 0 30px 40px;
+  margin: 20px 0 30px 40px;
 }
 .resetButton {
   width: 100px;
@@ -370,7 +388,7 @@ h1 {
   color: #FFF;
   border-radius: 30px;
   right: 136px;
-  top: 120px;
+  top: 180px;
   position: absolute;
   padding: 4px 8px;
   font-size: 12pt;
@@ -387,7 +405,7 @@ h1 {
   color: #FFF;
   border-radius: 30px;
   right: 30px;
-  top: 120px;
+  top: 180px;
   position: absolute;
   padding: 4px 8px;
   font-size: 12pt;
@@ -441,10 +459,6 @@ button {
   font-size: 12pt;
   cursor: pointer;
 }
-
-.commentTable {
-  width: 240px;
-  }
 
 .reload {
   position : absolute;

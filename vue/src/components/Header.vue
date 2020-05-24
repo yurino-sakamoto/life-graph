@@ -112,7 +112,7 @@ export default {
       width: 100%;
     }
     .link {
-      padding: 0 50px 50px 0;
+      padding: 0 20px 20px 0;
       color: #565452;
       font-size: 36px;
       text-shadow: none;
