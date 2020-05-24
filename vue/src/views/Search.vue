@@ -4,14 +4,14 @@
     <h1>Let`s Search LifeGraph</h1>
     <div class="form-item">
       <label for="username" />
+      <!--↓↓ 名前入力 ↓↓-->
       <input v-model="username" placeholder="UserName">
-      <!-- 範囲指定しなければいけない↓ -->
       <label for="date" />
       <input v-model="date" type="date">
       〜〜
       <label for="date" />
       <input v-model="date" type="date">
-      <button class="btn" @click="searchUser()">
+      <button class="btn" @click="searchGraphData()">
         Search
       </button>
     </div>
@@ -27,14 +27,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(searchResults,index) in contents" :key="index">
-              <td>{{ index + 1 }}</td>
-              <td>{{ content.name }}</td>
-              <td>{{ content.created }}</td>
+            <tr v-for="(searchResults, searchItems) in contents" :key="searchItems.id">
+              <!-- <td>{{ index + 1 }}</td> -->
+              <td>{{ searchItems.username }}</td>
+              <td>{{ searchItems.created_at | moment }}</td>
+              <td>{{ searchItems.updated_at | moment }}</td>
               <button @click="userReference()">
                 参照
               </button>
-              <button v-if="authCheck()" @click="deleteGraphData(index, id)">
+              <button v-if="authCheck()" @click="deleteGraphData(userId)">
                 削除
               </button>
             </tr>
@@ -67,30 +68,30 @@ export default {
       name: null,
       created: null,
       isActive: false,
+      searchItems: [],
       serchResults: [],
       load: true,
       editIndex: -1
     }
   },
   methods: {
-    searchUser () {
+    searchGraphData () {
       this.$store.dispatch('search/searchAPI')
+      // const SearchName = this.$store.state.search
+      // const SearchUpdateTime =this.$store.state.search
+    },
+    setSearchItems () {
+      this.searchItems = this.$store.state.search.searchItems
     },
     // TODO 管理者関連のの記述
-    // authCheck () {
-    //   const auth = this.$store.
-    //   if ( auth === ROLE_USER || auth === ROLE_ADMIN) {
-
-    //   } else {
-
-    //   }
-    // }
-    deleteGraphData (index, userID) {
-      if (confirm('削除ok?')) {
-        const userId = this.$store.state.auth.userId
-        this.$store.dispatch('search/deleteGraphData', userId)
-        this.filteredItems.splice(index, 1)
-      }
+    authCheck () {
+      // 変更の必要あり
+      const auth = this.$store.state.accountInfo
+      return auth === 'ROLE_USER' || auth === 'ROLE_ADMIN'
+    },
+    deleteGraphData (userID) {
+      const userId = this.$store.state.auth.userId
+      this.$store.dispatch('search/deleteGraphData', userId)
     }
   }
 }
