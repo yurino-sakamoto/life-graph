@@ -152,19 +152,14 @@ export default {
   cursor: pointer;
 
   :active {
-      top:3px;
-      box-shadow:none;
-    }
-}
+    top:3px;
+    box-shadow:none;
+  }
 
-.btn:focus {
-  outline: 0;
+  :focus {
+    outline: 0;
+  }
 }
-
-  // label[for]{
-  //   margin: 10px 90px 10px 20px;
-  //   display: block;
-  // }
 
 .textBox {
   display: block;
