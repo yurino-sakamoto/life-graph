@@ -33,7 +33,7 @@ const routes = [
     component: Search
   },
   {
-    path: '/reference',
+    path: '/reference/:userId',
     name: 'Reference',
     component: Reference
   }

@@ -18,7 +18,7 @@
           </div>
           <div class="textBox">
             <label class="label2">パスワード</label>
-            <input v-model="password" class="text" type="textbox">
+            <input v-model="password" class="text" type="password">
           </div>
         </div>
         <button class="btn" @click="login()">
@@ -46,7 +46,6 @@ export default {
       return this.$store.state.auth.token
     },
     loginError () {
-      // console.log(this.$store.state.auth.error)
       return this.$store.state.auth.error
     }
   },
@@ -57,6 +56,7 @@ export default {
   },
   created () {
     this.$store.commit('auth/clearError')
+    this.$store.commit('chart/clearState')
   },
   methods: {
     login () {

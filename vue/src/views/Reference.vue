@@ -1,19 +1,22 @@
 <template>
   <div class="referenceSection">
-      <Header />
-      <h1>
-        There is only one success
-        - to be able to spend you life in your own way.
-      </h1>
-      <h2>
-        成功の道はただ一つ、自分だけの生き方を見つけることだ ―Christopher Morley
-      </h2>
-      <div class="referenceModule">
-      <Chart v-bind="UserId" class="referenceChart" />
+    <Header />
+    <h1>
+      There is only one success
+      - to be able to spend you life in your own way.
+    </h1>
+    <h2>
+      成功の道はただ一つ、自分だけの生き方を見つけることだ ―Christopher Morley
+    </h2>
+    <div class="referenceModule">
+      <Chart
+        v-if="loaded"
+        :reference-mode="true"
+        class="referenceChart"
+      />
     </div>
   </div>
 </template>
-<!--4~8,30~34行目いらんかも。テスト設計には必要とあるが、ヘッダーにボタンがある。とりあえず放置。-->
 
 <script>
 import Header from '../components/Header.vue'
@@ -30,6 +33,14 @@ export default {
       referenceId: parseInt(this.$route.params.userId)
       // アクセス前のページでuserIdを指定している。parseIntはint型変換。これをチャートがバインド。
     }
+  },
+  computed: {
+    loaded () {
+      return this.$store.state.chart.loaded
+    }
+  },
+  created () {
+    this.$store.dispatch('chart/getReference', this.referenceId)
   }
 }
 </script>

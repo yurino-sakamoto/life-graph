@@ -10,25 +10,33 @@ Vue.use(Vuex)
 // ④情報を取り出し、検索結果画面に詰める
 
 export default {
+  namespaced: true,
   state: {
     searchItems: [],
-    error: ''
+    error: '',
+    showResult: false
   },
   mutations: {
     searchAPI (state, payload) {
       state.searchItems = payload
+      state.showResult = true
     },
     error (state, err) {
       state.error = err
     },
     clearError (state) {
       state.error = ''
+    },
+    loadFalse (state) {
+      state.showResult = false
     }
   },
   actions: {
-    searchAPI ({ commit }, data) {
+    async searchAPI ({ commit }, data) {
+      // console.log('actionにきたよー！')
       const url = '/api/search'
-      axios.get(url, data).then(res => commit('searchAPI', res.data))
+      await axios.get(url, data).then(res => commit('searchAPI', res.data))
+      // console.log('API終了')
     },
     deleteGraphData ({ commit }, userId) {
       const url = '/api/life-graphs/' + userId
