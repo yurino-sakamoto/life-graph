@@ -67,7 +67,7 @@
           リセット
         </button>
         <button
-          class="addButton"
+          class="button"
           :disabled="!inputCheck || ageCheck || scoreCheck || ageExistCheck"
           :class="{'disabled': ageCheck || scoreCheck || !inputCheck}"
           @click="add"
@@ -352,7 +352,7 @@ h1 {
   cursor: pointer;
 }
 
-.addButton {
+.button {
   width: 100px;
   height: 40px;
   border: none;
