@@ -1,7 +1,7 @@
 <template>
   <div class="headderSection">
     <div class="logoParent">
-      <img class="pageLogo" src="../assets/logologo.png" alt="ロゴ">
+      <img class="pageLogo" src="../assets/lifegraphLogo.png" alt="ロゴ">
     </div>
     <div class="nav">
       <router-link to="/top" class="link" @click="resetData">
@@ -84,44 +84,44 @@ export default {
   left: 10px;
   margin: 20px 10px 10px 10px;
 }
-.nav {
-  position : fixed;
-  top : 0;
-  left: 35%;
-  z-index : 10;
-  font-size: 1.4rem;
-  color: white;
-  font-weight: bold;
-  text-shadow: 1px 1px 3px #000;
-  text-decoration: none;
-  transition: .3s;
-  padding: 15px 20px 5px  20px;
-  display: inline-block;
-  :hover {
-      opacity: 0.5;
-    }
-    ::after {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      content: '';
-      width: 0;
-      height: 2px;
-      background-color: white;
-      transition: .3s;
-      transform: translateX(-50%);
-    }
-    :hover::after {
-      width: 100%;
-    }
-    .link {
-      padding: 0 20px 20px 0;
-      color: #565452;
-      font-size: 36px;
-      text-shadow: none;
-      text-decoration: none;
-    }
-}
+  .nav {
+    position : fixed;
+    top : 0;
+    left: 100px;
+    z-index : 10;
+    font-size: 1.2rem;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px #000;
+    text-decoration: none;
+    transition: .3s;
+    padding: 15px 20px 5px  20px;
+    display: inline-block;
+    :hover {
+        opacity: 0.5;
+      }
+      ::after {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        content: '';
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: .3s;
+        transform: translateX(-50%);
+      }
+      :hover::after {
+        width: 100%;
+      }
+      .link {
+        padding: 0 30px 20px 0;
+        color: #565452;
+        font-size: 32px;
+        text-shadow: none;
+        text-decoration: none;
+      }
+  }
     ul{
       text-align: right;
       li{
@@ -156,9 +156,11 @@ export default {
     top : 20px;
     left: 90%;
     z-index : 10;
-    :hover {
-      background-position: right center;
-    }
+      :hover {
+      background-color: #8566ce;
+      color: #FFF;
+      }
+
   }
 }
 </style>

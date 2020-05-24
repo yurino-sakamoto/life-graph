@@ -432,6 +432,10 @@ h1 {
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
+  /* .hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
 }
 
 /* 追加→完了 */
@@ -449,6 +453,10 @@ h1 {
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
+  /* .hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
 }
 
 .button.disabled {
@@ -468,6 +476,10 @@ h1 {
   border-radius: 30px;
   font-size: 12pt;
   cursor: pointer;
+  /* .hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
 }
 
 .editButton {
@@ -482,6 +494,10 @@ h1 {
   border-radius: 30px;
   font-size: 12pt;
   cursor: pointer;
+  /* :hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
 }
 
 /* 更新 */
@@ -497,6 +513,10 @@ button {
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
+  /* :hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
 }
 
 .reload {

@@ -5,7 +5,7 @@
       Graph
     </div>
     <div class="logoParent">
-      <!-- <img class="pageLogo" src="../assets/logologo.png" alt="ロゴ"> -->
+      <img class="pageLogo" src="../assets/lifegraphLogo.png" alt="ロゴ">
     </div>
     <div class="loginArea">
       <div class="login">
@@ -77,7 +77,7 @@ export default {
 
 .loginSection {
   background: #F3F3F9;
-  height: 760px;
+  height: 740px;
   background-size: cover;
 
   .titleLogo {
@@ -109,11 +109,11 @@ export default {
 }
 
 .pageLogo {
-  width: 500px;
+  width: 480px;
   margin: 0 0 0 30px;
-  position: relative;
-  left: 180px;
-  bottom: -50px;
+  position: fixed;
+  left: 250px;
+  bottom: -30px;
   letter-spacing: -2px;
 }
 
@@ -166,7 +166,7 @@ export default {
   border-radius: 40px;
   position:relative;
   left: 20px;
-  top: 20px;
+  top: 18px;
   width: 130px;
   height: 50px;
   padding-bottom: 6px;
@@ -176,20 +176,16 @@ export default {
   text-shadow:1px 1px 0px rgba(0,0,0,.1);
   cursor: pointer;
 
-  :active {
-    top:3px;
-    box-shadow:none;
-  }
-
-  :focus {
-    outline: 0;
+  :hover {
+    background-color: #8566ce;
+    color: #FFF;
   }
 }
 
 .error {
   position: relative;
-  left: 1030px;
-  bottom: 170px;
+  left: 1048px;
+  bottom: 160px;
   font-size: 1.2em;
   font-weight: 600;
   color: #F6FB17;
