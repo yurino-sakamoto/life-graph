@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <Header />
-    <h1>Let`s Search LifeGraph</h1>
+    <h1>Let's Search LifeGraph !</h1>
     <div class="form-item">
       <label for="username" />
       <input v-model="username" placeholder="UserName">
@@ -99,20 +99,26 @@ export default {
 <style lang="scss" scoped>
 .search {
   margin-top: 80px;
-  background: radial-gradient(white, #E5E5E9);
+  background: #F3F3F9;
   height: 100%;;
 
   h1 {
-    text-align: center;
+    text-align: left;
+    top: -25px;
+    margin: 0 0 0 10px;
     padding: 30px;
-    font-size: 50px;
-    font-weight: bold;
+    margin: 0 0 0 30px;
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 0.8em;
+    letter-spacing: -1px;
   }
 
   h2 {
     text-align: center;
     padding: 20px;
     font-size: 40px;
+    color: #565452;
     font-weight: bold;
   }
 
@@ -150,8 +156,9 @@ export default {
   }
 
   .btn {
-    position:relative;
     padding: 0.3em;
+    margin-right: auto;
+    margin-left : auto;
     width: 100%;
     max-width: 370px;
     height: 50px;
