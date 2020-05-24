@@ -131,8 +131,7 @@
               </tr>
             </tbody>
           </table>
-          <div class="marginConfig">
-          </div>
+          <div class="marginConfig" />
           <button
             class="button, reload"
             @click="update()"
