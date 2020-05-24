@@ -2,11 +2,14 @@
   <div class="referenceSection">
     <div class="referenceGraph">
       <Header />
-      <Chart v-bind="UserId" class="referenceChart" />
+      <Chart
+        v-if="loaded"
+        :reference-mode="true"
+        class="referenceChart"
+      />
     </div>
   </div>
 </template>
-<!--4~8,30~34行目いらんかも。テスト設計には必要とあるが、ヘッダーにボタンがある。とりあえず放置。-->
 
 <script>
 import Header from '../components/Header.vue'
@@ -23,6 +26,14 @@ export default {
       referenceId: parseInt(this.$route.params.userId)
       // アクセス前のページでuserIdを指定している。parseIntはint型変換。これをチャートがバインド。
     }
+  },
+  computed: {
+    loaded () {
+      return this.$store.state.chart.loaded
+    }
+  },
+  created () {
+    this.$store.dispatch('chart/getReference', this.referenceId)
   }
 }
 </script>

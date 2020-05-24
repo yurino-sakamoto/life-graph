@@ -32,7 +32,7 @@
               <td>{{ index + 1 }}</td>
               <td>{{ searchItem.userName }}</td>
               <td>{{ searchItem.updated_at | moment }}</td>
-              <button @click="userReference()">
+              <button @click="userReference(searchItem.user_id)">
                 参照
               </button>
               <button v-if="!authCheck" @click="deleteGraphData(searchItem.user_id)">
@@ -75,16 +75,24 @@ export default {
       dateFrom: '',
       toDate: '',
       isActive: false,
-      searchItems: [],
       load: true,
-      editIndex: -1,
-      showResult: false
+      editIndex: -1
     }
   },
   computed: {
     authCheck () {
       return this.$store.state.account.accountInfo.name === 'ROLE_USER'
+    },
+    showResult () {
+      return this.$store.state.search.showResult
+    },
+    searchItems () {
+      return this.$store.state.search.searchItems
     }
+  },
+  created () {
+    this.$store.commit('search/loadFalse')
+    this.$store.commit('chart/loadFalse')
   },
   methods: {
     searchGraphData () {
@@ -98,8 +106,10 @@ export default {
       // console.log('API叩いた')
       // const SearchName = this.$store.state.search
       // const SearchUpdateTime =this.$store.state.search
-      this.searchItems = this.$store.state.search.searchItems
-      this.showResult = true
+    },
+    userReference (userId) {
+      this.$router.push({ name: 'Reference', params: { userId: userId } })
+      // 画面遷移メソッド
     },
     // TODO 管理者関連のの記述
     deleteGraphData (userId) {

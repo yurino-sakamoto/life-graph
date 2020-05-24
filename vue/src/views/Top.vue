@@ -18,10 +18,10 @@ export default {
   components: {
     Header,
     Chart
+  },
+  created () {
+    this.$store.dispatch('chart/addContent', this.$store.state.auth.userId)
   }
-  // created () {
-  //   this.$store.commit('chart/clear')
-  // }
 }
 </script>
 
