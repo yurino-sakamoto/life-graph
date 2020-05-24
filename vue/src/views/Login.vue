@@ -5,7 +5,7 @@
       Graph
     </div>
     <div class="logoParent">
-      <img class="pageLogo" src="../assets/logologo.png" alt="ロゴ">
+      <!-- <img class="pageLogo" src="../assets/logologo.png" alt="ロゴ"> -->
     </div>
     <div class="loginArea">
       <div class="login">
@@ -295,5 +295,41 @@ export default {
 //   font-weight: 200;
 //   font-family: 'Roboto', sans-serif;
 // }
+}
+
+.loginSection {
+  background: #DDD6F3;
+  -webkit-animation:colour 20s linear infinite;
+    // -moz-animation:colour 20s linear infinite;
+
+}
+@-webkit-keyframes colour{
+    0%{
+        background: #FFFFFF;
+    }
+
+    10%{
+        background: #F4F5FE;
+    }
+
+    30%{
+        background: #F3F3F9;
+    }
+
+    50%{
+        background: #DDD6F3;
+    }
+
+    70%{
+        background: #F3F3F9;
+    }
+
+    90%{
+        background: #F4F5FE;
+    }
+
+    100%{
+        background: #FFFFFF;
+    }
 }
 </style>

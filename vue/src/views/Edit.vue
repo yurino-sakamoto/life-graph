@@ -16,10 +16,11 @@
             <th>
               <td>
                 <input
-                  id="age"
+                  id="ageInput"
                   ref="editor"
                   v-model="age"
                   type="number"
+                  style="font-size:20px"
                   autocomplete="off"
                   @keyup.enter="changeContents"
                 >
@@ -34,10 +35,11 @@
             </th>
             <td>
               <input
-                id="score"
+                id="scoreInput"
                 ref="editor"
                 v-model="score"
                 type="number"
+                style="font-size:20px"
                 autocomplete="off"
               >
             </td>
@@ -50,9 +52,10 @@
             </th>
             <td>
               <textarea
-                id="comment"
+                id="commentInput"
                 ref="editor"
                 v-model="comment"
+                style="font-size:16px"
                 cols="30"
                 rows="5"
                 placeholder="内容を入力してください。"
@@ -312,6 +315,36 @@ export default {
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
 }
 
+#ageInput {
+  border: none;
+  outline: none;
+  width: 70px;
+  height: 32px;
+  border-radius: 32px;
+  background: #F2F3F4;
+  color: #565452;
+}
+
+#scoreInput {
+  border: none;
+  outline: none;
+  width: 70px;
+  height: 32px;
+  border-radius: 32px;
+  background: #F2F3F4;
+  color: #565452;
+}
+
+#commentInput {
+  border: none;
+  outline: none;
+  width: 220px;
+  height: 80px;
+  border-radius: 32px;
+  background:#F2F3F4;
+  color: #565452;
+}
+
 .marginConfig {
   height: 90px;
   background: #FFF;
@@ -476,6 +509,8 @@ button {
   padding: 8px 12px 8px 6px;
   z-index: 90;
 }
+
+/* 入力フォーム */
 
 /* バリデーション */
 .ageCheck {
