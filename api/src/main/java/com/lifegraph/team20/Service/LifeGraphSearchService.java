@@ -12,18 +12,20 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 //
+//import com.lifegraph.team20.repository.SearchRepository;
+//
 //@Service
 //public class LifeGraphSearchService {
-//
+
 //	@Autowired
 //	private SearchRepository searchRepository;
 //
-//	public List<SearchGraphInfo> SelectSearchGraphInfo(Optional<String> likeName, Optional<Date> startDate, Optional<Date> finishDate) {
+//	public List<SearchResponse> Search(Optional<String> likeName, Optional<Date> startDate, Optional<Date> finishDate) {
 //
 //	String sql = generateSqlForSearch(likeName, startDate, finishDate);
 //
-//	List<SearchGraphInfo> searchGraphInfos = SearchRepository.
-//
+//	List<SearchGraphInfo> searchGraphInfos = SearchRepository.searchGraphs(sql)
+//	return convertToResponse(searchGraphInfos);
 //	}
 //
 //
@@ -59,8 +61,8 @@
 //		calendar.add(Calendar.DATE, 1);
 //		return calendar.getTime();
 //	}
-//
-//	private List<SearchResponse> convertToResponse(List<SearchResultSet> resultSet) {
+
+//	private List<SearchResponse> convertToResponse(List<SearchGraphInfo> resultSet) {
 //	 if (CollictionUtils.isEmpty(resultSet)) {
 //		 return new ArrayList<>();
 //	 }
