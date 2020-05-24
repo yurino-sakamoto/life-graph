@@ -63,6 +63,7 @@ export default {
       this.$store.commit('account/resetAccountInfo')
       // ログイン画面に遷移
       this.$router.push('/login')
+      this.$store.commit('chart/clearState')
     }
   }
 }

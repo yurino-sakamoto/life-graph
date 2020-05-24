@@ -56,6 +56,7 @@ export default {
   },
   created () {
     this.$store.commit('auth/clearError')
+    this.$store.commit('chart/clearState')
   },
   methods: {
     login () {

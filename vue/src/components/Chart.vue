@@ -4,8 +4,7 @@ import { Line } from 'vue-chartjs'
 export default {
   name: 'Lifechart',
   extends: Line,
-  props: { // propsとv-bind・・子コンポーネントにデータを渡す。子はpropsで受け取る。
-    referenceId: { default: null, type: Number, required: false },
+  props: {
     referenceMode: { default: false, type: Boolean, required: false }
   }, // デフォルトで値なし。データ型は数値。requiredでfalseのこともある。reference.vueのchartに定義。
   data () {
@@ -79,12 +78,6 @@ export default {
   },
   mounted () {
     this.contents = [] // contents初期化
-    if (this.referenceMode) { // 【参照画面】7行目のreferenceModeにより変化。referenceIdに沿ったアクションでstateを更新する。
-      this.$store.dispatch('chart/getReference', this.referenceId)
-    } else {
-      const userId = this.$store.state.auth.userId // 変数userIdを定義。ログイン情報取得を省略するため。
-      this.$store.dispatch('chart/addContent', userId)
-    }
     this.createChart() // TOP画面用。登録していないユーザーに空のグラフを描画。
   },
   methods: {

@@ -36,11 +36,20 @@ export default {
     error (state, err) {
       state.error = err
     },
+    clearState (state) {
+      state.parentId = null
+      state.contents = []
+      state.otherMemberContents = []
+    },
     clearError (state) {
       state.error = ''
     },
     getReferenceMutation (state, contents) { // 検索画面のやつ
       state.otherMemberContents = contents
+      state.loaded = true
+    },
+    loadFalse (state) {
+      state.loaded = false
     }
   },
   actions: {

@@ -3,14 +3,13 @@
     <div class="referenceGraph">
       <Header />
       <Chart
-        :reference-id="referenceId"
+        v-if="loaded"
         :reference-mode="true"
         class="referenceChart"
       />
     </div>
   </div>
 </template>
-<!---->
 
 <script>
 import Header from '../components/Header.vue'
@@ -27,6 +26,14 @@ export default {
       referenceId: parseInt(this.$route.params.userId)
       // アクセス前のページでuserIdを指定している。parseIntはint型変換。これをチャートがバインド。
     }
+  },
+  computed: {
+    loaded () {
+      return this.$store.state.chart.loaded
+    }
+  },
+  created () {
+    this.$store.dispatch('chart/getReference', this.referenceId)
   }
 }
 </script>
