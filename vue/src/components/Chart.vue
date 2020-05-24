@@ -75,9 +75,9 @@ export default {
     this.setComment()
     this.renderChart(this.data, this.options)
   },
-  destroyed () {
-    this.$store.commit('chart/resetContents')
-  },
+  // destroyed () {
+  //   this.$store.commit('chart/resetContents')
+  // },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue
       this.data.labels = this.$store.state.chart.contents.map((content) => {

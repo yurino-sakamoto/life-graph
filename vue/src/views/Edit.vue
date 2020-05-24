@@ -84,6 +84,11 @@
         <div v-if="scoreCheck">
           スコアが不正です
         </div>
+        <div v-if="editError">
+          更新に失敗しました。
+        </div>
+      </div>
+      <div class="listInfo">
         <table>
           <thead>
             <tr>
@@ -184,7 +189,13 @@ export default {
     },
     ageExistCheck () {
       return this.contents.find(content => content.age === this.age)
+    },
+    editError () {
+      return this.$store.state.chart.error
     }
+  },
+  created () {
+    this.$store.commit('chart/clearError')
   },
   mounted () {
     this.setContents()
@@ -246,7 +257,7 @@ export default {
         'chart/addData',
         this.contents
       )
-      const currentParentId = this.$store.state.chart.contents[0].parentId
+      const currentParentId = 10
       const currentUserId = this.$store.state.auth.userId
       const apiContents = {
         parentId: currentParentId,
@@ -254,9 +265,9 @@ export default {
         children: this.$store.state.chart.contents
       }
       this.$store.dispatch('chart/editContent', apiContents)
-      // console.log(apiContents)
-      const userId = this.$store.state.auth.userId
-      this.$store.dispatch('chart/addContent', userId)
+      console.log(apiContents)
+      // const userId = this.$store.state.auth.userId
+      // this.$store.dispatch('chart/addContent', userId)
     }
   }
 }

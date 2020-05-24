@@ -9,7 +9,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.lifegraph.team20.payload.request.RegisterChildRequest;
 
@@ -38,7 +37,7 @@ public class ChildGraph {
   @Min(-100)
   private Integer score;
 
-  @Size(max = 100, min = 1)
+  @Max(255)
   private String comment;
 
   public ChildGraph(Long parentId, RegisterChildRequest request) {
