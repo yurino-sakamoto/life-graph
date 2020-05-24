@@ -4,13 +4,13 @@
       <img class="pageLogo" src="../assets/logologo.png" alt="ロゴ">
     </div>
     <div class="nav">
-      <router-link to="/top" class="link" @click="resetData">
+      <router-link to="/top" class="link">
         Top
       </router-link>
-      <router-link to="/edit" class="link" @click="resetData">
+      <router-link to="/edit" class="link">
         Edit
       </router-link>
-      <router-link to="/search" class="link" @click="resetData">
+      <router-link to="/search" class="link">
         Search
       </router-link>
     </div>
@@ -54,9 +54,6 @@ export default {
       } else { // roleが上記以外のとき
         this.authority = 'Owner'
       }
-    },
-    resetData () { // ヘッダーのボタンクリックでグラフのデータ初期化。
-      this.$store.commit('chart/resetContents')
     },
     // ログアウト（authのstateのtokenを消す）
     logout () {

@@ -11,7 +11,7 @@
       〜〜
       <label for="date" />
       <input v-model="date" type="date">
-      <button class="btn" @click="searchUser()">
+      <button class="btn" @click="userReference()">
         Search
       </button>
     </div>
@@ -27,11 +27,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(searchResults,index) in contents" :key="index">
+            <tr v-for="(user,index) in users" :key="index">
               <td>{{ index + 1 }}</td>
-              <td>{{ content.name }}</td>
-              <td>{{ content.created }}</td>
-              <button @click="userReference()">
+              <td>{{ user.name }}</td>
+              <td>{{ user.created }}</td>
+              <button @click="userReference(user.id)">
                 参照
               </button>
               <button v-if="authCheck()" @click="deleteGraphData(index, id)">
@@ -91,6 +91,10 @@ export default {
         this.$store.dispatch('search/deleteGraphData', userId)
         this.filteredItems.splice(index, 1)
       }
+    },
+    userReference (id) {
+      this.$router.push({ name: 'Reference', params: { userId: id } })
+      // 画面遷移メソッド
     }
   }
 }

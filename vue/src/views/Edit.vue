@@ -142,13 +142,6 @@
       </div>
       <div class="editGraph">
         <div
-          v-if="loaded"
-          class="chart"
-        >
-          <Chart />
-        </div>
-        <div
-          v-if="loaded"
           class="chart"
         >
           <Chart />
@@ -203,19 +196,14 @@ export default {
   },
   created () {
     this.$store.commit('chart/clearError')
+    this.$store.dispatch('chart/addContent', this.$store.state.auth.userId)
   },
   mounted () {
     this.setContents()
   },
   methods: {
     setContents () {
-      this.contents = this.$store.state.chart.contents.map((content) => {
-        return {
-          age: content.age,
-          score: content.score,
-          comment: content.comment
-        }
-      })
+      this.contents = this.$store.state.chart.contents.slice()
     },
     // テキストボックス値削除
     removetext: function (removeitem) {
@@ -247,7 +235,6 @@ export default {
       this.age = ''
       this.score = ''
       this.comment = ''
-      // console.log(this.contents)
     },
     edit (index) {
       this.editIndex = index
@@ -264,7 +251,7 @@ export default {
         'chart/addData',
         this.contents
       )
-      const currentParentId = this.$store.state.chart.contents[0].parentId
+      const currentParentId = this.$store.state.chart.parentId
       const currentUserId = this.$store.state.auth.userId
       const apiContents = {
         parentId: currentParentId,
@@ -272,7 +259,6 @@ export default {
         children: this.$store.state.chart.contents
       }
       this.$store.dispatch('chart/editContent', apiContents)
-      // console.log(apiContents)
       // const userId = this.$store.state.auth.userId
       // this.$store.dispatch('chart/addContent', userId)
     }

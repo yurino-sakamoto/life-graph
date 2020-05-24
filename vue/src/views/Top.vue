@@ -19,9 +19,6 @@ export default {
     Header,
     Chart
   }
-  // created () {
-  //   this.$store.commit('chart/clear')
-  // }
 }
 </script>
 
