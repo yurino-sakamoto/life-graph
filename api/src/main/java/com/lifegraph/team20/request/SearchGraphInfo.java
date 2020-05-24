@@ -5,6 +5,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+
+//@AllArgsConstructorでデフォルトコンストラクタを自動生成できる。
+//@Dataでgettrt,setterなど何度も繰り返し書くコードをコンパイル時に自動生成できる。
 @Data
 @AllArgsConstructor
 public class SearchGraphInfo {
