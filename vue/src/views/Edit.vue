@@ -87,7 +87,6 @@
         <div v-if="editError">
           更新に失敗しました。
         </div>
-      </div>
       <div class="listInfo">
         <table>
           <thead>
@@ -140,6 +139,7 @@
         </button>
       </div>
     </div>
+      </div>
     <d class="editGraph">
       <div
         v-if="loaded"
