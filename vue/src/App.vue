@@ -1,4 +1,4 @@
-ed<template>
+<template>
   <div id="app">
     <router-view />
     <head>
@@ -16,7 +16,7 @@ ed<template>
   }
 }
 @media only screen and (min-width:768px) and (max-width:1024px) {
- #app {
+  #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

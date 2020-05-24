@@ -3,11 +3,6 @@
     <div class="referenceGraph">
       <Header />
       <Chart v-bind="UserId" class="referenceChart" />
-      <div class="searchButtonParent">
-        <router-link to="/search">
-          <img class="searchButton" src="../assets/logo.png" alt="検索">
-        </router-link>
-      </div>
     </div>
   </div>
 </template>

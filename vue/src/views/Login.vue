@@ -113,7 +113,6 @@ export default {
   filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
   border-radius:18px;
   width:400px;
-  height: 250px;
   text-align: center;
   padding: 15px;
   position: absolute;
@@ -132,6 +131,20 @@ export default {
   .loginArea {
   text-align: center;
 }
+
+  input {
+    width:250px;
+    background:#f5f5f5;
+    border:0;
+    padding:20px;
+    border-radius:6px;
+    margin-bottom:10px;
+    border:1px solid #eee;
+
+    :focus {
+      outline: none;
+    }
+  }
 
 .btn {
   background:#7448FF;
@@ -166,10 +179,9 @@ export default {
   flex-direction: column;
   align-items: center;
   width:250px;
-  background:#f5f5f5;
   position: relative;
   text-align: center;
-  padding: 15px;
+  padding: 15px 15px 15px 0;
   font-size: 20px;
   outline: none;
   color: #565452;
@@ -178,7 +190,6 @@ export default {
   border-radius: 30px;
   height: 45px;
 }
-
 .textBox .text {
   font-weight: 500;
   width: calc(100% - 2vw);
@@ -260,20 +271,5 @@ export default {
 //   font-weight: 200;
 //   font-family: 'Roboto', sans-serif;
 // }
-
-  input {
-    width:250px;
-    background:#f5f5f5;
-    border:0;
-    padding:20px;
-    border-radius:6px;
-    margin-bottom:10px;
-    border:1px solid #eee;
-
-    :focus {
-      outline: none;
-    }
-  }
-
 }
 </style>
