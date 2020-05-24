@@ -92,10 +92,10 @@
             <thead>
               <tr>
                 <th class="th2">
-                  年齢
+                  年齢(歳)
                 </th>
                 <th class="th2">
-                  満足度
+                  満足度(%)
                 </th>
                 <th class="th2">
                   コメント
@@ -107,13 +107,13 @@
                 v-for="(content,index) in contents"
                 :key="index"
               >
-                <td>
+                <td class="addRecord">
                   {{ content.age }}
                 </td>
-                <td>
+                <td class="addRecord">
                   {{ content.score }}
                 </td>
-                <td class="commentTable">
+                <td class="commentTable, addRecord">
                   {{ content.comment }}
                 </td>
                 <button
@@ -131,6 +131,8 @@
               </tr>
             </tbody>
           </table>
+          <div class="marginConfig">
+          </div>
           <button
             class="button, reload"
             @click="update()"
@@ -293,14 +295,18 @@ export default {
   background:#FFF;
   border-radius: 20px;
   color: #565452;
-  width: 550px;
-  height: 500px;
+  width: 620px;
   font-size: 12pt;
   word-break: break-all;
-  margin:0 2px 0 70px;
+  margin:0 2px 0 50px;
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+}
+
+.marginConfig {
+  height: 90px;
+  background: #FFF;
 }
 
 .editGraph {
@@ -312,7 +318,7 @@ export default {
   height: 400px;
   font-size: 12pt;
   word-break: break-all;
-  margin: 0 70px 0 -2px;
+  margin: 0 50px 0 -2px;
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
@@ -331,13 +337,22 @@ export default {
 .th2 {
   text-align: left;
   padding: 0 10px;
-  width: 70px;
-  background: #000;
+  width: 80px;
 }
 
 td {
   text-align: left;
-  width: 30px;
+  padding: 0 10px;
+  width: 64px;
+}
+
+.addRecord {
+  padding: 30px 0;
+}
+
+tr {
+  height: auto;
+  /* margin: 200px 0; */
 }
 
 h1 {
@@ -356,13 +371,14 @@ h1 {
   color: #FFF;
   border-radius: 30px;
   right: 136px;
-  bottom: 360px;
+  top: 120px;
   position: absolute;
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
 }
 
+/* add */
 .button {
   width: 100px;
   height: 40px;
@@ -372,7 +388,7 @@ h1 {
   color: #FFF;
   border-radius: 30px;
   right: 30px;
-  bottom: 360px;
+  top: 120px;
   position: absolute;
   padding: 4px 8px;
   font-size: 12pt;
@@ -386,14 +402,14 @@ h1 {
 
 .deleteButton {
   position: absolute;
-  right: 108px;
-  width: 70px;
+  right: 96px;
+  width: 60px;
   border: none;
   outline: none;
   background:rgb(204,204,204);
   color: #FFF;
+  padding: 4px;
   border-radius: 30px;
-  padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
 }
@@ -401,17 +417,18 @@ h1 {
 .editButton {
   position : absolute;
   right : 30px;
-  width: 70px;
+  width: 60px;
   border: none;
   outline: none;
   background:#FE5F52;
   color: #FFF;
+  padding: 4px;
   border-radius: 30px;
-  padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
 }
 
+/* 更新 */
 button {
   width: 90px;
   height: 40px;
@@ -427,11 +444,7 @@ button {
 }
 
 .commentTable {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
+  width: 240px;
   }
 
 .reload {
