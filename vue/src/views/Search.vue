@@ -7,35 +7,35 @@
       <!--↓↓ 名前入力 ↓↓-->
       <input v-model="username" placeholder="UserName">
       <label for="date" />
-      <input v-model="date" type="date">
+      <input v-model="dateFrom" type="date">
       〜〜
       <label for="date" />
-      <input v-model="date" type="date">
+      <input v-model="toDate" type="date">
       <button class="btn" @click="searchGraphData()">
         Search
       </button>
     </div>
     <footer>
       <!-- 最後にv-if="serchShow()"を入れてメソッドが動いたら表示という風にする -->
-      <div>
+      <div v-if="showResult">
         <h2>検索結果</h2>
         <table>
           <thead>
             <tr>
+              <th />
               <th>ユーザー名</th>
               <th>日時</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(searchResults, searchItems) in contents" :key="searchItems.id">
-              <!-- <td>{{ index + 1 }}</td> -->
-              <td>{{ searchItems.username }}</td>
-              <td>{{ searchItems.created_at | moment }}</td>
-              <td>{{ searchItems.updated_at | moment }}</td>
+            <tr v-for="(searchItem, index) in searchItems" :key="index">
+              <td>{{ index + 1 }}</td>
+              <td>{{ searchItem.userName }}</td>
+              <td>{{ searchItem.updated_at | moment }}</td>
               <button @click="userReference()">
                 参照
               </button>
-              <button v-if="authCheck()" @click="deleteGraphData(userId)">
+              <button v-if="!authCheck" @click="deleteGraphData(searchItem.user_id)">
                 削除
               </button>
             </tr>
@@ -57,40 +57,52 @@
 
 <script>
 import Header from '../components/Header.vue'
+import moment from 'moment'
 
 export default {
   name: 'App',
   components: {
     Header
   },
+  filters: {
+    moment: function (date) {
+      return moment(date).format('yyyy/MM/DD')
+    }
+  },
   data () {
     return {
-      name: null,
-      created: null,
+      username: '',
+      dateFrom: '',
+      toDate: '',
       isActive: false,
       searchItems: [],
-      serchResults: [],
       load: true,
-      editIndex: -1
+      editIndex: -1,
+      showResult: false
+    }
+  },
+  computed: {
+    authCheck () {
+      return this.$store.state.account.accountInfo.name === 'ROLE_USER'
     }
   },
   methods: {
     searchGraphData () {
-      this.$store.dispatch('search/searchAPI')
+      const data = {
+        userName: this.username,
+        startDate: this.dateFrom,
+        finishDate: this.toFrom
+      }
+      console.log('API叩く前')
+      this.$store.dispatch('search/searchAPI', data)
+      console.log('API叩いた')
       // const SearchName = this.$store.state.search
       // const SearchUpdateTime =this.$store.state.search
-    },
-    setSearchItems () {
       this.searchItems = this.$store.state.search.searchItems
+      this.showResult = true
     },
     // TODO 管理者関連のの記述
-    authCheck () {
-      // 変更の必要あり
-      const auth = this.$store.state.accountInfo
-      return auth === 'ROLE_USER' || auth === 'ROLE_ADMIN'
-    },
-    deleteGraphData (userID) {
-      const userId = this.$store.state.auth.userId
+    deleteGraphData (userId) {
       this.$store.dispatch('search/deleteGraphData', userId)
     }
   }
