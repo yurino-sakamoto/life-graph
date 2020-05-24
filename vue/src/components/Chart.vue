@@ -40,8 +40,8 @@ export default {
             },
             ticks: {
               beginAtZero: true,
-              suggestedmax: 100,
-              min: -100,
+              max: 100,
+              min: 0,
               stepsize: 1
             }
           }],
@@ -52,7 +52,7 @@ export default {
             },
             ticks: {
               beginAtZero: true,
-              suggestedmax: 100,
+              max: 100,
               min: -100,
               stepsize: 1
             }
