@@ -265,7 +265,7 @@ export default {
         children: this.$store.state.chart.contents
       }
       this.$store.dispatch('chart/editContent', apiContents)
-      console.log(apiContents)
+      // console.log(apiContents)
       // const userId = this.$store.state.auth.userId
       // this.$store.dispatch('chart/addContent', userId)
     }
