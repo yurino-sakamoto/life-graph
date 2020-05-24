@@ -89,7 +89,7 @@ public class LifeGraphService {
 //		System.out.println(request.getParentId() instanceof Long);
 //		long parentId = 14;
 //		childRepository.deleteByParentId(parentId);
-		parentRepository.deleteById(request.getParentId());
+		childRepository.deleteByParentId(request.getParentId());
 		System.out.println("全消し終了");
 
 		//List<Children>をchildrenEntitiesという変数名にし、Childrenの情報を持ってきて、
@@ -108,7 +108,7 @@ public class LifeGraphService {
 
 	//削除APIの作成
 		public void deleteTable(long parentId) {
-//				childRepository.deleteByParentId(parentId);
+				childRepository.deleteByParentId(parentId);
 				parentRepository.deleteById(parentId);
 		}
 

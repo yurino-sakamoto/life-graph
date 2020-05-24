@@ -29,15 +29,14 @@ public class ChildGraph {
   private Long parentId;
 
   @NotNull
-  @Max(99)
-  @Min(1)
+  @Max(120)
+  @Min(0)
   private Integer age;
 
   @Max(100)
   @Min(-100)
   private Integer score;
 
-  @Max(255)
   private String comment;
 
   public ChildGraph(Long parentId, RegisterChildRequest request) {
