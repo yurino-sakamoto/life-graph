@@ -142,14 +142,14 @@
         </div>
       </div>
     </div>
-    <d class="editGraph">
+    <div class="editGraph">
       <div
         v-if="loaded"
         id="chart"
       >
         <Chart />
       </div>
-    </d><br><br>
+    </div><br><br>
   </div>
 </template>
 
