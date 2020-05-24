@@ -10,7 +10,7 @@ import lombok.Data;
 public class RegisterChildRequest {
 
   @NotNull
-  @Max(100)
+  @Max(120)
   @Min(0)
   private Integer age;
 
@@ -19,6 +19,5 @@ public class RegisterChildRequest {
   @Min(-100)
   private Integer score;
 
-  @Max(255)
   private String comment;
 }
