@@ -15,9 +15,13 @@ export default {
   mutations: {
     addContentMutation (state, payload) {
       state.contents = payload
+      state.loaded = !state.loaded // アクションが走った時にTorF切替。変化したことを監視しているので、TかFかはなんでもいい。
     },
     addDataMutation (state, contents) {
       state.contents = contents
+    },
+    resetContents (state) { // ヘッダーの遷移ボタンクリックで起動（Chart.vueのdestroyでも起動。どっちかで良い。）
+      state.contents = []
     },
     clear (state) {
       state.contents = []

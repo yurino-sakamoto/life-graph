@@ -18,10 +18,10 @@ export default {
   components: {
     Header,
     Chart
-  },
-  created () {
-    this.$store.commit('chart/clear')
   }
+  // created () {
+  //   this.$store.commit('chart/clear')
+  // }
 }
 </script>
 
