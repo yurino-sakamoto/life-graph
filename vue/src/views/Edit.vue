@@ -87,59 +87,59 @@
         <div v-if="editError">
           更新に失敗しました。
         </div>
-      <div class="listInfo">
-        <table>
-          <thead>
-            <tr>
-              <th class="th2">
-                年齢
-              </th>
-              <th class="th2">
-                満足度
-              </th>
-              <th class="th2">
-                コメント
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(content,index) in contents"
-              :key="index"
-            >
-              <td>
-                {{ content.age }}
-              </td>
-              <td>
-                {{ content.score }}
-              </td>
-              <td class="commentTable">
-                {{ content.comment }}
-              </td>
-              <button
-                class="deleteButton"
-                @click="deleteContents(index)"
+        <div class="listInfo">
+          <table>
+            <thead>
+              <tr>
+                <th class="th2">
+                  年齢
+                </th>
+                <th class="th2">
+                  満足度
+                </th>
+                <th class="th2">
+                  コメント
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(content,index) in contents"
+                :key="index"
               >
-                削除
-              </button>
-              <button
-                class="editButton"
-                @click="edit(index)"
-              >
-                修正
-              </button>
-            </tr>
-          </tbody>
-        </table>
-        <button
-          class="button, reload"
-          @click="update()"
-        >
-          更新
-        </button>
+                <td>
+                  {{ content.age }}
+                </td>
+                <td>
+                  {{ content.score }}
+                </td>
+                <td class="commentTable">
+                  {{ content.comment }}
+                </td>
+                <button
+                  class="deleteButton"
+                  @click="deleteContents(index)"
+                >
+                  削除
+                </button>
+                <button
+                  class="editButton"
+                  @click="edit(index)"
+                >
+                  修正
+                </button>
+              </tr>
+            </tbody>
+          </table>
+          <button
+            class="button, reload"
+            @click="update()"
+          >
+            更新
+          </button>
+        </div>
       </div>
     </div>
-      </div>
     <d class="editGraph">
       <div
         v-if="loaded"
