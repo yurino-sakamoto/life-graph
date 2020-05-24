@@ -6,6 +6,7 @@
     </div>
   </div>
 </template>
+<!--4~8,30~34行目いらんかも。テスト設計には必要とあるが、ヘッダーにボタンがある。とりあえず放置。-->
 
 <script>
 import Header from '../components/Header.vue'
@@ -19,8 +20,8 @@ export default {
   },
   data () {
     return {
-      UserId: parseInt(this.$route.params.userId)
-      // 不明：これで検索された人のIDに結びつくのはなぜか？（search終了後）
+      referenceId: parseInt(this.$route.params.userId)
+      // アクセス前のページでuserIdを指定している。parseIntはint型変換。これをチャートがバインド。
     }
   }
 }

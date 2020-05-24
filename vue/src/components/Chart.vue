@@ -63,40 +63,51 @@ export default {
     }
   },
   computed: {
-    checkContents () {
+    getContents () { // 「this.$store.state.chart.contents」を省略
       return this.$store.state.chart.contents
+    },
+    loaded () { // mountedのaddContentアクションでloadedが変化。このタイミングでチャートを描画したい。（mountedで描画するとデータがくる前に描画されてしまうため。）
+      return this.$store.state.chart.loaded
+    }
+  },
+  watch: { // computedでの変化を監視し、チャート描画のタイミングを合わせる。
+    loaded: function () { // loaded の変化でチャート描画。
+      this.createChart()
     }
   },
   mounted () {
     const userId = this.$store.state.auth.userId // 変数userIdを定義。ログイン情報。省略
-    this.$store.dispatch('chart/addContent', userId)
-    this.setAge()
-    this.setScore()
-    this.setComment()
-    this.renderChart(this.data, this.options)
+    this.$store.dispatch('chart/addContent', userId) // this.idとは？？？？？？？？？？
+    this.createChart() // TOP画面用。登録していないユーザーに空のグラフを描画。
   },
-  // destroyed () {
-  //   this.$store.commit('chart/resetContents')
-  // },
+  destroyed () { // 参照画面用。最初の検索結果が残る問題の解消。
+    this.$store.commit('chart/resetContents')
+  },
   methods: { // 処理を埋める
+    createChart () {
+      this.setAge()
+      this.setScore()
+      this.setComment()
+      this.renderChart(this.data, this.options)
+    },
     setAge () { // Age=.js age=vue
-      this.data.labels = this.$store.state.chart.contents.map((content) => {
+      this.data.labels = this.getContents.map((content) => {
         return content.age
       })
     },
     setScore () {
-      this.data.datasets[0].data = this.$store.state.chart.contents.map((content) => {
+      this.data.datasets[0].data = this.getContents.map((content) => {
         return content.score
       })
     },
     setComment () {
     // 用意したcommentsという箱に、contents.ageという配列を持ったageと、contents.commentという配列を持った
       // commentをObjectとしてpushする
-      const comments = this.checkContents.map((content) => {
+      const comments = this.getContents.map((content) => {
         return { age: content.age, comment: content.comment }
       })
       const comment = []
-      this.$store.state.chart.contents.map((content) => {
+      this.getContents.map((content) => {
         comment.push(content.comment)
       })
       // tooltip設定
