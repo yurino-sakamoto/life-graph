@@ -61,8 +61,8 @@
           </tr>
         </table>
         <div class="warning">
-          <br><p>※スコアは-100から100の範囲で指定してください。</p>
-          <p>※コメントは250文字以内で入力してください。</p><br>
+          <br><p>※スコアは-100から100の範囲で指定してください</p>
+          <p>※コメントは250文字以内で入力してください</p><br>
         </div>
         <button
           class="resetButton"
@@ -78,14 +78,14 @@
         >
           {{ changeButtonText }}
         </button>
-        <div v-if="ageCheck">
+        <div v-if="ageCheck" class="ageCheck">
           年齢が不正です
         </div>
-        <div v-if="scoreCheck">
+        <div v-if="scoreCheck" class="scoreCheck">
           スコアが不正です
         </div>
-        <div v-if="editError">
-          更新に失敗しました。
+        <div v-if="editError" class="editError">
+          更新に失敗しました
         </div>
         <div class="listInfo">
           <table class="tableRecord">
@@ -140,15 +140,21 @@
           </button>
         </div>
       </div>
+      <div class="editGraph">
+        <div
+          v-if="loaded"
+          class="chart"
+        >
+          <Chart />
+        </div>
+        <div
+          v-if="loaded"
+          class="chart"
+        >
+          <Chart />
+        </div>
+      </div><br><br>
     </div>
-    <div class="editGraph">
-      <div
-        v-if="loaded"
-        id="chart"
-      >
-        <Chart />
-      </div>
-    </div><br><br>
   </div>
 </template>
 
@@ -347,7 +353,7 @@ export default {
 }
 
 .listInfo {
-  margin: 50px 0 0 0;
+  margin: 30px 0 0 0;
 }
 
 td {
@@ -395,7 +401,7 @@ h1 {
   cursor: pointer;
 }
 
-/* add */
+/* 追加→完了 */
 .button {
   width: 100px;
   height: 40px;
@@ -466,7 +472,42 @@ button {
   right : 30px;
 }
 
-#chart {
+.chart {
   padding: 8px 12px 8px 6px;
+  z-index: 90;
+}
+
+/* バリデーション */
+.ageCheck {
+  position: relative;
+  left: 40px;
+  font-size: 1em;
+  color: #F6FB17;
+  background: #565452;
+  width: 126px;
+  text-align: center;
+  margin: 2px;
+}
+
+.scoreCheck {
+  position: relative;
+  left: 40px;
+  font-size: 1em;
+  color: #F6FB17;
+  background: #565452;
+  width: 140px;
+  text-align: center;
+  margin: 2px;
+}
+
+.editError {
+  position: relative;
+  left: 40px;
+  font-size: 1em;
+  color: #F6FB17;
+  background: #565452;
+  width: 160px;
+  text-align: center;
+  margin: 2px;
 }
 </style>

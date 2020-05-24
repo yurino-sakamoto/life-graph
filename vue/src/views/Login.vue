@@ -4,12 +4,12 @@
       Life<br>
       Graph
     </div>
-    <!-- <div class="logo">
-      <img src="./assets/login.png">
-    </div> -->
+    <div class="logoParent">
+      <img class="pageLogo" src="../assets/logologo.png" alt="ロゴ">
+    </div>
     <div class="loginArea">
       <div class="login">
-        <h1>Login</h1>
+        <h2>ログイン</h2>
         <div class="loginID">
           <div class="textBox">
             <label class="label1">ユーザー名</label>
@@ -22,12 +22,12 @@
           </div>
         </div>
         <button class="btn" @click="login()">
-          Login
+          ログイン
         </button>
       </div>
     </div>
-    <div v-if="loginError">
-      エラーです
+    <div v-if="loginError" class="error">
+      ERROR!
     </div>
   </div>
 </template>
@@ -108,24 +108,34 @@ export default {
   }
 }
 
+.pageLogo {
+  width: 500px;
+  margin: 0 0 0 30px;
+  position: relative;
+  left: 180px;
+  bottom: -50px;
+  letter-spacing: -2px;
+}
+
   .login {
   background:#FFF;
   filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
   border-radius:18px;
   width:400px;
+  height: 300px;
   text-align: center;
   padding: 15px;
   position: absolute;
-  top: 350px;
-  right: 90px;
+  top: 260px;
+  right: 130px;
   }
 
-  h1 {
+  h2 {
   text-align:center;
-  font-size:1.2em;
+  font-size:1.4em;
   font-weight:600;
   color:#565452;
-  margin-top: 6px;
+  margin-top: 8px;
   }
 
   .loginArea {
@@ -155,6 +165,8 @@ export default {
   filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
   border-radius: 40px;
   position:relative;
+  left: 20px;
+  top: 20px;
   width: 130px;
   height: 50px;
   padding-bottom: 6px;
@@ -172,6 +184,18 @@ export default {
   :focus {
     outline: 0;
   }
+}
+
+.error {
+  position: relative;
+  left: 1030px;
+  bottom: 170px;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #F6FB17;
+  background: #565452;
+  width: 78px;
+  text-align: center;
 }
 
 .textBox {

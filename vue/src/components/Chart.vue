@@ -40,8 +40,8 @@ export default {
             },
             ticks: {
               beginAtZero: true,
-              suggestedmax: 100,
-              min: -100,
+              max: 100,
+              min: 0,
               stepsize: 1
             }
           }],
@@ -52,7 +52,7 @@ export default {
             },
             ticks: {
               beginAtZero: true,
-              suggestedmax: 100,
+              max: 100,
               min: -100,
               stepsize: 1
             }
@@ -75,9 +75,6 @@ export default {
     this.setComment()
     this.renderChart(this.data, this.options)
   },
-  // destroyed () {
-  //   this.$store.commit('chart/resetContents')
-  // },
   methods: { // 処理を埋める
     setAge () { // Age=.js age=vue
       this.data.labels = this.$store.state.chart.contents.map((content) => {
