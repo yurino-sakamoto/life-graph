@@ -93,9 +93,9 @@ export default {
         startDate: this.dateFrom,
         finishDate: this.toFrom
       }
-      console.log('API叩く前')
+      // console.log('API叩く前')
       this.$store.dispatch('search/searchAPI', data)
-      console.log('API叩いた')
+      // console.log('API叩いた')
       // const SearchName = this.$store.state.search
       // const SearchUpdateTime =this.$store.state.search
       this.searchItems = this.$store.state.search.searchItems
