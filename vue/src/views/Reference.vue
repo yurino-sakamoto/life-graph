@@ -1,7 +1,9 @@
 <template>
   <div class="referenceSection">
-    <Header />
-    <Chart v-bind="referenceId" class="referenceChart" />
+    <div class="referenceGraph">
+      <Header />
+      <Chart v-bind="UserId" class="referenceChart" />
+    </div>
   </div>
 </template>
 <!--4~8,30~34行目いらんかも。テスト設計には必要とあるが、ヘッダーにボタンがある。とりあえず放置。-->
