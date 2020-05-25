@@ -122,13 +122,8 @@ export default {
 <style lang="scss" scoped>
 .search {
   margin-top: 80px;
-<<<<<<< HEAD
   background: #F3F3F9;
   height: 100%;;
-=======
-  background: radial-gradient(white, #E5E5E9);
-  height: 100%;
->>>>>>> develop
 
   h1 {
     text-align: left;
@@ -142,7 +137,6 @@ export default {
     letter-spacing: -1px;
   }
 
-<<<<<<< HEAD
   h2 {
     text-align: center;
     padding: 20px;
@@ -151,8 +145,6 @@ export default {
     font-weight: bold;
   }
 
-=======
->>>>>>> develop
   .form-item {
     margin-bottom: 0.75em;
     width: 100%;
