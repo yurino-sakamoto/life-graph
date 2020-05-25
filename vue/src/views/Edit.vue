@@ -32,7 +32,7 @@
           <tr>
             <th class="th1" scope="row">
               <label for="score">
-                満足度(%)
+                満足度(点)
               </label>
             </th>
             <td>
@@ -103,7 +103,7 @@
                   年齢(歳)
                 </th>
                 <th class="th2">
-                  満足度(%)
+                  満足度(点)
                 </th>
                 <th class="th2">
                   コメント
@@ -351,11 +351,11 @@ export default {
   color: #565452;
   border-radius: 20px;
   width: 600px;
-  height: 400px;
+  height: 460px;
   font-size: 12pt;
   word-break: break-all;
   margin: 0 50px 0 -2px;
-  padding: 20px;
+  padding: 0px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
 }
@@ -420,6 +420,7 @@ h1 {
   outline: none;
   background:rgb(204,204,204);
   color: #FFF;
+  font-weight: bold;
   border-radius: 30px;
   right: 136px;
   top: 180px;
@@ -441,6 +442,7 @@ h1 {
   outline: none;
   background:#FE5F52;
   color: #FFF;
+  font-weight: bold;
   border-radius: 30px;
   right: 30px;
   top: 180px;
@@ -467,6 +469,7 @@ h1 {
   outline: none;
   background:rgb(204,204,204);
   color: #FFF;
+  font-weight: bold;
   padding: 4px;
   border-radius: 30px;
   font-size: 12pt;
@@ -485,6 +488,7 @@ h1 {
   outline: none;
   background:#FE5F52;
   color: #FFF;
+  font-weight: bold;
   padding: 4px;
   border-radius: 30px;
   font-size: 12pt;
@@ -503,6 +507,7 @@ button {
   outline: none;
   background:#FE5F52;
   color: #FFF;
+  font-weight: bold;
   border-radius: 30px;
   margin: 0 5px;
   padding: 4px 8px;
@@ -521,8 +526,14 @@ button {
 }
 
 .chart {
-  padding: 8px 12px 8px 6px;
+  padding: 8px 8px 8px 6px;
+  width: 560px;
+  height: auto;
+  position: fixed;
+  top: 26px;
+  bottom: 30px;
   z-index: 90;
+  left: 10px;
 }
 
 /* 入力フォーム */

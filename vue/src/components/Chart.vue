@@ -13,17 +13,20 @@ export default {
         labels: [],
         datasets: [
           {
-            label: '',
-            backgroundColor: 'rgba(254,95,82,1)',
             data: [],
-            fillColor: 'rgba(254,95,82,0.6)', // 線から下端までを塗りつぶす色
-            strokeColor: 'rgba(254,95,82,1)', //  折れ線の色
-            pointColor: 'rgba(254,95,82,1)', //  ドットの塗りつぶし色
-            pointHighlightFill: 'rgba(86,84,82,1)', // マウスが載った際のドットの塗りつぶし色/pointHighlightStroke: 'yellow', // マウスが載った際のドットの枠線色
-            // label:ここにスコアが入るからlabelの中は空にする
-            borderWidth: 1,
-            fill: false,
-            lineTension: 0.4
+            label: '',
+            fillColor: '#00FFD0', // 線から下端までを塗りつぶす色
+            borderColor: '#00FFD0', //  折れ線の色
+            pointColor: 'rgba(0,255,208,0.1)', //  ドットの塗りつぶし色
+            pointBackgroundColor: 'rgba(0,255,208,0.1)',
+            backgroundColor: 'rgba(0,255,208,0.1)',
+            borderWidth: 2.4,
+            pointBorderWidth: 1.2,
+            pointRadius: 4,
+            pointBorderColor: '#00FFD0',
+            hoverRadius: 12,
+            lineTension: 0.3,
+            fill: 'start'
           }
         ]
       },
@@ -153,7 +156,7 @@ export default {
           var innerHtml = '<thead>'
           titleLines.forEach(function (age) {
             var comment = comments.find(contents => parseInt(contents.age) === parseInt(age))
-            innerHtml += '<tr><th>' + `年齢：${age}才` + '</th></tr>'
+            innerHtml += '<tr><td>' + `${age}歳` + '</td></tr>'
             innerHtml += '</thead><tbody>'
             bodyLines.forEach(function (body, i) {
               var colors = tooltipModel.labelColors[i]
@@ -162,9 +165,9 @@ export default {
               style += '; border-width: 2px'
               var span = '<span style="' + style + '"></span>'
               if (comment.comment) {
-                innerHtml += '<tr><td>' + span + '満足度:' + body + '%' + '</td></tr>' + 'コメント:' + comment.comment
+                innerHtml += '<tr><td>' + span + body + '点' + '</td></tr>' + '<tr><td>' + comment.comment + '</td></tr>'
               } else {
-                innerHtml += '<tr><td>' + span + '満足度:' + body + '%' + '</td></tr>'
+                innerHtml += '<tr><td>' + span + body + '点' + '</td></tr>'
               }
             })
           })
@@ -176,13 +179,15 @@ export default {
         var position = this._chart.canvas.getBoundingClientRect()
         // 表示、配置、およびフォントスタイルの設定
         tooltipEl.style.position = 'absolute'
+        tooltipEl.style.opacity = 1
         tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px'
         tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px'
-        tooltipEl.style.backgroundcolor = 'rgba(228,232,239,1)'
-        tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily
-        tooltipEl.style.fontSize = tooltipModel._bodyFontSize
-        tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle
-        tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px'
+        tooltipEl.style.padding = '8' + 'px' + '8' + 'px'
+        tooltipEl.style.backgroundColor = '#565452'
+        tooltipEl.style.fontFamily = 'Roboto'
+        tooltipEl.style.color = '#FFF'
+        tooltipEl.style.fontSize = '16px'
+        tooltipEl.style.fontStyle = 'Roboto'
         tooltipEl.style.pointerEvents = 'none'
       }
     }
