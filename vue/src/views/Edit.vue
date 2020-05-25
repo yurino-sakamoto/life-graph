@@ -428,7 +428,6 @@ h1 {
   cursor: pointer;
   font-size: 12pt;
   height: 40px;
-  outline: none;
   padding: 4px 8px;
   position: absolute;
   right: 136px;
@@ -439,8 +438,6 @@ h1 {
 .button {
   background: #fe5f52;
   border: none;
-  outline: none;
-  background:#FE5F52;
   font-weight: bold;
   border-radius: 30px;
   color: #fff;
@@ -463,8 +460,6 @@ h1 {
 .deleteButton {
   background: rgb(204, 204, 204);
   border: none;
-  outline: none;
-  background:rgb(204,204,204);
   font-weight: bold;
   border-radius: 30px;
   color: #fff;
@@ -480,8 +475,6 @@ h1 {
 .editButton {
   background: #fe5f52;
   border: none;
-  outline: none;
-  background:#FE5F52;
   font-weight: bold;
   border-radius: 30px;
   color: #fff;
@@ -504,8 +497,6 @@ h1 {
 button {
   background: #fe5f52;
   border: none;
-  outline: none;
-  background:#FE5F52;
   font-weight: bold;
   border-radius: 30px;
   color: #fff;
