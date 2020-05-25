@@ -272,7 +272,7 @@ export default {
       // console.log(apiContents)
       // const userId = this.$store.state.auth.userId
       // this.$store.dispatch('chart/addContent', userId)
-      console.log('レフ図の前')
+      // console.log('レフ図の前')
       this.$refs.chart.createChart()
     } // refs="chart"を付けたコンポーネントのcreateChart()メソッドを起動する。
   }
