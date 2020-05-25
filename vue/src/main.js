@@ -8,5 +8,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: function (h) { return h(App) }// データ演算可視化ディスプレイ上表示
+  render: function (h) { return h(App) }
 }).$mount('#app')

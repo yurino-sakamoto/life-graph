@@ -5,11 +5,11 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 export default {
-  namespaced: true, // 名前空間
+  namespaced: true,
   state: {
     parentId: null,
     contents: [],
-    otherMemberContents: [], // 検索結果のグラフの要素が入る
+    otherMemberContents: [],
     load: false,
     loaded: false,
     error: ''
@@ -17,7 +17,7 @@ export default {
   mutations: {
     addContentMutation (state, payload) {
       state.contents = []
-      if (payload.length > 0) { // parentIdを配列の外に出し、登録APIと合致
+      if (payload.length > 0) {
         state.parentId = payload[0].parent_id
         payload.map((content) => {
           const data = {
@@ -28,7 +28,7 @@ export default {
           state.contents.push(data)
         })
       }
-      state.loaded = !state.loaded // アクションが走った時にTorF切替。変化したことを監視しているので、TかFかはなんでもいい。
+      state.loaded = !state.loaded
     },
     addDataMutation (state, contents) {
       state.contents = contents
@@ -44,7 +44,7 @@ export default {
     clearError (state) {
       state.error = ''
     },
-    getReferenceMutation (state, contents) { // 検索画面のやつ
+    getReferenceMutation (state, contents) {
       state.otherMemberContents = contents
       state.loaded = true
     },
@@ -53,7 +53,7 @@ export default {
     }
   },
   actions: {
-    async addContent ({ commit, rootState }, userId) { // 引数としてuserId（auth.js）
+    async addContent ({ commit, rootState }, userId) {
       const url = '/api/life-graphs/' + userId
       await axios.get(url, {
         headers: {
