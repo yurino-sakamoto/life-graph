@@ -56,6 +56,7 @@ export default {
   },
   created () {
     this.$store.commit('auth/clearError')
+    this.$store.commit('chart/clearState')
   },
   methods: {
     login () {
@@ -73,43 +74,11 @@ export default {
 
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-$set-prefix: '' , -moz- , -webkit-;
 
 .loginSection {
-  height: 740px;
+  background: #F3F3F9;
+  height: 800px;
   background-size: cover;
-  background: #DDD6F3;
-  animation: colour 10s linear infinite;
-
-  @keyframes colour{
-    0%{
-      background: #FFFFFF;
-    }
-
-    10%{
-      background: #F4F5FE;
-    }
-
-    30%{
-      background: #F3F3F9;
-    }
-
-    50%{
-      background: #DDD6F3;
-    }
-
-    70%{
-      background: #F3F3F9;
-    }
-
-    90%{
-      background: #F4F5FE;
-    }
-
-    100%{
-      background: #FFFFFF;
-    }
-  }
 
   .titleLogo {
     color: #565452;
@@ -126,52 +95,52 @@ $set-prefix: '' , -moz- , -webkit-;
 
   @keyframes sample01 {
   0% {
-    opacity: 0;
-    transform: translateX(-30px);
+  opacity: 0;
+  transform: translateX(-30px);
   }
   50%{
     opacity: 1;
     transform: translateX(0);
     }
   100% {
-    opacity:1;
-    transform: translate(0px);
+  opacity:1;
+  transform: translate(0px);
   }
 }
 
-  .pageLogo {
-    width: 460px;
-    margin: 0 0 0 30px;
-    position: fixed;
-    left: 250px;
-    bottom: -70px;
-    letter-spacing: -2px;
-  }
+.pageLogo {
+  width: 500px;
+  margin: 0 0 0 30px;
+  position: relative;
+  left: 180px;
+  bottom: -30px;
+  letter-spacing: -2px;
+}
 
   .login {
-    background:#FFF;
-    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
-    border-radius:18px;
-    width:400px;
-    height: 300px;
-    text-align: center;
-    padding: 15px;
-    position: absolute;
-    top: 260px;
-    right: 130px;
+  background:#FFF;
+  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+  border-radius:18px;
+  width:400px;
+  height: 300px;
+  text-align: center;
+  padding: 15px;
+  position: absolute;
+  top: 260px;
+  right: 130px;
   }
 
   h2 {
-    text-align:center;
-    font-size:1.4em;
-    font-weight:600;
-    color:#565452;
-    margin-top: 8px;
+  text-align:center;
+  font-size:1.4em;
+  font-weight:600;
+  color:#565452;
+  margin-top: 8px;
   }
 
   .loginArea {
-    text-align: center;
-  }
+  text-align: center;
+}
 
   input {
     width:250px;
@@ -187,77 +156,81 @@ $set-prefix: '' , -moz- , -webkit-;
     }
   }
 
-  .btn {
-    background:#7448FF;
-    color:#fff;
-    position: inline-block;
-    text-align: center;
-    font-weight: 900;
-    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
-    border-radius: 40px;
-    position:relative;
-    left: 20px;
-    top: 18px;
-    width: 130px;
-    height: 50px;
-    padding-bottom: 6px;
-    border:0;
-    font-size:1.25em;
-    margin: 10px -90px 14px 100px;
-    text-shadow:1px 1px 0px rgba(0,0,0,.1);
-    cursor: pointer;
+.btn {
+  background:#7448FF;
+  color:#fff;
+  position: inline-block;
+  text-align: center;
+  font-weight: 900;
+  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+  border-radius: 40px;
+  position:relative;
+  left: 20px;
+  top: 20px;
+  width: 130px;
+  height: 50px;
+  padding-bottom: 6px;
+  border:0;
+  font-size:1.25em;
+  margin: 10px -90px 14px 100px;
+  text-shadow:1px 1px 0px rgba(0,0,0,.1);
+  cursor: pointer;
 
-    :hover {
-      background-color: #8566ce;
-      color: #FFF;
-    }
+  :active {
+    top:3px;
+    box-shadow:none;
   }
 
-  .error {
-    position: relative;
-    left: 1048px;
-    bottom: 160px;
-    font-size: 1.2em;
-    font-weight: 600;
-    color: #F6FB17;
-    background: #565452;
-    width: 78px;
-    text-align: center;
+  :focus {
+    outline: 0;
   }
+}
 
-  .textBox {
-    display: block;
-    flex-direction: column;
-    align-items: center;
-    width:250px;
-    position: relative;
-    text-align: center;
-    padding: 15px 15px 15px 0;
-    font-size: 20px;
-    outline: none;
-    color: #565452;
-    font-weight: 500;
-    border:0;
-    border-radius: 30px;
-    height: 45px;
-  }
+.error {
+  position: relative;
+  left: 1030px;
+  bottom: 170px;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #F6FB17;
+  background: #565452;
+  width: 78px;
+  text-align: center;
+}
 
-  .textBox .text {
-    font-weight: 500;
-    width: calc(100% - 2vw);
-    height: 27px;
-    padding-left: 0.5vw;
-    background-color: transparent;
-    color: #565452;
-    position: absolute;
-    bottom: 0px;
-    outline: none;
-    border-style: solid;
-    border-color: #E3E7EA;
-    border-width: 0px 0px 2px 0px;
-    font-size: 20px;
-    transition: border-color 0.45s linear;
-  }
+.textBox {
+  display: block;
+  flex-direction: column;
+  align-items: center;
+  width:250px;
+  position: relative;
+  text-align: center;
+  padding: 15px 15px 15px 0;
+  font-size: 20px;
+  outline: none;
+  color: #565452;
+  font-weight: 500;
+  border:0;
+  border-radius: 30px;
+  height: 45px;
+}
+// .textBox .text {
+//   font-weight: 500;
+//   width: calc(100% - 2vw);
+//   height: 27px;
+//   padding-left: 0.5vw;
+//   background-color: transparent;
+//   color: #565452;
+//   position: absolute;
+//   bottom: 0px;
+//   outline: none;
+//   border-style: solid;
+//   border-color: #E3E7EA;
+//   border-width: 0px 0px 2px 0px;
+//   font-size: 20px;
+//   -webkit-transition: border-color 0.45s linear;
+//   transition: border-color 0.45s linear;
+// }
 
   .label1 {
     position: inline-block;
