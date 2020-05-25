@@ -29,7 +29,7 @@ export default {
 
 .topSection {
   margin-top: 80px;
-  background: radial-gradient(white, #E5E5E9);
+  background: #F3F3F9;
   height: 700px;
 }
 
@@ -38,7 +38,7 @@ export default {
   color: #565452;
   border-radius: 20px;
   width: 800px;
-  height: 450px;
+  height: 380px;
   font-size: 12pt;
   word-break: break-all;
   margin: 0 auto;
@@ -55,6 +55,7 @@ h1 {
   font-weight: 800;
   line-height: 0.8em;
   letter-spacing: -1px;
+  color: #565452;
 }
 
 .topChart {
