@@ -4,12 +4,12 @@
     <h1>Let's Search LifeGraph !</h1>
     <div class="form-item">
       <label for="username" />
-      <input v-model="username" placeholder="UserName">
+      <input v-model="likeName" placeholder="UserName">
       <label for="date" />
-      <input v-model="dateFrom" type="date">
+      <input v-model="startDate" type="date">
       〜〜
       <label for="date" />
-      <input v-model="toDate" type="date">
+      <input v-model="finishDate" type="date">
       <button class="btn" @click="searchGraphData()">
         Search
       </button>
@@ -69,9 +69,9 @@ export default {
   },
   data () {
     return {
-      username: '',
-      dateFrom: '',
-      toDate: '',
+      likeName: '',
+      startDate: '',
+      finishDate: '',
       isActive: false,
       load: true,
       editIndex: -1
@@ -91,17 +91,16 @@ export default {
   created () {
     this.$store.commit('search/loadFalse')
     this.$store.commit('chart/loadFalse')
+    this.$store.commit('search/clereSearchItems')
   },
   methods: {
     searchGraphData () {
       const data = {
-        userName: this.username,
-        startDate: this.dateFrom,
-        finishDate: this.toFrom
+        likeName: this.likeName,
+        startDate: this.startDate,
+        finishDate: this.finishDate
       }
       this.$store.dispatch('search/searchAPI', data)
-      // const SearchName = this.$store.state.search
-      // const SearchUpdateTime =this.$store.state.search
     },
     userReference (userId) {
       this.$router.push({ name: 'Reference', params: { userId: userId } })

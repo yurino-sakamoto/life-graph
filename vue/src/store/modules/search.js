@@ -15,6 +15,10 @@ export default {
     searchAPI (state, payload) {
       state.searchItems = payload
       state.showResult = true
+      debugger
+    },
+    clereSearchItems (state) {
+      state.searchItems = ''
     },
     error (state, err) {
       state.error = err
@@ -33,7 +37,15 @@ export default {
         headers: {
           Authorization: `Bearer ${rootState.auth.token}`
         }
-      }, data).then(res => commit('searchAPI', res.data))
+      },
+      {
+        params: {
+          likeName: data.likeName,
+          startDate: data.startDate,
+          finishDate: data.finishDate
+        }
+      }).then(res => commit('searchAPI', res.data))
+      debugger
     },
     deleteGraphData ({ commit, rootState }, parentId) {
       const url = '/api/life-graphs/' + parentId
