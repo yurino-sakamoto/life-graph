@@ -15,33 +15,33 @@
         Search
       </button>
     </div>
+    <!-- 最後にv-if="serchShow()"を入れてメソッドが動いたら表示という風にする -->
+    <div v-if="showResult" class="result">
+      <h2>Search Results</h2>
+      <table>
+        <thead>
+          <tr>
+            <th />
+            <th>ユーザー名</th>
+            <th>日時</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(searchItem, index) in searchItems" :key="index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ searchItem.userName }}</td>
+            <td>{{ searchItem.updated_at | moment }}</td>
+            <button @click="userReference(searchItem.user_id)">
+              参照
+            </button>
+            <button v-if="!authCheck" @click="deleteGraphData(searchItem.user_id)">
+              削除
+            </button>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <footer>
-      <!-- 最後にv-if="serchShow()"を入れてメソッドが動いたら表示という風にする -->
-      <div v-if="showResult">
-        <h2>検索結果</h2>
-        <table>
-          <thead>
-            <tr>
-              <th />
-              <th>ユーザー名</th>
-              <th>日時</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(searchItem, index) in searchItems" :key="index">
-              <td>{{ index + 1 }}</td>
-              <td>{{ searchItem.userName }}</td>
-              <td>{{ searchItem.updated_at | moment }}</td>
-              <button @click="userReference(searchItem.user_id)">
-                参照
-              </button>
-              <button v-if="!authCheck" @click="deleteGraphData(searchItem.user_id)">
-                削除
-              </button>
-            </tr>
-          </tbody>
-        </table>
-      </div>
       <div class="nav-links">
         <a class="prev page-numbers" href="">«</a>
         <a class="page-numbers" href="">1</a>
@@ -123,19 +123,12 @@ export default {
 .search {
   margin-top: 80px;
   background: radial-gradient(white, #E5E5E9);
-  height: 100%;;
+  height: 100%;
 
   h1 {
     text-align: center;
     padding: 30px;
     font-size: 50px;
-    font-weight: bold;
-  }
-
-  h2 {
-    text-align: center;
-    padding: 20px;
-    font-size: 40px;
     font-weight: bold;
   }
 
@@ -145,32 +138,31 @@ export default {
     margin: 3em auto;
     padding: 0 1em;
     max-width: 370px;
-    position: relative;
 
-    input {
-      background: #fafafa;
-      border-bottom: 2px solid #e9e9e9;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 1em;
-      height: 50px;
-      width: 100%;
-      font: 15px/24px sans-serif;
-      box-sizing: border-box;
-      padding: 0.3em;
-      transition: 0.3s;
-      letter-spacing: 1px;
-      color: #aaaaaa;
-      border: 1px solid #1b2538;
-      border-radius: 4px;
-      margin: .4rem 0;
+      input {
+        background: #fafafa;
+        border-bottom: 2px solid #e9e9e9;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1em;
+        height: 50px;
+        width: 100%;
+        font: 15px/24px sans-serif;
+        box-sizing: border-box;
+        padding: 0.3em;
+        transition: 0.3s;
+        letter-spacing: 1px;
+        color: #aaaaaa;
+        border: 1px solid #1b2538;
+        border-radius: 4px;
+        margin: .4rem 0;
+      }
+
+      :focus {
+        border: 1px solid #da3c41;
+        outline: none;
+        box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
+      }
     }
-  }
-
-  .form-item input:focus {
-    border: 1px solid #da3c41;
-    outline: none;
-    box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
-  }
 
   .btn {
     position:relative;
@@ -193,51 +185,67 @@ export default {
       }
     }
 
-  .tsImgArea{
-    line-height: 1;
-  }
-  /* 昇順降順 */
-  .tsImg{
-    display    : inline-block;
-    width      : 8px;
-    height     : 6px;
-    background : #eee;
-    border     : 1px solid #777;
-    margin     : 1px 3px;
-    padding    : 3px;
-    cursor     : pointer;
+  .result {
+    margin: 2em 0;
+    padding: 0.5em 1em;
+    border: solid 3px #565452;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
 
-    :hover{
-      background : #FFD700;
-    }
-
-    &path{
-      fill: #777;
+    h2 {
+      padding: 20px;
+      font-size: 40px;
+      font-weight: bold;
+      color: #565452;
     }
   }
+  // .tsImgArea{
+  //   line-height: 1;
+  // }
+  // /* 昇順降順 */
+  // .tsImg{
+  //   display    : inline-block;
+  //   width      : 8px;
+  //   height     : 6px;
+  //   background : #eee;
+  //   border     : 1px solid #777;
+  //   margin     : 1px 3px;
+  //   padding    : 3px;
+  //   cursor     : pointer;
 
-  #sampleTable {
-    width          : 100%;
-    border-collapse: collapse;         /* 境界線結合 */
-    border-spacing : 0;                /* 罫線間余白 */
-    font-size      : 9pt;              /* 文字サイズ */
-    background-color: gray;
-    position: relative;
-    height: auto;
-    min-height: 100%;
+  //   :hover{
+  //     background : #FFD700;
+  //   }
 
-    &th {
-      text-align    : center;            /* 文字位置   */
-      font-weight   : bold;              /* 太文字     */
-      padding       : 6px 5px;          /* 余白       */
-      white-space   : nowrap;
-    }
-    &td {
-      text-align    : center;            /* 文字位置   */
-      padding       : 6px 5px;           /* 余白       */
-      white-space   : nowrap;
-    }
-  }
+  //   &path{
+  //     fill: #777;
+  //   }
+  // }
+
+  // #sampleTable {
+  //   width          : 100%;
+  //   border-collapse: collapse;         /* 境界線結合 */
+  //   border-spacing : 0;                /* 罫線間余白 */
+  //   font-size      : 9pt;              /* 文字サイズ */
+  //   background-color: gray;
+  //   position: relative;
+  //   height: auto;
+  //   min-height: 100%;
+
+  //   &th {
+  //     text-align    : center;            /* 文字位置   */
+  //     font-weight   : bold;              /* 太文字     */
+  //     padding       : 6px 5px;          /* 余白       */
+  //     white-space   : nowrap;
+  //   }
+  //   &td {
+  //     text-align    : center;            /* 文字位置   */
+  //     padding       : 6px 5px;           /* 余白       */
+  //     white-space   : nowrap;
+  //   }
+  // }
 
   /* ふったーCSS */
   .nav-links{
