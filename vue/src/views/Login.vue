@@ -214,40 +214,24 @@ export default {
   border-radius: 30px;
   height: 45px;
 }
-.textBox .text {
-  font-weight: 500;
-  width: calc(100% - 2vw);
-  height: 27px;
-  padding-left: 0.5vw;
-  background-color: transparent;
-  color: #565452;
-  position: absolute;
-  bottom: 0px;
-  outline: none;
-  border-style: solid;
-  border-color: #E3E7EA;
-  border-width: 0px 0px 2px 0px;
-  font-size: 20px;
-  -webkit-transition: border-color 0.45s linear;
-  transition: border-color 0.45s linear;
-}
+// .textBox .text {
+//   font-weight: 500;
+//   width: calc(100% - 2vw);
+//   height: 27px;
+//   padding-left: 0.5vw;
+//   background-color: transparent;
+//   color: #565452;
+//   position: absolute;
+//   bottom: 0px;
+//   outline: none;
+//   border-style: solid;
+//   border-color: #E3E7EA;
+//   border-width: 0px 0px 2px 0px;
+//   font-size: 20px;
+//   -webkit-transition: border-color 0.45s linear;
+//   transition: border-color 0.45s linear;
+// }
 
-  .textBox .text {
-    font-weight: 500;
-    width: calc(100% - 2vw);
-    height: 27px;
-    padding-left: 0.5vw;
-    background-color: transparent;
-    color: #565452;
-    position: absolute;
-    bottom: 0px;
-    outline: none;
-    border-style: solid;
-    border-color: #E3E7EA;
-    border-width: 0px 0px 2px 0px;
-    font-size: 20px;
-    transition: border-color 0.45s linear;
-  }
 
   .label1 {
     position: inline-block;
