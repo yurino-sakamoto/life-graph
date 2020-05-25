@@ -232,7 +232,6 @@ export default {
 //   transition: border-color 0.45s linear;
 // }
 
-
   .label1 {
     position: inline-block;
     margin:-10px 0 80px -100px;
