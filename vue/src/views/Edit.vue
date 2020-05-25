@@ -87,10 +87,10 @@
           {{ changeButtonText }}
         </button>
         <div v-if="ageCheck" class="ageCheck">
-          年齢が不正です
+          年齢は1〜100で入力してください
         </div>
         <div v-if="scoreCheck" class="scoreCheck">
-          スコアが不正です
+          満足度は-100〜100で入力してください
         </div>
         <div v-if="editError" class="editError">
           更新に失敗しました
