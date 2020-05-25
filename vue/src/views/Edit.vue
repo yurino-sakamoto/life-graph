@@ -153,6 +153,7 @@
           class="chart"
         >
           <Chart refs="chart" />
+          <!-- <Chart refs="chart" /> -->
         </div>
       </div><br><br>
     </div>
@@ -273,7 +274,7 @@ export default {
       // const userId = this.$store.state.auth.userId
       // this.$store.dispatch('chart/addContent', userId)
       // console.log('レフ図の前')
-      this.$refs.chart.createChart()
+      // this.$refs.chart.createChart()
     } // refs="chart"を付けたコンポーネントのcreateChart()メソッドを起動する。
   }
 }
