@@ -32,7 +32,7 @@
           <tr>
             <th class="th1" scope="row">
               <label for="score">
-                満足度(%)
+                満足度(点)
               </label>
             </th>
             <td>
@@ -103,7 +103,7 @@
                   年齢(歳)
                 </th>
                 <th class="th2">
-                  満足度(%)
+                  満足度(点)
                 </th>
                 <th class="th2">
                   コメント
@@ -355,10 +355,10 @@ export default {
   color: #565452;
   filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.2));
   float: right;
+  height: 460px;
   font-size: 12pt;
-  height: 400px;
   margin: 0 50px 0 -2px;
-  padding: 20px;
+  padding: 0px;
   text-align: center;
   width: 600px;
   word-break: break-all;
@@ -420,6 +420,9 @@ h1 {
 .resetButton {
   background: rgb(204, 204, 204);
   border: none;
+  outline: none;
+  background:rgb(204,204,204);
+  font-weight: bold;
   border-radius: 30px;
   color: #fff;
   cursor: pointer;
@@ -436,6 +439,9 @@ h1 {
 .button {
   background: #fe5f52;
   border: none;
+  outline: none;
+  background:#FE5F52;
+  font-weight: bold;
   border-radius: 30px;
   color: #fff;
   cursor: pointer;
@@ -457,6 +463,9 @@ h1 {
 .deleteButton {
   background: rgb(204, 204, 204);
   border: none;
+  outline: none;
+  background:rgb(204,204,204);
+  font-weight: bold;
   border-radius: 30px;
   color: #fff;
   cursor: pointer;
@@ -471,6 +480,9 @@ h1 {
 .editButton {
   background: #fe5f52;
   border: none;
+  outline: none;
+  background:#FE5F52;
+  font-weight: bold;
   border-radius: 30px;
   color: #fff;
   cursor: pointer;
@@ -492,6 +504,9 @@ h1 {
 button {
   background: #fe5f52;
   border: none;
+  outline: none;
+  background:#FE5F52;
+  font-weight: bold;
   border-radius: 30px;
   color: #fff;
   cursor: pointer;
@@ -515,8 +530,14 @@ button {
 }
 
 .chart {
-  padding: 8px 12px 8px 6px;
+  padding: 8px 8px 8px 6px;
+  width: 560px;
+  height: auto;
+  position: fixed;
+  top: 26px;
+  bottom: 30px;
   z-index: 90;
+  left: 10px;
 }
 
 /* 入力フォーム */

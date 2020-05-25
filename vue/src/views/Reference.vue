@@ -6,7 +6,7 @@
       - to be able to spend you life in your own way.
     </h1>
     <h2>
-      成功の道はただ一つ、自分だけの生き方を見つけることだ ―Christopher Morley
+      <!-- 成功の道はただ一つ、自分だけの生き方を見つけることだ ―Christopher Morley -->
     </h2>
     <div class="referenceModule">
       <Chart
