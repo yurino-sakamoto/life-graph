@@ -34,7 +34,7 @@ export default {
   actions: {
     async searchAPI ({ commit }, data) {
       // console.log('actionにきたよー！')
-      const url = '/api/search'
+      const url = '/api/life-graphs'
       await axios.get(url, data).then(res => commit('searchAPI', res.data))
       // console.log('API終了')
     },
