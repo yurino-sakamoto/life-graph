@@ -4,7 +4,6 @@
     <h1>Let's Search LifeGraph !</h1>
     <div class="form-item">
       <label for="username" />
-      <!--↓↓ 名前入力 ↓↓-->
       <input v-model="username" placeholder="UserName">
       <label for="date" />
       <input v-model="dateFrom" type="date">
@@ -15,7 +14,6 @@
         Search
       </button>
     </div>
-    <!-- 最後にv-if="serchShow()"を入れてメソッドが動いたら表示という風にする -->
     <div v-if="showResult" class="result">
       <h2>Search Results</h2>
       <table>
@@ -101,15 +99,12 @@ export default {
         startDate: this.dateFrom,
         finishDate: this.toFrom
       }
-      // console.log('API叩く前')
       this.$store.dispatch('search/searchAPI', data)
-      // console.log('API叩いた')
       // const SearchName = this.$store.state.search
       // const SearchUpdateTime =this.$store.state.search
     },
     userReference (userId) {
       this.$router.push({ name: 'Reference', params: { userId: userId } })
-      // 画面遷移メソッド
     },
     // TODO 管理者関連のの記述
     deleteGraphData (parentId) {
@@ -152,30 +147,30 @@ export default {
     padding: 0 1em;
     max-width: 370px;
 
-      input {
-        background: #fafafa;
-        border-bottom: 2px solid #e9e9e9;
-        font-family: 'Open Sans', sans-serif;
-        font-size: 1em;
-        height: 50px;
-        width: 100%;
-        font: 15px/24px sans-serif;
-        box-sizing: border-box;
-        padding: 0.3em;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        color: #aaaaaa;
-        border: 1px solid #1b2538;
-        border-radius: 4px;
-        margin: .4rem 0;
-      }
-
-      :focus {
-        border: 1px solid #da3c41;
-        outline: none;
-        box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
-      }
+    input {
+      background: #fafafa;
+      border-bottom: 2px solid #e9e9e9;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1em;
+      height: 50px;
+      width: 100%;
+      font: 15px/24px sans-serif;
+      box-sizing: border-box;
+      padding: 0.3em;
+      transition: 0.3s;
+      letter-spacing: 1px;
+      color: #aaaaaa;
+      border: 1px solid #1b2538;
+      border-radius: 4px;
+      margin: .4rem 0;
     }
+
+    :focus {
+      border: 1px solid #da3c41;
+      outline: none;
+      box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
+    }
+  }
 
   .btn {
     padding: 0.3em;
@@ -216,53 +211,7 @@ export default {
       color: #565452;
     }
   }
-  // .tsImgArea{
-  //   line-height: 1;
-  // }
-  // /* 昇順降順 */
-  // .tsImg{
-  //   display    : inline-block;
-  //   width      : 8px;
-  //   height     : 6px;
-  //   background : #eee;
-  //   border     : 1px solid #777;
-  //   margin     : 1px 3px;
-  //   padding    : 3px;
-  //   cursor     : pointer;
-
-  //   :hover{
-  //     background : #FFD700;
-  //   }
-
-  //   &path{
-  //     fill: #777;
-  //   }
-  // }
-
-  // #sampleTable {
-  //   width          : 100%;
-  //   border-collapse: collapse;         /* 境界線結合 */
-  //   border-spacing : 0;                /* 罫線間余白 */
-  //   font-size      : 9pt;              /* 文字サイズ */
-  //   background-color: gray;
-  //   position: relative;
-  //   height: auto;
-  //   min-height: 100%;
-
-  //   &th {
-  //     text-align    : center;            /* 文字位置   */
-  //     font-weight   : bold;              /* 太文字     */
-  //     padding       : 6px 5px;          /* 余白       */
-  //     white-space   : nowrap;
-  //   }
-  //   &td {
-  //     text-align    : center;            /* 文字位置   */
-  //     padding       : 6px 5px;           /* 余白       */
-  //     white-space   : nowrap;
-  //   }
-  // }
-
-  /* ふったーCSS */
+  
   .nav-links{
     padding:2em;
     display:flex;
