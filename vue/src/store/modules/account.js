@@ -13,15 +13,15 @@ export default {
     setAccount (state, payload) {
       state.accountInfo = payload
     },
-    resetAccountInfo (state) { // ログアウト後に情報が残らないように
+    resetAccountInfo (state) {
       state.accountInfo = ''
     }
   },
   actions: {
-    async accountAction ({ commit }, userId) { // 引数としてuserId（ログイン情報）
+    async accountAction ({ commit }, userId) {
       const url = '/api/accountReference/' + userId
       await axios.get(url).then(res => commit('setAccount', res.data))
         .catch(err => err)
-    }// axiosでurlから取得したデータをres.dataに。setAccountInfoに引数として渡す。
+    }
   }
 }

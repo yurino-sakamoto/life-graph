@@ -46,7 +46,6 @@ export default {
       return this.$store.state.auth.token
     },
     loginError () {
-      // console.log(this.$store.state.auth.error)
       return this.$store.state.auth.error
     }
   },
@@ -188,140 +187,127 @@ $set-prefix: '' , -moz- , -webkit-;
     }
   }
 
-.btn {
-  background:#7448FF;
-  color:#fff;
-  position: inline-block;
-  text-align: center;
-  font-weight: 900;
-  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
-  border-radius: 40px;
-  position:relative;
-  left: 20px;
-  top: 18px;
-  width: 130px;
-  height: 50px;
-  padding-bottom: 6px;
-  border:0;
-  font-size:1.25em;
-  margin: 10px -90px 14px 100px;
-  text-shadow:1px 1px 0px rgba(0,0,0,.1);
-  cursor: pointer;
+  .btn {
+    background:#7448FF;
+    color:#fff;
+    position: inline-block;
+    text-align: center;
+    font-weight: 900;
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+    border-radius: 40px;
+    position:relative;
+    left: 20px;
+    top: 18px;
+    width: 130px;
+    height: 50px;
+    padding-bottom: 6px;
+    border:0;
+    font-size:1.25em;
+    margin: 10px -90px 14px 100px;
+    text-shadow:1px 1px 0px rgba(0,0,0,.1);
+    cursor: pointer;
 
-  :hover {
-    background-color: #8566ce;
-    color: #FFF;
+    :hover {
+      background-color: #8566ce;
+      color: #FFF;
+    }
   }
-}
 
-.error {
-  position: relative;
-  left: 1048px;
-  bottom: 160px;
-  font-size: 1.2em;
-  font-weight: 600;
-  color: #F6FB17;
-  background: #565452;
-  width: 78px;
-  text-align: center;
-}
+  .error {
+    position: relative;
+    left: 1048px;
+    bottom: 160px;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #F6FB17;
+    background: #565452;
+    width: 78px;
+    text-align: center;
+  }
 
-.textBox {
-  display: block;
-  flex-direction: column;
-  align-items: center;
-  width:250px;
-  position: relative;
-  text-align: center;
-  padding: 15px 15px 15px 0;
-  font-size: 20px;
-  outline: none;
-  color: #565452;
-  font-weight: 500;
-  border:0;
-  border-radius: 30px;
-  height: 45px;
-}
+  .textBox {
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    width:250px;
+    position: relative;
+    text-align: center;
+    padding: 15px 15px 15px 0;
+    font-size: 20px;
+    outline: none;
+    color: #565452;
+    font-weight: 500;
+    border:0;
+    border-radius: 30px;
+    height: 45px;
+  }
 
-.textBox .text {
-  font-weight: 500;
-  width: calc(100% - 2vw);
-  height: 27px;
-  padding-left: 0.5vw;
-  background-color: transparent;
-  color: #565452;
-  position: absolute;
-  bottom: 0px;
-  outline: none;
-  border-style: solid;
-  border-color: #E3E7EA;
-  border-width: 0px 0px 2px 0px;
-  font-size: 20px;
-  transition: border-color 0.45s linear;
-}
+  .textBox .text {
+    font-weight: 500;
+    width: calc(100% - 2vw);
+    height: 27px;
+    padding-left: 0.5vw;
+    background-color: transparent;
+    color: #565452;
+    position: absolute;
+    bottom: 0px;
+    outline: none;
+    border-style: solid;
+    border-color: #E3E7EA;
+    border-width: 0px 0px 2px 0px;
+    font-size: 20px;
+    transition: border-color 0.45s linear;
+  }
 
-.label1 {
-  position: inline-block;
-  margin:-10px 0 80px -100px;
-  font-size: 16px;
-}
+  .label1 {
+    position: inline-block;
+    margin:-10px 0 80px -100px;
+    font-size: 16px;
+  }
 
-.label2 {
-  position: inline-block;
-  margin:-10px 0 80px -100px;
-  font-size: 16px;
-}
-.textBox > input.text:focus {
-  border-color: #7448FF;
-}
+  .label2 {
+    position: inline-block;
+    margin:-10px 0 80px -100px;
+    font-size: 16px;
+  }
+  .textBox > input.text:focus {
+    border-color: #7448FF;
+  }
 
-.textBox .label {
-  opacity: 0.1;
-  pointer-events: none;
-  z-index: 1;
-  color: #C0C0C0;
-  position: absolute;
-  padding-left: 0.5vw;
-  bottom: 3px;
-  font-size: 20px;
-  font-weight: 300;
-  -webkit-transition-property: opacity bottom font-size;
-  transition-property: opacity bottom font-size;
-  -webkit-transition-duration: 0.45s;
-  transition-duration: 0.45s;
-  -webkit-transition-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
-  transition-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
-}
+  .textBox .label {
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: 1;
+    color: #C0C0C0;
+    position: absolute;
+    padding-left: 0.5vw;
+    bottom: 3px;
+    font-size: 20px;
+    font-weight: 300;
+    -webkit-transition-property: opacity bottom font-size;
+    transition-property: opacity bottom font-size;
+    -webkit-transition-duration: 0.45s;
+    transition-duration: 0.45s;
+    -webkit-transition-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
+    transition-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
+  }
 
-.textBox .error {
-  position: absolute;
-  margin-top: 48px;
-  width: 100%;
-  color: #e74c3c;
-  text-align: center;
-}
+  .textBox .error {
+    position: absolute;
+    margin-top: 48px;
+    width: 100%;
+    color: #e74c3c;
+    text-align: center;
+  }
 
-.textBox > input.text:focus ~ .label, .textBox > input.text:not([value=""]) ~ .label {
-  opacity: 1;
-  z-index: 1;
-  bottom: 55%;
-  font-size: 12px;
-}
-.textBox > input.text:focus ~ .label {
-  color: #7448FF;
-}
-// .textBox ::-webkit-input-placeholder{
-//   color: #2B2B2B;
-//   font-size: 20px;
-//   font-weight: 200;
-//   font-family: 'Roboto', sans-serif;
-// }
-
-// .textBox ::-moz-placeholder {
-//   color: #2B2B2B;
-//   font-size: 20px;
-//   font-weight: 200;
-//   font-family: 'Roboto', sans-serif;
-// }
+  .textBox > input.text:focus ~ .label, .textBox > input.text:not([value=""]) ~ .label {
+    opacity: 1;
+    z-index: 1;
+    bottom: 55%;
+    font-size: 12px;
+  }
+  .textBox > input.text:focus ~ .label {
+    color: #7448FF;
+  }
 }
 </style>

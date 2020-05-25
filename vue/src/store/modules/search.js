@@ -3,11 +3,6 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 Vue.use(Vuex)
-// 手順（）
-// ①ユーザーが入力した情報を箱に詰める()
-// ②箱を引数としてsearchAPIに渡す
-// ③searchAPIが動き、stateの中に情報が詰まる
-// ④情報を取り出し、検索結果画面に詰める
 
 export default {
   namespaced: true,
@@ -33,10 +28,8 @@ export default {
   },
   actions: {
     async searchAPI ({ commit }, data) {
-      // console.log('actionにきたよー！')
       const url = '/api/life-graphs'
       await axios.get(url, data).then(res => commit('searchAPI', res.data))
-      // console.log('API終了')
     },
     deleteGraphData ({ commit }, parentId) {
       const url = '/api/life-graphs/' + parentId

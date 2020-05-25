@@ -36,32 +36,27 @@ export default {
       authority: ''
     }
   },
-  async mounted () { // ヘッダー表示と同時に起動
-    const userId = this.$store.state.auth.userId// 変数userIdを定義。ログイン情報。省略
+  async mounted () {
+    const userId = this.$store.state.auth.userId
     await this.$store.dispatch('account/accountAction', userId)
-    this.setAccount()// ファイル内のメソッド呼び出し
+    this.setAccount()
   },
   methods: {
-    // dataのaccountにaccount.jsのstateの情報をsetする
     setAccount () {
-      const stateAccount = this.$store.state.account.accountInfo // ストア全体のstateの中のaccount.jsの中のacountInfoというstateの値
+      const stateAccount = this.$store.state.account.accountInfo
       this.username = stateAccount.username
-      const authority = stateAccount.name // 変数authorityを定義
-      if (authority === 'ROLE_USER') { // roleがROLE_USERのとき
-        this.authority = 'User' // 一般ユーザーという値を返す
+      const authority = stateAccount.name
+      if (authority === 'ROLE_USER') {
+        this.authority = 'User'
       } else if (authority === 'ROLE_ADMIN') {
         this.authority = 'Admin'
-      } else { // roleが上記以外のとき
+      } else {
         this.authority = 'Owner'
       }
     },
-    // ログアウト（authのstateのtokenを消す）
     logout () {
-      // token削除。auth.jsのmutation呼び出し。
       this.$store.commit('auth/deleteToken')
-      // 上記の情報リセット。account.jsのmutation呼び出し。
       this.$store.commit('account/resetAccountInfo')
-      // ログイン画面に遷移
       this.$router.push('/login')
       this.$store.commit('chart/clearState')
     }
@@ -82,6 +77,7 @@ export default {
   left: 10px;
   margin: 20px 10px 10px 10px;
 }
+
   .nav {
     position : fixed;
     top : 0;
@@ -98,28 +94,29 @@ export default {
     :hover {
         opacity: 0.5;
       }
-      ::after {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        content: '';
-        width: 0;
-        height: 2px;
-        background-color: white;
-        transition: .3s;
-        transform: translateX(-50%);
-      }
-      :hover::after {
-        width: 100%;
-      }
-      .link {
-        padding: 0 30px 20px 0;
-        color: #565452;
-        font-size: 32px;
-        text-shadow: none;
-        text-decoration: none;
-      }
+    ::after {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      content: '';
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: .3s;
+      transform: translateX(-50%);
+    }
+    :hover::after {
+      width: 100%;
+    }
+    .link {
+      padding: 0 30px 20px 0;
+      color: #565452;
+      font-size: 32px;
+      text-shadow: none;
+      text-decoration: none;
+    }
   }
+
     ul{
       text-align: right;
       li{
@@ -135,6 +132,7 @@ export default {
         text-align: left;
       }
     }
+
   .btn{
     display: inline-block;
     width: 70px;
@@ -154,11 +152,11 @@ export default {
     top : 20px;
     left: 90%;
     z-index : 10;
-      :hover {
+
+    :hover {
       background-color: #8566ce;
       color: #FFF;
-      }
-
+    }
   }
 }
 </style>
