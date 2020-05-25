@@ -31,7 +31,6 @@ export default {
   data () {
     return {
       referenceId: parseInt(this.$route.params.userId)
-      // アクセス前のページでuserIdを指定している。parseIntはint型変換。これをチャートがバインド。
     }
   },
   computed: {

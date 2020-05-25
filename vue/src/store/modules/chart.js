@@ -5,11 +5,11 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 export default {
-  namespaced: true, // 名前空間
+  namespaced: true,
   state: {
     parentId: null,
     contents: [],
-    otherMemberContents: [], // 検索結果のグラフの要素が入る
+    otherMemberContents: [],
     load: false,
     loaded: false,
     error: ''
@@ -17,7 +17,7 @@ export default {
   mutations: {
     addContentMutation (state, payload) {
       state.contents = []
-      if (payload.length > 0) { // parentIdを配列の外に出し、登録APIと合致
+      if (payload.length > 0) {
         state.parentId = payload[0].parent_id
         payload.map((content) => {
           const data = {
@@ -28,7 +28,7 @@ export default {
           state.contents.push(data)
         })
       }
-      state.loaded = !state.loaded // アクションが走った時にTorF切替。変化したことを監視しているので、TかFかはなんでもいい。
+      state.loaded = !state.loaded
     },
     addDataMutation (state, contents) {
       state.contents = contents
@@ -44,7 +44,7 @@ export default {
     clearError (state) {
       state.error = ''
     },
-    getReferenceMutation (state, contents) { // 検索画面のやつ
+    getReferenceMutation (state, contents) {
       state.otherMemberContents = contents
       state.loaded = true
     },
@@ -53,23 +53,35 @@ export default {
     }
   },
   actions: {
-    async addContent ({ commit }, userId) { // 引数としてuserId（auth.js）
-      const url = '/api/reference/' + userId
-      await axios.get(url).then(res => commit('addContentMutation', res.data))
+    async addContent ({ commit, rootState }, userId) {
+      const url = '/api/life-graphs/' + userId
+      await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      }).then(res => commit('addContentMutation', res.data))
         .catch(err => err)
     },
     addData ({ commit }, contents) {
       commit('addDataMutation', contents)
     },
-    async editContent ({ dispatch, commit }, apiContents) {
+    async editContent ({ dispatch, commit, rootState }, apiContents) {
       const url = 'api/life-graphs'
-      await axios.post(url, apiContents)
+      await axios.post(url, apiContents, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      })
         .catch(err => commit('error', err))
       dispatch('addContent', apiContents.userId)
     },
-    async getReference ({ commit }, referenceId) {
-      const url = '/api/reference/' + referenceId
-      await axios.get(url).then(res => commit('getReferenceMutation', res.data))
+    async getReference ({ commit, rootState }, referenceId) {
+      const url = '/api/life-graphs/' + referenceId
+      await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      }).then(res => commit('getReferenceMutation', res.data))
         .catch(err => err)
     }
   }

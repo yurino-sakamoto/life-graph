@@ -6,7 +6,7 @@ import Edit from '../views/Edit.vue'
 import Search from '../views/Search.vue'
 import Reference from '../views/Reference.vue'
 
-// import Store from '@/store/index.js'
+import Store from '@/store/index.js'
 
 Vue.use(VueRouter)
 
@@ -45,13 +45,12 @@ const router = new VueRouter({
   routes
 })
 
-// 強制ログインページ飛ばし
-// router.beforeEach((to, from, next) => {
-//   if (to.path !== '/login' && Store.state.auth.token === '') {
-//     next('/login')
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/login' && Store.state.auth.token === '') {
+    next('/login')
+  } else {
+    next()
+  }
+})
 
 export default router

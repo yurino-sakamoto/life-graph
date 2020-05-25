@@ -22,7 +22,7 @@
                   type="number"
                   style="font-size:20px"
                   autocomplete="off"
-                  placeholder="必須項目です"
+                  placeholder="必須"
                   maxlength="3"
                   @keyup.enter="changeContents"
                 >
@@ -43,7 +43,7 @@
                 type="number"
                 style="font-size:20px"
                 autocomplete="off"
-                placeholder="必須項目です"
+                placeholder="必須"
                 maxlength="3"
               >
             </td>
@@ -158,7 +158,7 @@
     </div>
   </div>
 </template>
-<!--refs="？？？？"でチャートを操作できるようにする-->
+
 <script>
 import Header from '../components/Header.vue'
 import Chart from '../components/Chart.vue'
@@ -174,9 +174,9 @@ export default {
       score: null,
       comment: '',
       isActive: false,
-      contents: [], // ここに情報あると空のデータが存在してしまう
+      contents: [],
       load: true,
-      editIndex: -1 // 初期値-1だと
+      editIndex: -1
     }
   },
   computed: {
@@ -213,7 +213,6 @@ export default {
     setContents () {
       this.contents = this.$store.state.chart.contents.slice()
     },
-    // テキストボックス値削除
     removetext: function (removeitem) {
       this.age = ''
       this.score = ''
@@ -221,14 +220,14 @@ export default {
     },
     add () {
       this.isActive = true
-      if (this.editIndex === -1) { // ifの時addボタンの挙動
+      if (this.editIndex === -1) {
         this.contents.push(
           {
             age: this.age,
             score: this.score,
             comment: this.comment
           })
-      } else { // elseの時editボタンの挙動
+      } else {
         this.contents.splice(
           this.editIndex,
           1,
@@ -237,7 +236,7 @@ export default {
             score: this.score,
             comment: this.comment
           }
-        )// splice配列の最初？配列から要素を削除・追加して組み替え。１は第２引数で削除する数
+        )
         this.editIndex = -1
       }
       this.age = ''
@@ -246,10 +245,10 @@ export default {
     },
     edit (index) {
       this.editIndex = index
-      this.age = this.contents[index].age // indexに応じたageが出てくる
+      this.age = this.contents[index].age
       this.score = this.contents[index].score
       this.comment = this.contents[index].comment
-      this.$refs.editor.focus() // フォーカスを設定
+      this.$refs.editor.focus()
     },
     deleteContents (index) {
       this.contents.splice(index, 1)
@@ -266,14 +265,11 @@ export default {
         userId: currentUserId,
         children: this.$store.state.chart.contents
       }
-      // console.log('API叩く前')
       this.$store.dispatch('chart/editContent', apiContents)
-      // console.log('API叩いた')
-      // console.log(apiContents)
       // const userId = this.$store.state.auth.userId
       // this.$store.dispatch('chart/addContent', userId)
-      this.$refs.chart.createChart()
-    } // refs="chart"を付けたコンポーネントのcreateChart()メソッドを起動する。
+      // this.$refs.chart.createChart()
+    }
   }
 }
 </script>
@@ -284,7 +280,6 @@ export default {
   width: 100%;
   height: 900px;
   text-align: center;
-  /* padding:100px; */
 }
 
 .warning {
@@ -315,7 +310,7 @@ export default {
   outline: none;
   width: 70px;
   height: 32px;
-  border-radius: 32px;
+  border-radius: 10%;
   background: #F2F3F4;
   color: #565452;
 }
@@ -325,7 +320,7 @@ export default {
   outline: none;
   width: 70px;
   height: 32px;
-  border-radius: 32px;
+  border-radius: 10%;
   background: #F2F3F4;
   color: #565452;
 }
@@ -335,7 +330,7 @@ export default {
   outline: none;
   width: 220px;
   height: 80px;
-  border-radius: 32px;
+  border-radius: 10%;
   background:#F2F3F4;
   color: #565452;
 }
@@ -403,7 +398,6 @@ td {
 
 tr {
   height: auto;
-  /* margin: 200px 0; */
 }
 
 h1 {
@@ -428,13 +422,8 @@ h1 {
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
-  /* .hover {
-    background-color: #8566ce;
-    color: #FFF;
-    } */
 }
 
-/* 追加→完了 */
 .button {
   width: 100px;
   height: 40px;
@@ -450,10 +439,6 @@ h1 {
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
-  /* .hover {
-    background-color: #8566ce;
-    color: #FFF;
-    } */
 }
 
 .button.disabled {
@@ -474,10 +459,6 @@ h1 {
   border-radius: 30px;
   font-size: 12pt;
   cursor: pointer;
-  /* .hover {
-    background-color: #8566ce;
-    color: #FFF;
-    } */
 }
 
 .editButton {

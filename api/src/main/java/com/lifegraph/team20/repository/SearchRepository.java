@@ -20,7 +20,7 @@ public class SearchRepository {
 	public List<SearchGraphInfo> searchGraphs(String sql) {
 		return jdbcTemplate.query(sql, new RowMapper<SearchGraphInfo>() {
 			public SearchGraphInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return new SearchGraphInfo(rs.getString("username"), rs.getLong("user_id"),rs.getTimestamp("created_at"),
+				return new SearchGraphInfo(rs.getString("username"), rs.getLong("id"), rs.getLong("user_id"),rs.getTimestamp("created_at"),
 						rs.getTimestamp("updated_at"));
 			}
 		});

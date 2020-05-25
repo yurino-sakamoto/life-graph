@@ -232,68 +232,72 @@ export default {
   transition: border-color 0.45s linear;
 }
 
-.label1 {
-  position: inline-block;
-  margin:-10px 0 80px -100px;
-  font-size: 16px;
-}
+  .textBox .text {
+    font-weight: 500;
+    width: calc(100% - 2vw);
+    height: 27px;
+    padding-left: 0.5vw;
+    background-color: transparent;
+    color: #565452;
+    position: absolute;
+    bottom: 0px;
+    outline: none;
+    border-style: solid;
+    border-color: #E3E7EA;
+    border-width: 0px 0px 2px 0px;
+    font-size: 20px;
+    transition: border-color 0.45s linear;
+  }
 
-.label2 {
-  position: inline-block;
-  margin:-10px 0 80px -100px;
-  font-size: 16px;
-}
-.textBox > input.text:focus {
-  border-color: #7448FF;
-}
+  .label1 {
+    position: inline-block;
+    margin:-10px 0 80px -100px;
+    font-size: 16px;
+  }
 
-.textBox .label {
-  opacity: 0.1;
-  pointer-events: none;
-  z-index: 1;
-  color: #C0C0C0;
-  position: absolute;
-  padding-left: 0.5vw;
-  bottom: 3px;
-  font-size: 20px;
-  font-weight: 300;
-  -webkit-transition-property: opacity bottom font-size;
-  transition-property: opacity bottom font-size;
-  -webkit-transition-duration: 0.45s;
-  transition-duration: 0.45s;
-  -webkit-transition-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
-  transition-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
-}
+  .label2 {
+    position: inline-block;
+    margin:-10px 0 80px -100px;
+    font-size: 16px;
+  }
+  .textBox > input.text:focus {
+    border-color: #7448FF;
+  }
 
-.textBox .error {
-  position: absolute;
-  margin-top: 48px;
-  width: 100%;
-  color: #e74c3c;
-  text-align: center;
-}
+  .textBox .label {
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: 1;
+    color: #C0C0C0;
+    position: absolute;
+    padding-left: 0.5vw;
+    bottom: 3px;
+    font-size: 20px;
+    font-weight: 300;
+    -webkit-transition-property: opacity bottom font-size;
+    transition-property: opacity bottom font-size;
+    -webkit-transition-duration: 0.45s;
+    transition-duration: 0.45s;
+    -webkit-transition-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
+    transition-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
+  }
 
-.textBox > input.text:focus ~ .label, .textBox > input.text:not([value=""]) ~ .label {
-  opacity: 1;
-  z-index: 1;
-  bottom: 55%;
-  font-size: 12px;
-}
-.textBox > input.text:focus ~ .label {
-  color: #7448FF;
-}
-// .textBox ::-webkit-input-placeholder{
-//   color: #2B2B2B;
-//   font-size: 20px;
-//   font-weight: 200;
-//   font-family: 'Roboto', sans-serif;
-// }
+  .textBox .error {
+    position: absolute;
+    margin-top: 48px;
+    width: 100%;
+    color: #e74c3c;
+    text-align: center;
+  }
 
-// .textBox ::-moz-placeholder {
-//   color: #2B2B2B;
-//   font-size: 20px;
-//   font-weight: 200;
-//   font-family: 'Roboto', sans-serif;
-// }
+  .textBox > input.text:focus ~ .label, .textBox > input.text:not([value=""]) ~ .label {
+    opacity: 1;
+    z-index: 1;
+    bottom: 55%;
+    font-size: 12px;
+  }
+  .textBox > input.text:focus ~ .label {
+    color: #7448FF;
+  }
 }
 </style>
