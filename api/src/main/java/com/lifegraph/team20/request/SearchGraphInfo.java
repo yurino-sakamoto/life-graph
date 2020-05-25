@@ -14,6 +14,8 @@ public class SearchGraphInfo {
 
     private String username;
 
+    private Long id;
+
 	private Long user_id;
 
 	private Timestamp created_at;
