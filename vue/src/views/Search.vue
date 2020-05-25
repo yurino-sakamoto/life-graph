@@ -108,7 +108,9 @@ export default {
     },
     // TODO 管理者関連のの記述
     deleteGraphData (parentId) {
-      this.$store.dispatch('search/deleteGraphData', parentId)
+      if (confirm('本当に削除してよろしいですか？')) {
+        this.$store.dispatch('search/deleteGraphData', parentId)
+      }
     }
   }
 }

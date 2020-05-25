@@ -53,23 +53,35 @@ export default {
     }
   },
   actions: {
-    async addContent ({ commit }, userId) {
-      const url = '/api/reference/' + userId
-      await axios.get(url).then(res => commit('addContentMutation', res.data))
+    async addContent ({ commit, rootState }, userId) {
+      const url = '/api/life-graphs/' + userId
+      await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      }).then(res => commit('addContentMutation', res.data))
         .catch(err => err)
     },
     addData ({ commit }, contents) {
       commit('addDataMutation', contents)
     },
-    async editContent ({ dispatch, commit }, apiContents) {
+    async editContent ({ dispatch, commit, rootState }, apiContents) {
       const url = 'api/life-graphs'
-      await axios.post(url, apiContents)
+      await axios.post(url, apiContents, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      })
         .catch(err => commit('error', err))
       dispatch('addContent', apiContents.userId)
     },
-    async getReference ({ commit }, referenceId) {
-      const url = '/api/reference/' + referenceId
-      await axios.get(url).then(res => commit('getReferenceMutation', res.data))
+    async getReference ({ commit, rootState }, referenceId) {
+      const url = '/api/life-graphs/' + referenceId
+      await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      }).then(res => commit('getReferenceMutation', res.data))
         .catch(err => err)
     }
   }
