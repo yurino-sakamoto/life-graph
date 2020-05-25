@@ -21,7 +21,7 @@ public class SearchController {
 	  private LifeGraphSearchService service;
 
 	//Vueから@RequestParamで受け取る。@DateTimeFormatで日時の受け取り方を設定する。
-	@GetMapping("/search")
+	@GetMapping("/life-graphs")
 	  public ResponseEntity<List<SearchResponse>> SearchGraphInfos(@RequestParam("likeName") Optional<String> likeName,
 	      @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy/MM/dd") Optional<Date> startDate,
 	      @RequestParam("finishDate") @DateTimeFormat(pattern = "yyyy/MM/dd") Optional<Date> finishDate) {

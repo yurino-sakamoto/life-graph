@@ -34,7 +34,7 @@ public class LifeGraphSearchService {
 
 	//StringJoiner上手く使えばとても便利。考え方としてとりあえずSQLで実行できるコードを書いてからそれに当てはめていくのがわかりやすい。
 	private String generateSqlForSearch(Optional<String> likeName, Optional<Date> startDate, Optional<Date> finishDate) {
-		String sql = "select `username`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id ";
+		String sql = "select `username`, parent_graphs.`id`, `user_id`, parent_graphs.`created_at`, parent_graphs.`updated_at` from users INNER JOIN parent_graphs on users.id = parent_graphs.user_id ";
 		StringJoiner sj = new StringJoiner(" AND ", " WHERE ", ";");
 
 		if (likeName.isPresent()) {
