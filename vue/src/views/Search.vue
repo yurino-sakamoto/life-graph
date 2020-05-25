@@ -193,6 +193,7 @@ export default {
     width: 100%;
     max-width: 600px;
     text-align: center;
+    margin-left: 28%;
 
     h2 {
       padding: 20px;
