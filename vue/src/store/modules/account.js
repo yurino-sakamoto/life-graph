@@ -19,7 +19,7 @@ export default {
   },
   actions: {
     async accountAction ({ commit }, userId) { // 引数としてuserId（ログイン情報）
-      const url = '/api/accountReference/' + userId
+      const url = '/api/auth/accounts/' + userId
       await axios.get(url).then(res => commit('setAccount', res.data))
         .catch(err => err)
     }// axiosでurlから取得したデータをres.dataに。setAccountInfoに引数として渡す。

@@ -32,30 +32,24 @@ export default {
     }
   },
   actions: {
-    async searchAPI ({ commit }, data) {
+    async searchAPI ({ commit, rootState }, data) {
       // console.log('actionにきたよー！')
       const url = '/api/life-graphs'
-      await axios.get(url, data).then(res => commit('searchAPI', res.data))
+      await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      }, data).then(res => commit('searchAPI', res.data))
       // console.log('API終了')
     },
-    deleteGraphData ({ commit }, parentId) {
+    deleteGraphData ({ commit, rootState }, parentId) {
       const url = '/api/life-graphs/' + parentId
-      axios.delete(url)
+      axios.delete(url, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      })
         .catch(err => commit('error', err))
     }
   }
 }
-//       try {
-//         const res = await Promise.all([
-//           axios.get('/likename'),
-//           axios.get('/startDate'),
-//           axios.get('/finishDate')
-//         ])
-//         return commit('setSearchGraphs', res.data)
-//       } catch (err) {
-
-//         return err
-//       }
-//     }
-//   }
-// }
