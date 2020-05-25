@@ -16,11 +16,14 @@
             <th>
               <td>
                 <input
-                  id="age"
+                  id="ageInput"
                   ref="editor"
                   v-model="age"
                   type="number"
+                  style="font-size:20px"
                   autocomplete="off"
+                  placeholder="必須項目です"
+                  maxlength="3"
                   @keyup.enter="changeContents"
                 >
               </td>
@@ -34,11 +37,14 @@
             </th>
             <td>
               <input
-                id="score"
+                id="scoreInput"
                 ref="editor"
                 v-model="score"
                 type="number"
+                style="font-size:20px"
                 autocomplete="off"
+                placeholder="必須項目です"
+                maxlength="3"
               >
             </td>
           </tr>
@@ -50,19 +56,21 @@
             </th>
             <td>
               <textarea
-                id="comment"
+                id="commentInput"
                 ref="editor"
                 v-model="comment"
+                style="font-size:16px"
                 cols="30"
                 rows="5"
                 placeholder="内容を入力してください。"
+                maxlength="255"
               />
             </td>
           </tr>
         </table>
         <div class="warning">
-          <br><p>※スコアは-100から100の範囲で指定してください。</p>
-          <p>※コメントは250文字以内で入力してください。</p><br>
+          <br><p>※スコアは-100から100の範囲で指定してください</p>
+          <p>※コメントは250文字以内で入力してください</p><br>
         </div>
         <button
           class="resetButton"
@@ -78,14 +86,14 @@
         >
           {{ changeButtonText }}
         </button>
-        <div v-if="ageCheck">
-          年齢が不正です
+        <div v-if="ageCheck" class="ageCheck">
+          年齢は1〜100で入力してください
         </div>
-        <div v-if="scoreCheck">
-          スコアが不正です
+        <div v-if="scoreCheck" class="scoreCheck">
+          満足度は-100〜100で入力してください
         </div>
-        <div v-if="editError">
-          更新に失敗しました。
+        <div v-if="editError" class="editError">
+          更新に失敗しました
         </div>
         <div class="listInfo">
           <table class="tableRecord">
@@ -140,18 +148,17 @@
           </button>
         </div>
       </div>
+      <div class="editGraph">
+        <div
+          class="chart"
+        >
+          <Chart refs="chart" />
+        </div>
+      </div><br><br>
     </div>
-    <div class="editGraph">
-      <div
-        v-if="loaded"
-        id="chart"
-      >
-        <Chart />
-      </div>
-    </div><br><br>
   </div>
 </template>
-
+<!--refs="？？？？"でチャートを操作できるようにする-->
 <script>
 import Header from '../components/Header.vue'
 import Chart from '../components/Chart.vue'
@@ -197,19 +204,14 @@ export default {
   },
   created () {
     this.$store.commit('chart/clearError')
+    this.$store.dispatch('chart/addContent', this.$store.state.auth.userId)
   },
   mounted () {
     this.setContents()
   },
   methods: {
     setContents () {
-      this.contents = this.$store.state.chart.contents.map((content) => {
-        return {
-          age: content.age,
-          score: content.score,
-          comment: content.comment
-        }
-      })
+      this.contents = this.$store.state.chart.contents.slice()
     },
     // テキストボックス値削除
     removetext: function (removeitem) {
@@ -241,7 +243,6 @@ export default {
       this.age = ''
       this.score = ''
       this.comment = ''
-      // console.log(this.contents)
     },
     edit (index) {
       this.editIndex = index
@@ -258,18 +259,21 @@ export default {
         'chart/addData',
         this.contents
       )
-      const currentParentId = this.$store.state.chart.contents[0].parentId
+      const currentParentId = this.$store.state.chart.parentId
       const currentUserId = this.$store.state.auth.userId
       const apiContents = {
         parentId: currentParentId,
         userId: currentUserId,
         children: this.$store.state.chart.contents
       }
+      // console.log('API叩く前')
       this.$store.dispatch('chart/editContent', apiContents)
+      // console.log('API叩いた')
       // console.log(apiContents)
       // const userId = this.$store.state.auth.userId
       // this.$store.dispatch('chart/addContent', userId)
-    }
+      this.$refs.chart.createChart()
+    } // refs="chart"を付けたコンポーネントのcreateChart()メソッドを起動する。
   }
 }
 </script>
@@ -304,6 +308,36 @@ export default {
   padding: 20px;
   text-align: center;
   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+}
+
+#ageInput {
+  border: none;
+  outline: none;
+  width: 70px;
+  height: 32px;
+  border-radius: 32px;
+  background: #F2F3F4;
+  color: #565452;
+}
+
+#scoreInput {
+  border: none;
+  outline: none;
+  width: 70px;
+  height: 32px;
+  border-radius: 32px;
+  background: #F2F3F4;
+  color: #565452;
+}
+
+#commentInput {
+  border: none;
+  outline: none;
+  width: 220px;
+  height: 80px;
+  border-radius: 32px;
+  background:#F2F3F4;
+  color: #565452;
 }
 
 .marginConfig {
@@ -347,7 +381,7 @@ export default {
 }
 
 .listInfo {
-  margin: 50px 0 0 0;
+  margin: 30px 0 0 0;
 }
 
 td {
@@ -393,9 +427,13 @@ h1 {
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
+  /* .hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
 }
 
-/* add */
+/* 追加→完了 */
 .button {
   width: 100px;
   height: 40px;
@@ -410,6 +448,10 @@ h1 {
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
+  /* .hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
 }
 
 .button.disabled {
@@ -429,6 +471,10 @@ h1 {
   border-radius: 30px;
   font-size: 12pt;
   cursor: pointer;
+  /* .hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
 }
 
 .editButton {
@@ -443,6 +489,10 @@ h1 {
   border-radius: 30px;
   font-size: 12pt;
   cursor: pointer;
+  /* :hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
 }
 
 /* 更新 */
@@ -458,6 +508,10 @@ button {
   padding: 4px 8px;
   font-size: 12pt;
   cursor: pointer;
+  /* :hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
 }
 
 .reload {
@@ -466,7 +520,44 @@ button {
   right : 30px;
 }
 
-#chart {
+.chart {
   padding: 8px 12px 8px 6px;
+  z-index: 90;
+}
+
+/* 入力フォーム */
+
+/* バリデーション */
+.ageCheck {
+  position: relative;
+  left: 40px;
+  font-size: 1em;
+  color: #F6FB17;
+  background: #565452;
+  width: 126px;
+  text-align: center;
+  margin: 2px;
+}
+
+.scoreCheck {
+  position: relative;
+  left: 40px;
+  font-size: 1em;
+  color: #F6FB17;
+  background: #565452;
+  width: 140px;
+  text-align: center;
+  margin: 2px;
+}
+
+.editError {
+  position: relative;
+  left: 40px;
+  font-size: 1em;
+  color: #F6FB17;
+  background: #565452;
+  width: 160px;
+  text-align: center;
+  margin: 2px;
 }
 </style>

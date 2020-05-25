@@ -1,8 +1,19 @@
 <template>
   <div class="referenceSection">
-    <div class="referenceGraph">
-      <Header />
-      <Chart v-bind="UserId" class="referenceChart" />
+    <Header />
+    <h1>
+      There is only one success
+      - to be able to spend you life in your own way.
+    </h1>
+    <h2>
+      成功の道はただ一つ、自分だけの生き方を見つけることだ ―Christopher Morley
+    </h2>
+    <div class="referenceModule">
+      <Chart
+        v-if="loaded"
+        :reference-mode="true"
+        class="referenceChart"
+      />
     </div>
   </div>
 </template>
@@ -19,36 +30,49 @@ export default {
   },
   data () {
     return {
-      UserId: parseInt(this.$route.params.userId)
-      // 不明：これで検索された人のIDに結びつくのはなぜか？（search終了後）
+      referenceId: parseInt(this.$route.params.userId)
+      // アクセス前のページでuserIdを指定している。parseIntはint型変換。これをチャートがバインド。
     }
+  },
+  computed: {
+    loaded () {
+      return this.$store.state.chart.loaded
+    }
+  },
+  created () {
+    this.$store.dispatch('chart/getReference', this.referenceId)
   }
 }
 </script>
 
 <style scoped>
 .referenceSection {
+  margin-top: 80px;
   background: #F3F3F9;
-  height: 760px;
+  height: 700px;
 }
 
-.referenceGraph {
-  background: #FFF;
+.referenceModule {
+  background:#FFF;
   color: #565452;
   border-radius: 20px;
-  width: 70%;
-  height: 80%;
+  width: 800px;
+  height: 450px;
   font-size: 12pt;
   word-break: break-all;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
 }
 
 .referenceChart{
-  padding: 100px 12px 8px 6px;
-  margin:20px;
+  width: 730px;
+  height: auto;
+  position: relative;
+  top: 20px;
+  right: 6px;
+  text-align: center;
+  margin: auto;
 }
 
 .searchButtonParent{
@@ -60,8 +84,30 @@ export default {
   margin: 50px 0px 0px 100px;
 }
 
-.resultChart{
-  width: 500px;
-  margin: 0px auto;
+h1 {
+  text-align: center;
+  position: relative;
+  top: -25px;
+  margin: 0 0 0 30px;
+  font-size: 30px;
+  line-height: 0.8em;
+  letter-spacing: -1px;
+}
+
+h2 {
+  font-size: 20px;
+  color: #565452;
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+
+.resultChart {
+  width: 730px;
+  height: auto;
+  position: relative;
+  top: 20px;
+  right: 6px;
+  text-align: center;
+  margin: auto;
 }
 </style>

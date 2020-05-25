@@ -4,12 +4,12 @@
       Life<br>
       Graph
     </div>
-    <!-- <div class="logo">
-      <img src="./assets/login.png">
-    </div> -->
+    <div class="logoParent">
+      <img class="pageLogo" src="../assets/lifegraphLogo.png" alt="ロゴ">
+    </div>
     <div class="loginArea">
       <div class="login">
-        <h1>Login</h1>
+        <h2>ログイン</h2>
         <div class="loginID">
           <div class="textBox">
             <label class="label1">ユーザー名</label>
@@ -18,16 +18,16 @@
           </div>
           <div class="textBox">
             <label class="label2">パスワード</label>
-            <input v-model="password" class="text" type="textbox">
+            <input v-model="password" class="text" type="password">
           </div>
         </div>
         <button class="btn" @click="login()">
-          Login
+          ログイン
         </button>
       </div>
     </div>
-    <div v-if="loginError">
-      エラーです
+    <div v-if="loginError" class="error">
+      ERROR!
     </div>
   </div>
 </template>
@@ -74,11 +74,43 @@ export default {
 
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+$set-prefix: '' , -moz- , -webkit-;
 
 .loginSection {
-  background: #F3F3F9;
-  height: 760px;
+  height: 740px;
   background-size: cover;
+  background: #DDD6F3;
+  animation: colour 10s linear infinite;
+
+  @keyframes colour{
+    0%{
+      background: #FFFFFF;
+    }
+
+    10%{
+      background: #F4F5FE;
+    }
+
+    30%{
+      background: #F3F3F9;
+    }
+
+    50%{
+      background: #DDD6F3;
+    }
+
+    70%{
+      background: #F3F3F9;
+    }
+
+    90%{
+      background: #F4F5FE;
+    }
+
+    100%{
+      background: #FFFFFF;
+    }
+  }
 
   .titleLogo {
     color: #565452;
@@ -95,42 +127,52 @@ export default {
 
   @keyframes sample01 {
   0% {
-  opacity: 0;
-  transform: translateX(-30px);
+    opacity: 0;
+    transform: translateX(-30px);
   }
   50%{
     opacity: 1;
     transform: translateX(0);
     }
   100% {
-  opacity:1;
-  transform: translate(0px);
+    opacity:1;
+    transform: translate(0px);
   }
 }
 
-  .login {
-  background:#FFF;
-  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
-  border-radius:18px;
-  width:400px;
-  text-align: center;
-  padding: 15px;
-  position: absolute;
-  top: 350px;
-  right: 90px;
+  .pageLogo {
+    width: 460px;
+    margin: 0 0 0 30px;
+    position: fixed;
+    left: 250px;
+    bottom: -70px;
+    letter-spacing: -2px;
   }
 
-  h1 {
-  text-align:center;
-  font-size:1.2em;
-  font-weight:600;
-  color:#565452;
-  margin-top: 6px;
+  .login {
+    background:#FFF;
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+    border-radius:18px;
+    width:400px;
+    height: 300px;
+    text-align: center;
+    padding: 15px;
+    position: absolute;
+    top: 260px;
+    right: 130px;
+  }
+
+  h2 {
+    text-align:center;
+    font-size:1.4em;
+    font-weight:600;
+    color:#565452;
+    margin-top: 8px;
   }
 
   .loginArea {
-  text-align: center;
-}
+    text-align: center;
+  }
 
   input {
     width:250px;
@@ -155,6 +197,8 @@ export default {
   filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
   border-radius: 40px;
   position:relative;
+  left: 20px;
+  top: 18px;
   width: 130px;
   height: 50px;
   padding-bottom: 6px;
@@ -164,14 +208,22 @@ export default {
   text-shadow:1px 1px 0px rgba(0,0,0,.1);
   cursor: pointer;
 
-  :active {
-    top:3px;
-    box-shadow:none;
+  :hover {
+    background-color: #8566ce;
+    color: #FFF;
   }
+}
 
-  :focus {
-    outline: 0;
-  }
+.error {
+  position: relative;
+  left: 1048px;
+  bottom: 160px;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #F6FB17;
+  background: #565452;
+  width: 78px;
+  text-align: center;
 }
 
 .textBox {
@@ -190,6 +242,7 @@ export default {
   border-radius: 30px;
   height: 45px;
 }
+
 .textBox .text {
   font-weight: 500;
   width: calc(100% - 2vw);
@@ -204,7 +257,6 @@ export default {
   border-color: #E3E7EA;
   border-width: 0px 0px 2px 0px;
   font-size: 20px;
-  -webkit-transition: border-color 0.45s linear;
   transition: border-color 0.45s linear;
 }
 
