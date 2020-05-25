@@ -22,7 +22,7 @@
                   type="number"
                   style="font-size:20px"
                   autocomplete="off"
-                  placeholder="必須項目です"
+                  placeholder="必須"
                   maxlength="3"
                   @keyup.enter="changeContents"
                 >
@@ -43,7 +43,7 @@
                 type="number"
                 style="font-size:20px"
                 autocomplete="off"
-                placeholder="必須項目です"
+                placeholder="必須"
                 maxlength="3"
               >
             </td>
@@ -272,6 +272,7 @@ export default {
       // console.log(apiContents)
       // const userId = this.$store.state.auth.userId
       // this.$store.dispatch('chart/addContent', userId)
+      console.log('レフ図の前')
       this.$refs.chart.createChart()
     } // refs="chart"を付けたコンポーネントのcreateChart()メソッドを起動する。
   }
@@ -315,7 +316,7 @@ export default {
   outline: none;
   width: 70px;
   height: 32px;
-  border-radius: 32px;
+  border-radius: 10%;
   background: #F2F3F4;
   color: #565452;
 }
@@ -325,7 +326,7 @@ export default {
   outline: none;
   width: 70px;
   height: 32px;
-  border-radius: 32px;
+  border-radius: 10%;
   background: #F2F3F4;
   color: #565452;
 }
@@ -335,7 +336,7 @@ export default {
   outline: none;
   width: 220px;
   height: 80px;
-  border-radius: 32px;
+  border-radius: 10%;
   background:#F2F3F4;
   color: #565452;
 }

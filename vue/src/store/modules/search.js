@@ -38,8 +38,8 @@ export default {
       await axios.get(url, data).then(res => commit('searchAPI', res.data))
       // console.log('API終了')
     },
-    deleteGraphData ({ commit }, userId) {
-      const url = '/api/life-graphs/' + userId
+    deleteGraphData ({ commit }, parentId) {
+      const url = '/api/life-graphs/' + parentId
       axios.delete(url)
         .catch(err => commit('error', err))
     }

@@ -34,14 +34,14 @@
             <button @click="userReference(searchItem.user_id)">
               参照
             </button>
-            <button v-if="!authCheck" @click="deleteGraphData(searchItem.user_id)">
+            <button v-if="!authCheck" @click="deleteGraphData(searchItem.id)">
               削除
             </button>
           </tr>
         </tbody>
       </table>
     </div>
-    <footer>
+    <!-- <footer>
       <div class="nav-links">
         <a class="prev page-numbers" href="">«</a>
         <a class="page-numbers" href="">1</a>
@@ -51,7 +51,7 @@
         <a class="page-numbers" href="">10</a>
         <a class="next page-numbers" href="">»</a>
       </div>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -112,8 +112,8 @@ export default {
       // 画面遷移メソッド
     },
     // TODO 管理者関連のの記述
-    deleteGraphData (userId) {
-      this.$store.dispatch('search/deleteGraphData', userId)
+    deleteGraphData (parentId) {
+      this.$store.dispatch('search/deleteGraphData', parentId)
     }
   }
 }
@@ -123,7 +123,7 @@ export default {
 .search {
   margin-top: 80px;
   background: #F3F3F9;
-  height: 100%;;
+  height: 100%;
 
   h1 {
     text-align: left;
