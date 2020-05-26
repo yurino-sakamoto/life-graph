@@ -81,11 +81,11 @@ export default {
   background-size: cover;
   animation: sample02 9s ease infinite;
 
-@keyframes sample02 {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
+  @keyframes sample02 {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+  }
 
   .titleLogo {
     color: #565452;
