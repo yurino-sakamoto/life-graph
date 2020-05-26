@@ -57,7 +57,6 @@ export default {
   border-radius: 20px;
   width: 800px;
   height: 480px;
-  width: 800px;
   word-break: break-all;
   margin: 0 auto;
   padding: 20px;
@@ -91,13 +90,6 @@ h1 {
   font-size: 30px;
   line-height: 0.8em;
   letter-spacing: -1px;
-}
-
-h2 {
-  font-size: 20px;
-  color: #565452;
-  text-align: center;
-  margin: 0 0 30px 0;
 }
 
 .resultChart {
