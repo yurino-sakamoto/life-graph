@@ -16,6 +16,9 @@ export default {
       state.searchItems = payload
       state.showResult = true
     },
+    clereSearchItems (state) {
+      state.searchItems = ''
+    },
     error (state, err) {
       state.error = err
     },
@@ -32,8 +35,9 @@ export default {
       await axios.get(url, {
         headers: {
           Authorization: `Bearer ${rootState.auth.token}`
-        }
-      }, data).then(res => commit('searchAPI', res.data))
+        },
+        params: data
+      }).then(res => commit('searchAPI', res.data))
     },
     deleteGraphData ({ commit, rootState }, parentId) {
       const url = '/api/life-graphs/' + parentId
