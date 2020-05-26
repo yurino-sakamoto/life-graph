@@ -4,7 +4,7 @@
       <Header />
     </div>
     <div id="editForm">
-      <h1>編集</h1>
+      <h1>Edit</h1>
       <div id="input">
         <table id="field">
           <tr>
@@ -20,7 +20,6 @@
                   ref="editor"
                   v-model="age"
                   type="number"
-                  style="font-size: 20px;"
                   autocomplete="off"
                   placeholder="必須"
                   maxlength="3"
@@ -28,7 +27,7 @@
                 >
               </td>
             </th>
-          </tr>
+          </tr><br>
           <tr>
             <th class="th1" scope="row">
               <label for="score">
@@ -41,13 +40,12 @@
                 ref="editor"
                 v-model="score"
                 type="number"
-                style="font-size: 20px;"
                 autocomplete="off"
                 placeholder="必須"
                 maxlength="3"
               >
             </td>
-          </tr>
+          </tr><br>
           <tr>
             <th class="th1" scope="row">
               <label for="comment">
@@ -59,17 +57,17 @@
                 id="commentInput"
                 ref="editor"
                 v-model="comment"
-                style="font-size: 16px;"
                 cols="30"
                 rows="5"
-                placeholder="内容を入力してください。"
+                placeholder="内容を入力してください"
                 maxlength="255"
               />
             </td>
           </tr>
         </table>
         <div class="warning">
-          <br><p>※スコアは-100から100の範囲で指定してください</p>
+          <br><p>※年齢・満足度は半角英数で入力してください</p>
+          <p>※満足度は-100から100の範囲で指定してください</p>
           <p>※コメントは250文字以内で入力してください</p><br>
         </div>
         <button
@@ -159,9 +157,10 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import Header from '../components/Header.vue'
 import Chart from '../components/Chart.vue'
+
 export default {
   name: 'Edit',
   components: {
@@ -286,13 +285,14 @@ export default {
 <style>
 .editSection {
   background: #f3f3f9;
-  height: 900px;
+  height: 1200px;
   text-align: center;
   width: 100%;
+  margin: ;
 }
 
 .warning {
-  bottom: 90px;
+  bottom: 130px;
   font-size: 12px;
   left: 340px;
   line-height: 60%;
@@ -307,42 +307,88 @@ export default {
   filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.2));
   float: left;
   font-size: 12pt;
-  margin: 0 2px 0 50px;
-  padding: 20px;
+  margin: 0 2px 50px 50px;
+  padding: 24px;
   text-align: center;
   width: 620px;
   word-break: break-all;
 }
 
 #ageInput {
-  background: #f2f3f4;
-  border: none;
-  border-radius: 10%;
-  color: #565452;
-  height: 32px;
-  outline: none;
+  background: #fafafa;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.5em;
+  height: 40px;
   width: 70px;
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  padding: 0.3em;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  color: #565452;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  margin: .4rem 0;
+  position: fixed;
+  top: 10px;
+  left: 107px;
 }
+
+#ageInput[type="text"]:focus {
+  box-shadow: 0 0 1px 0 #7448FF;
+  outline: 0;
+  }
 
 #scoreInput {
-  background: #f2f3f4;
-  border: none;
-  border-radius: 10%;
-  color: #565452;
-  height: 32px;
-  outline: none;
+  background: #fafafa;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.5em;
+  height: 40px;
   width: 70px;
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  padding: 0.3em;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  color: #565452;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  margin: .4rem 0;
+  position: fixed;
+  left: 107px;
+  top: 66px;
 }
 
+#scoreInput[type="text"]:focus {
+  box-shadow: 0 0 1px 0 #7448FF;
+  outline: 0;
+  }
+
 #commentInput {
-  background: #f2f3f4;
-  border: none;
-  border-radius: 10%;
+  background: #fafafa;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.5em;
+  height: 90px;
+  width: 260px;
+  resize: none;
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  padding: 0.3em;
+  transition: 0.3s;
+  letter-spacing: 1px;
   color: #565452;
-  height: 80px;
-  outline: none;
-  width: 220px;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  margin: .4rem 0;
+  position: fixed;
+  left: 107px;
+  top: 124px;
 }
+
+#commentInput[type="text"]:focus {
+  box-shadow: 0 0 1px 0 #7448FF;
+  outline: 0;
+  }
 
 .marginConfig {
   background: #fff;
@@ -360,7 +406,7 @@ export default {
   margin: 0 50px 0 -2px;
   padding: 0px;
   text-align: center;
-  width: 600px;
+  width: 640px;
   word-break: break-all;
 }
 
@@ -379,7 +425,7 @@ export default {
 }
 
 .th2 {
-  padding: 0 10px;
+  padding: 0 2px;
   text-align: left;
   width: 80px;
 }
@@ -400,7 +446,7 @@ td {
 }
 
 .commentTable {
-  padding: 5px 0 5px 16px;
+  padding: 2px 0 2px 16px;
   text-align: left;
   width: 240px;
 }
@@ -412,9 +458,9 @@ tr {
 h1 {
   color: #565452;
   font-size: 40px;
-  margin: 20px 0 30px 40px;
+  margin: 20px 0 20px 0;
   padding-top: 80px;
-  text-align: left;
+  text-align: center;
 }
 
 .resetButton {
@@ -431,7 +477,7 @@ h1 {
   padding: 4px 8px;
   position: absolute;
   right: 136px;
-  top: 180px;
+  top: 220px;
   width: 100px;
 }
 
@@ -448,7 +494,7 @@ h1 {
   padding: 4px 8px;
   position: absolute;
   right: 30px;
-  top: 180px;
+  top: 220px;
   width: 100px;
 }
 
@@ -470,6 +516,7 @@ h1 {
   position: absolute;
   right: 96px;
   width: 60px;
+  margin: 0 auto;
 }
 
 .editButton {
@@ -528,7 +575,7 @@ button {
   top: 26px;
   bottom: 30px;
   z-index: 90;
-  left: 10px;
+  left: 26px;
 }
 
 /* 入力フォーム */
@@ -536,35 +583,51 @@ button {
 /* バリデーション */
 
 .ageCheck {
-  background: #565452;
-  color: #f6fb17;
   font-size: 1em;
   left: 40px;
   margin: 2px;
   position: relative;
   text-align: center;
   width: 126px;
+  line-height: 60%;
+  bottom: 450px;
+  font-weight: 400;
+  color: #565452;
+  width: 800px;
+  letter-spacing: -1px;
 }
 
 .scoreCheck {
-  background: #565452;
-  color: #f6fb17;
-  font-size: 1em;
   left: 40px;
   margin: 2px;
-  position: relative;
   text-align: center;
-  width: 140px;
+  bottom: 130px;
+  left: 340px;
+  line-height: 60%;
+  position: relative;
+  left: 920px;
+  bottom: 450px;
+  font-size: 1em;
+  font-weight: 400;
+  color: #565452;
+  width: 800px;
+  letter-spacing: -1px;
 }
 
 .editError {
-  background: #565452;
-  color: #f6fb17;
-  font-size: 1em;
   left: 40px;
   margin: 2px;
-  position: relative;
   text-align: center;
-  width: 160px;
+  bottom: 130px;
+  left: 340px;
+  line-height: 60%;
+  position: relative;
+  left: 920px;
+  bottom: 450px;
+  font-size: 1em;
+  font-weight: 400;
+  color: #565452;
+  width: 800px;
+  letter-spacing: -1px;
 }
 </style>

@@ -30,7 +30,7 @@ export default {
 .topSection {
   margin-top: 80px;
   background: #F3F3F9;
-  height: 700px;
+  height: 720px;
 }
 
 .topModule {
@@ -38,7 +38,7 @@ export default {
   color: #565452;
   border-radius: 20px;
   width: 800px;
-  height: 380px;
+  height: 480px;
   font-size: 12pt;
   word-break: break-all;
   margin: 0 auto;
@@ -47,11 +47,11 @@ export default {
 }
 
 h1 {
-  text-align: left;
+  text-align: center;
   position: relative;
   top: -25px;
   margin: 0 0 0 30px;
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 800;
   line-height: 0.8em;
   letter-spacing: -1px;
@@ -59,8 +59,8 @@ h1 {
 }
 
 .topChart {
-  width: 730px;
-  height: auto;
+  width: 760px;
+  height: 460px;
   position: relative;
   top: 20px;
   right: 6px;

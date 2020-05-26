@@ -42,6 +42,9 @@ export default {
             gridLines: {
               display: true
             },
+            scaleLabel: {
+              fontSize: 50
+            },
             ticks: {
               beginAtZero: true,
               max: 100,
@@ -168,13 +171,14 @@ export default {
         tooltipEl.style.opacity = 1
         tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px'
         tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px'
-        tooltipEl.style.padding = '8' + 'px' + '8' + 'px'
-        tooltipEl.style.backgroundColor = '#565452'
+        tooltipEl.style.padding = '15' + 'px'
         tooltipEl.style.fontFamily = 'Roboto'
-        tooltipEl.style.color = '#FFF'
+        tooltipEl.style.color = '#565452'
         tooltipEl.style.fontSize = '16px'
         tooltipEl.style.fontStyle = 'Roboto'
         tooltipEl.style.pointerEvents = 'none'
+        tooltipEl.style.borderRadius = '10' + 'px'
+        tooltipEl.style.width = '200' + 'px'
       }
     }
   }

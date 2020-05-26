@@ -15,6 +15,7 @@
         class="referenceChart"
       />
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -56,8 +57,7 @@ export default {
   color: #565452;
   border-radius: 20px;
   width: 800px;
-  height: 450px;
-  font-size: 12pt;
+  height: 480px;
   word-break: break-all;
   margin: 0 auto;
   padding: 20px;
@@ -65,8 +65,8 @@ export default {
 }
 
 .referenceChart{
-  width: 730px;
-  height: auto;
+  width: 760px;
+  height: 460px;
   position: relative;
   top: 20px;
   right: 6px;
@@ -93,16 +93,9 @@ h1 {
   letter-spacing: -1px;
 }
 
-h2 {
-  font-size: 20px;
-  color: #565452;
-  text-align: center;
-  margin: 0 0 30px 0;
-}
-
 .resultChart {
-  width: 730px;
-  height: auto;
+  width: 760px;
+  height: 460px;
   position: relative;
   top: 20px;
   right: 6px;
