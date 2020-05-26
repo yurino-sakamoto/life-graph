@@ -4,12 +4,12 @@
     <h1>Let's Search LifeGraph !</h1>
     <div class="form-item">
       <label for="username" />
-      <input v-model="username" placeholder="UserName">
+      <input v-model="likeName" placeholder="UserName">
       <label for="date" />
-      <input v-model="dateFrom" type="date">
+      <input v-model="startDate" type="date">
       〜〜
       <label for="date" />
-      <input v-model="toDate" type="date">
+      <input v-model="finishDate" type="date">
       <button class="btn" @click="searchGraphData()">
         Search
       </button>
@@ -38,18 +38,18 @@
           </tr>
         </tbody>
       </table>
+      <footer>
+        <div class="nav-links">
+          <a class="prev page-numbers" href="">«</a>
+          <a class="page-numbers" href="">1</a>
+          <span class="page-numbers current">2</span>
+          <a class="page-numbers" href="">3</a>
+          <span class="page-numbers dots">…</span>
+          <a class="page-numbers" href="">10</a>
+          <a class="next page-numbers" href="">»</a>
+        </div>
+      </footer>
     </div>
-    <!-- <footer>
-      <div class="nav-links">
-        <a class="prev page-numbers" href="">«</a>
-        <a class="page-numbers" href="">1</a>
-        <span class="page-numbers current">2</span>
-        <a class="page-numbers" href="">3</a>
-        <span class="page-numbers dots">…</span>
-        <a class="page-numbers" href="">10</a>
-        <a class="next page-numbers" href="">»</a>
-      </div>
-    </footer> -->
   </div>
 </template>
 
@@ -69,9 +69,9 @@ export default {
   },
   data () {
     return {
-      username: '',
-      dateFrom: '',
-      toDate: '',
+      likeName: '',
+      startDate: '',
+      finishDate: '',
       isActive: false,
       load: true,
       editIndex: -1
@@ -91,17 +91,16 @@ export default {
   created () {
     this.$store.commit('search/loadFalse')
     this.$store.commit('chart/loadFalse')
+    this.$store.commit('search/clereSearchItems')
   },
   methods: {
     searchGraphData () {
       const data = {
-        userName: this.username,
-        startDate: this.dateFrom,
-        finishDate: this.toFrom
+        likeName: this.likeName,
+        startDate: this.startDate,
+        finishDate: this.finishDate
       }
       this.$store.dispatch('search/searchAPI', data)
-      // const SearchName = this.$store.state.search
-      // const SearchUpdateTime =this.$store.state.search
     },
     userReference (userId) {
       this.$router.push({ name: 'Reference', params: { userId: userId } })
@@ -205,6 +204,7 @@ export default {
     max-width: 600px;
     text-align: center;
     margin-left: 28%;
+    padding-bottom: 30px;
 
     h2 {
       padding: 20px;
@@ -213,46 +213,46 @@ export default {
       color: #565452;
     }
   }
-  // .nav-links{
-  //   padding:2em;
-  //   display:flex;
-  //   justify-content:center;
-  // }
-  // a,span{
-  //   width:50px;
-  //   height:50px;
-  //   margin:2px;
-  //   line-height:50px;
-  //   text-align:center;
-  //   font-size:14px;
-  //   font-weight:bold;
-  //   text-decoration:none;
-  //   background:#fff;
-  //   color:#222;
-  // }
-  // a:hover{
-  //   background:gold;
-  //   border-radius:100%;
-  // }
-  // .current{
-  //   background:gold;
-  //   border-radius:100%;
-  // }
-  // .dots{
-  //   background:none;
-  // }
-  // .headline{
-  //   font-size: 42px;
-  // }
-  // .nav-list {
-  //   text-align: center;
-  //   padding: 10px 0;
-  //   margin: 0 auto;
-  // }
-  // .nav-list-item {
-  //   list-style: none;
-  //   display: inline-block;
-  //   margin: 0 20px;
-  // }
+  .nav-links{
+    padding:2em;
+    display:flex;
+    justify-content:center;
+  }
+  a,span{
+    width:50px;
+    height:50px;
+    margin:2px;
+    line-height:50px;
+    text-align:center;
+    font-size:14px;
+    font-weight:bold;
+    text-decoration:none;
+    background:#fff;
+    color:#222;
+  }
+  a:hover{
+    background:gold;
+    border-radius:100%;
+  }
+  .current{
+    background:gold;
+    border-radius:100%;
+  }
+  .dots{
+    background:none;
+  }
+  .headline{
+    font-size: 42px;
+  }
+  .nav-list {
+    text-align: center;
+    padding: 10px 0;
+    margin: 0 auto;
+  }
+  .nav-list-item {
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+  }
 }
 </style>

@@ -20,7 +20,7 @@
                   ref="editor"
                   v-model="age"
                   type="number"
-                  style="font-size:20px"
+                  style="font-size: 20px;"
                   autocomplete="off"
                   placeholder="必須"
                   maxlength="3"
@@ -32,7 +32,7 @@
           <tr>
             <th class="th1" scope="row">
               <label for="score">
-                満足度(%)
+                満足度(点)
               </label>
             </th>
             <td>
@@ -41,7 +41,7 @@
                 ref="editor"
                 v-model="score"
                 type="number"
-                style="font-size:20px"
+                style="font-size: 20px;"
                 autocomplete="off"
                 placeholder="必須"
                 maxlength="3"
@@ -59,7 +59,7 @@
                 id="commentInput"
                 ref="editor"
                 v-model="comment"
-                style="font-size:16px"
+                style="font-size: 16px;"
                 cols="30"
                 rows="5"
                 placeholder="内容を入力してください。"
@@ -74,22 +74,22 @@
         </div>
         <button
           class="resetButton"
-          @click="removetext(age,score,comment)"
+          @click="removetext()"
         >
           リセット
         </button>
         <button
           class="button"
-          :disabled="!inputCheck || ageCheck || scoreCheck || ageExistCheck"
-          :class="{'disabled': ageCheck || scoreCheck || !inputCheck}"
+          :disabled="!canAdd"
+          :class="{'disabled': !canAdd}"
           @click="add"
         >
           {{ changeButtonText }}
         </button>
-        <div v-if="ageCheck" class="ageCheck">
+        <div v-if="!ageCheck" class="ageCheck">
           年齢は1〜100で入力してください
         </div>
-        <div v-if="scoreCheck" class="scoreCheck">
+        <div v-if="!scoreCheck" class="scoreCheck">
           満足度は-100〜100で入力してください
         </div>
         <div v-if="editError" class="editError">
@@ -103,7 +103,7 @@
                   年齢(歳)
                 </th>
                 <th class="th2">
-                  満足度(%)
+                  満足度(点)
                 </th>
                 <th class="th2">
                   コメント
@@ -126,13 +126,13 @@
                 </td>
                 <button
                   class="deleteButton"
-                  @click="deleteContents(index)"
+                  @click="excludeFromArrayById(content.id)"
                 >
                   削除
                 </button>
                 <button
                   class="editButton"
-                  @click="edit(index)"
+                  @click="edit(content.id)"
                 >
                   修正
                 </button>
@@ -170,13 +170,14 @@ export default {
   },
   data () {
     return {
-      age: null,
-      score: null,
+      age: '',
+      score: '',
       comment: '',
       isActive: false,
       contents: [],
       load: true,
-      editIndex: -1
+      editId: 0,
+      tmpId: 0
     }
   },
   computed: {
@@ -184,19 +185,24 @@ export default {
       return this.$store.state.chart.loaded
     },
     changeButtonText () {
-      return this.editIndex === -1 ? '追加' : '完了'
+      return this.editIndex === 0 ? '追加' : '完了'
+    },
+    canAdd () {
+      return this.inputCheck && this.ageCheck && this.scoreCheck && !this.ageExistCheck
     },
     inputCheck () {
-      return this.age && this.score
+      return this.age !== '' && this.score !== ''
     },
     ageCheck () {
-      return this.age < 0 || this.age > 100
+      return this.age === '' || (this.age >= 0 && this.age <= 100)
     },
     scoreCheck () {
-      return this.score < -100 || this.score > 100
+      return this.score >= -100 && this.score <= 100
     },
     ageExistCheck () {
-      return this.contents.find(content => content.age === this.age)
+      if (this.editId !== 0) return false
+      if (!this.contents.find(content => content.age === Number(this.age))) return false
+      return true
     },
     editError () {
       return this.$store.state.chart.error
@@ -213,45 +219,38 @@ export default {
     setContents () {
       this.contents = this.$store.state.chart.contents.slice()
     },
-    removetext: function (removeitem) {
+    removetext () {
       this.age = ''
       this.score = ''
       this.comment = ''
+      this.editId = 0
     },
     add () {
       this.isActive = true
-      if (this.editIndex === -1) {
-        this.contents.push(
-          {
-            age: this.age,
-            score: this.score,
-            comment: this.comment
-          })
-      } else {
-        this.contents.splice(
-          this.editIndex,
-          1,
-          {
-            age: this.age,
-            score: this.score,
-            comment: this.comment
-          }
-        )
-        this.editIndex = -1
+      if (this.editId !== 0) {
+        this.excludeFromArrayById(this.editId)
       }
-      this.age = ''
-      this.score = ''
-      this.comment = ''
+      const content = this.contents.find(content => content.age === Number(this.age))
+      if (content) {
+        this.excludeFromArrayById(content.id)
+      }
+      const id = --this.tmpId
+      this.contents.push({
+        id: id,
+        age: Number(this.age),
+        score: Number(this.score),
+        comment: this.comment
+      })
+      this.removetext()
+      this.sort()
     },
-    edit (index) {
-      this.editIndex = index
-      this.age = this.contents[index].age
-      this.score = this.contents[index].score
-      this.comment = this.contents[index].comment
+    edit (id) {
+      this.editId = id
+      const content = this.contents.find(content => content.id === id)
+      this.age = content.age
+      this.score = content.score
+      this.comment = content.comment
       this.$refs.editor.focus()
-    },
-    deleteContents (index) {
-      this.contents.splice(index, 1)
     },
     update () {
       this.$store.dispatch(
@@ -269,6 +268,16 @@ export default {
       // const userId = this.$store.state.auth.userId
       // this.$store.dispatch('chart/addContent', userId)
       // this.$refs.chart.createChart()
+    },
+    excludeFromArrayById (id) {
+      this.contents = this.contents.filter(content => content.id !== id)
+    },
+    sort () {
+      this.contents.sort(function (a, b) {
+        if (a.age < b.age) return -1
+        if (a.age > b.age) return 1
+        return 0
+      })
     }
   }
 }
@@ -276,83 +285,83 @@ export default {
 
 <style>
 .editSection {
-  background: #F3F3F9;
-  width: 100%;
+  background: #f3f3f9;
   height: 900px;
   text-align: center;
+  width: 100%;
 }
 
 .warning {
-  font-size: 12px;
-  text-align: left;
-  line-height: 60%;
-  left: 340px;
   bottom: 90px;
+  font-size: 12px;
+  left: 340px;
+  line-height: 60%;
   position: relative;
+  text-align: left;
 }
 
 #input {
-  float: left;
-  background:#FFF;
+  background: #fff;
   border-radius: 20px;
   color: #565452;
-  width: 620px;
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.2));
+  float: left;
   font-size: 12pt;
-  word-break: break-all;
-  margin:0 2px 0 50px;
+  margin: 0 2px 0 50px;
   padding: 20px;
   text-align: center;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+  width: 620px;
+  word-break: break-all;
 }
 
 #ageInput {
+  background: #f2f3f4;
   border: none;
+  border-radius: 10%;
+  color: #565452;
+  height: 32px;
   outline: none;
   width: 70px;
-  height: 32px;
-  border-radius: 10%;
-  background: #F2F3F4;
-  color: #565452;
 }
 
 #scoreInput {
+  background: #f2f3f4;
   border: none;
+  border-radius: 10%;
+  color: #565452;
+  height: 32px;
   outline: none;
   width: 70px;
-  height: 32px;
-  border-radius: 10%;
-  background: #F2F3F4;
-  color: #565452;
 }
 
 #commentInput {
+  background: #f2f3f4;
   border: none;
+  border-radius: 10%;
+  color: #565452;
+  height: 80px;
   outline: none;
   width: 220px;
-  height: 80px;
-  border-radius: 10%;
-  background:#F2F3F4;
-  color: #565452;
 }
 
 .marginConfig {
+  background: #fff;
   height: 90px;
-  background: #FFF;
 }
 
 .editGraph {
-  float: right;
-  background:#FFF;
-  color: #565452;
+  background: #fff;
   border-radius: 20px;
-  width: 600px;
-  height: 400px;
+  color: #565452;
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.2));
+  float: right;
+  height: 460px;
   font-size: 12pt;
-  word-break: break-all;
   margin: 0 50px 0 -2px;
-  padding: 20px;
+  padding: 0px;
   text-align: center;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+  width: 600px;
+  word-break: break-all;
 }
 
 .field {
@@ -364,14 +373,14 @@ export default {
 }
 
 .th1 {
-  text-align: left;
   padding: 0 2px 8px 0;
-  width: 80px
+  text-align: left;
+  width: 80px;
 }
 
 .th2 {
-  text-align: left;
   padding: 0 10px;
+  text-align: left;
   width: 80px;
 }
 
@@ -380,8 +389,8 @@ export default {
 }
 
 td {
-  text-align: left;
   padding: 0 5px;
+  text-align: left;
   width: 64px;
 }
 
@@ -391,9 +400,9 @@ td {
 }
 
 .commentTable {
-  width: 240px;
   padding: 5px 0 5px 16px;
   text-align: left;
+  width: 240px;
 }
 
 tr {
@@ -403,40 +412,44 @@ tr {
 h1 {
   color: #565452;
   font-size: 40px;
+  margin: 20px 0 30px 40px;
   padding-top: 80px;
   text-align: left;
-  margin: 20px 0 30px 40px;
 }
+
 .resetButton {
-  width: 100px;
-  height: 40px;
+  background: rgb(204, 204, 204);
   border: none;
   outline: none;
   background:rgb(204,204,204);
-  color: #FFF;
+  font-weight: bold;
   border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12pt;
+  height: 40px;
+  padding: 4px 8px;
+  position: absolute;
   right: 136px;
   top: 180px;
-  position: absolute;
-  padding: 4px 8px;
-  font-size: 12pt;
-  cursor: pointer;
+  width: 100px;
 }
 
 .button {
-  width: 100px;
-  height: 40px;
+  background: #fe5f52;
   border: none;
-  outline: none;
-  background:#FE5F52;
-  color: #FFF;
+  font-weight: bold;
   border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12pt;
+  height: 40px;
+  outline: none;
+  padding: 4px 8px;
+  position: absolute;
   right: 30px;
   top: 180px;
-  position: absolute;
-  padding: 4px 8px;
-  font-size: 12pt;
-  cursor: pointer;
+  width: 100px;
 }
 
 .button.disabled {
@@ -445,31 +458,34 @@ h1 {
 }
 
 .deleteButton {
+  background: rgb(204, 204, 204);
+  border: none;
+  font-weight: bold;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12pt;
+  outline: none;
+  padding: 4px;
   position: absolute;
   right: 96px;
   width: 60px;
-  border: none;
-  outline: none;
-  background:rgb(204,204,204);
-  color: #FFF;
-  padding: 4px;
-  border-radius: 30px;
-  font-size: 12pt;
-  cursor: pointer;
 }
 
 .editButton {
-  position : absolute;
-  right : 30px;
-  width: 60px;
+  background: #fe5f52;
   border: none;
-  outline: none;
-  background:#FE5F52;
-  color: #FFF;
-  padding: 4px;
+  font-weight: bold;
   border-radius: 30px;
-  font-size: 12pt;
+  color: #fff;
   cursor: pointer;
+  font-size: 12pt;
+  outline: none;
+  padding: 4px;
+  position: absolute;
+  right: 30px;
+  width: 60px;
+
   /* :hover {
     background-color: #8566ce;
     color: #FFF;
@@ -477,18 +493,21 @@ h1 {
 }
 
 /* 更新 */
+
 button {
-  width: 90px;
-  height: 40px;
+  background: #fe5f52;
   border: none;
-  outline: none;
-  background:#FE5F52;
-  color: #FFF;
+  font-weight: bold;
   border-radius: 30px;
-  margin: 0 5px;
-  padding: 4px 8px;
-  font-size: 12pt;
+  color: #fff;
   cursor: pointer;
+  font-size: 12pt;
+  height: 40px;
+  margin: 0 5px;
+  outline: none;
+  padding: 4px 8px;
+  width: 90px;
+
   /* :hover {
     background-color: #8566ce;
     color: #FFF;
@@ -496,49 +515,56 @@ button {
 }
 
 .reload {
-  position : absolute;
-  bottom : 30px;
-  right : 30px;
+  bottom: 30px;
+  position: absolute;
+  right: 30px;
 }
 
 .chart {
-  padding: 8px 12px 8px 6px;
+  padding: 8px 8px 8px 6px;
+  width: 560px;
+  height: auto;
+  position: fixed;
+  top: 26px;
+  bottom: 30px;
   z-index: 90;
+  left: 10px;
 }
 
 /* 入力フォーム */
 
 /* バリデーション */
+
 .ageCheck {
-  position: relative;
-  left: 40px;
-  font-size: 1em;
-  color: #F6FB17;
   background: #565452;
-  width: 126px;
-  text-align: center;
+  color: #f6fb17;
+  font-size: 1em;
+  left: 40px;
   margin: 2px;
+  position: relative;
+  text-align: center;
+  width: 126px;
 }
 
 .scoreCheck {
-  position: relative;
-  left: 40px;
-  font-size: 1em;
-  color: #F6FB17;
   background: #565452;
-  width: 140px;
-  text-align: center;
+  color: #f6fb17;
+  font-size: 1em;
+  left: 40px;
   margin: 2px;
+  position: relative;
+  text-align: center;
+  width: 140px;
 }
 
 .editError {
-  position: relative;
-  left: 40px;
-  font-size: 1em;
-  color: #F6FB17;
   background: #565452;
-  width: 160px;
-  text-align: center;
+  color: #f6fb17;
+  font-size: 1em;
+  left: 40px;
   margin: 2px;
+  position: relative;
+  text-align: center;
+  width: 160px;
 }
 </style>

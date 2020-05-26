@@ -2,15 +2,21 @@
   <div class="headderSection">
     <div class="logoParent">
       <img class="pageLogo" src="../assets/lifegraphLogo.png" alt="ロゴ">
+      <span class="topLabel">
+        Life Graph
+      </span>
     </div>
     <div class="nav">
       <router-link to="/top" class="link">
+        <img class="topLogo" src="../assets/home.png">
         Top
       </router-link>
       <router-link to="/edit" class="link">
+        <img class="topLogo" src="../assets/edit.png">
         Edit
       </router-link>
       <router-link to="/search" class="link">
+        <img class="topLogo" src="../assets/search.png">
         Search
       </router-link>
     </div>
@@ -71,19 +77,31 @@ export default {
   background-color: white;
   position : fixed;
   top : 0;
+
   .pageLogo{
   width: 60px;
   position: absolute;
   left: 10px;
   margin: 20px 10px 10px 10px;
-}
+  }
 
+  .topLabel {
+    color: #565452;
+    font-size: 26px;
+    font-weight: 600;
+    position : fixed;
+    left: 98px;
+    top: 28px;
+  }
+
+  .topLogo {
+    width: 26px;
+  }
   .nav {
     position : fixed;
-    top : 0;
-    left: 100px;
+    top : 10px;
+    left: 260px;
     z-index : 10;
-    font-size: 1.2rem;
     color: white;
     font-weight: bold;
     text-shadow: 1px 1px 3px #000;
@@ -94,27 +112,27 @@ export default {
     :hover {
         opacity: 0.5;
       }
-    ::after {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      content: '';
-      width: 0;
-      height: 2px;
-      background-color: white;
-      transition: .3s;
-      transform: translateX(-50%);
-    }
-    :hover::after {
-      width: 100%;
-    }
-    .link {
-      padding: 0 30px 20px 0;
-      color: #565452;
-      font-size: 32px;
-      text-shadow: none;
-      text-decoration: none;
-    }
+      ::after {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        content: '';
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: .3s;
+        transform: translateX(-50%);
+      }
+      :hover::after {
+        width: 100%;
+      }
+      .link {
+        padding: 0 30px 20px 0;
+        color: #565452;
+        font-size: 28px;
+        text-shadow: none;
+        text-decoration: none;
+      }
   }
 
     ul{

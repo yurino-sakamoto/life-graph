@@ -21,6 +21,7 @@ export default {
         state.parentId = payload[0].parent_id
         payload.map((content) => {
           const data = {
+            id: content.id,
             age: content.age,
             score: content.score,
             comment: content.comment
