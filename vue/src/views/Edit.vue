@@ -156,7 +156,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import Header from '../components/Header.vue'
 import Chart from '../components/Chart.vue'
 export default {
@@ -595,13 +595,10 @@ button {
 }
 
 .scoreCheck {
-  font-size: 1em;
   left: 40px;
   margin: 2px;
-  position: relative;
   text-align: center;
   bottom: 130px;
-  font-size: 12px;
   left: 340px;
   line-height: 60%;
   position: relative;

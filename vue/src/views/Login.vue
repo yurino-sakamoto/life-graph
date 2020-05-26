@@ -79,6 +79,13 @@ export default {
   background: #F3F3F9;
   height: 800px;
   background-size: cover;
+  animation: sample02 9s ease infinite;
+
+@keyframes sample02 {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
 
   .titleLogo {
     color: #565452;
@@ -106,7 +113,6 @@ export default {
   opacity:1;
   transform: translate(0px);
   }
-}
 
 .pageLogo {
   width: 500px;

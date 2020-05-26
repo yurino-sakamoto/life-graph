@@ -25,7 +25,7 @@ export default {
             pointRadius: 4,
             pointBorderColor: '#00FFD0',
             hoverRadius: 12,
-            lineTension: 0,
+            lineTension: 0.3,
             fill: 'start'
           }
         ]
@@ -41,6 +41,9 @@ export default {
           xAxes: [{
             gridLines: {
               display: true
+            },
+            scaleLabel: {
+              fontSize: 50
             },
             ticks: {
               beginAtZero: true,
