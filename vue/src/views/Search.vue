@@ -16,6 +16,17 @@
     </div>
     <div v-if="showResult" class="result">
       <h2>Search Results</h2>
+      <div class="sortButton">
+        <button class="btn" @click="sortByName()">
+          ユーザー名で並び替え
+        </button>
+        <button class="btn" @click="sortByDateUp()">
+          更新日時（降順）
+        </button>
+        <button class="btn" @click="sortByDateDown()">
+          更新日時（昇順）
+        </button>
+      </div>
       <table>
         <thead>
           <tr>
@@ -110,6 +121,25 @@ export default {
       if (confirm('本当に削除してよろしいですか？')) {
         this.$store.dispatch('search/deleteGraphData', parentId)
       }
+    },
+    sortByName () {
+      this.searchItems.sort(function (a, b) {
+        if (a.userName > b.userName) return -1
+      })
+    },
+    sortByDateUp () {
+      this.searchItems.sort(function (a, b) {
+        if (a.updated_at > b.updated_at) return -1
+        if (a.updated_at < b.updated_at) return 1
+        return 0
+      })
+    },
+    sortByDateDown () {
+      this.searchItems.sort(function (a, b) {
+        if (a.updated_at < b.updated_at) return -1
+        if (a.updated_at > b.updated_at) return 1
+        return 0
+      })
     }
   }
 }
