@@ -588,7 +588,6 @@ button {
   width: 126px;
   line-height: 60%;
   bottom: 450px;
-  font-size: 1em;
   font-weight: 400;
   color: #565452;
   width: 800px;
