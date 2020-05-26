@@ -56,8 +56,8 @@ export default {
   color: #565452;
   border-radius: 20px;
   width: 800px;
-  height: 450px;
-  font-size: 12pt;
+  height: 480px;
+  width: 800px;
   word-break: break-all;
   margin: 0 auto;
   padding: 20px;
@@ -65,8 +65,8 @@ export default {
 }
 
 .referenceChart{
-  width: 730px;
-  height: auto;
+  width: 760px;
+  height: 460px;
   position: relative;
   top: 20px;
   right: 6px;
@@ -101,8 +101,8 @@ h2 {
 }
 
 .resultChart {
-  width: 730px;
-  height: auto;
+  width: 760px;
+  height: 460px;
   position: relative;
   top: 20px;
   right: 6px;
