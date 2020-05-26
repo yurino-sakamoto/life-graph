@@ -609,7 +609,6 @@ button {
   font-weight: 400;
   color: #565452;
   width: 800px;
-  text-align: center;
   letter-spacing: -1px;
 }
 
