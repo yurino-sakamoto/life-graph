@@ -27,7 +27,7 @@
       </div>
     </div>
     <div v-if="loginError" class="error">
-      ERROR!
+      メールアドレスかパスワード不正です
     </div>
   </div>
 </template>

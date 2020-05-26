@@ -15,6 +15,7 @@
         class="referenceChart"
       />
     </div>
+    <Footer />
   </div>
 </template>
 

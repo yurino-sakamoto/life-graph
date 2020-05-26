@@ -160,6 +160,7 @@
 <script scoped>
 import Header from '../components/Header.vue'
 import Chart from '../components/Chart.vue'
+
 export default {
   name: 'Edit',
   components: {
@@ -284,9 +285,10 @@ export default {
 <style>
 .editSection {
   background: #f3f3f9;
-  height: 900px;
+  height: 1200px;
   text-align: center;
   width: 100%;
+  margin: ;
 }
 
 .warning {
@@ -613,13 +615,19 @@ button {
 }
 
 .editError {
-  background: #565452;
-  color: #f6fb17;
-  font-size: 1em;
   left: 40px;
   margin: 2px;
-  position: relative;
   text-align: center;
-  width: 160px;
+  bottom: 130px;
+  left: 340px;
+  line-height: 60%;
+  position: relative;
+  left: 920px;
+  bottom: 450px;
+  font-size: 1em;
+  font-weight: 400;
+  color: #565452;
+  width: 800px;
+  letter-spacing: -1px;
 }
 </style>
