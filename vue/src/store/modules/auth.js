@@ -5,7 +5,8 @@ export default {
   state: {
     userId: '',
     token: '',
-    error: ''
+    error: '',
+    success: true
   },
   mutations: {
     create (state, data) {
@@ -25,6 +26,9 @@ export default {
     },
     clearError (state) {
       state.error = ''
+    },
+    accountCreate (state) {
+      state.success = !state.success
     }
   },
   actions: {
@@ -32,6 +36,10 @@ export default {
       const url = '/api/auth/login'
       axios.post(url, data).then(res => commit('create', res.data))
         .catch(err => commit('error', err))
+    },
+    signup ({ commit }, data) {
+      const url = '/api/auth/signup'
+      axios.post(url, data).then(res => commit('accountCreate', res.data))
     }
   }
 }

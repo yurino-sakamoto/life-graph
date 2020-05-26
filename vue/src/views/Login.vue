@@ -7,27 +7,47 @@
     <div class="logoParent">
       <img class="pageLogo" src="../assets/lifegraphLogo.png" alt="ロゴ">
     </div>
-    <div class="loginArea">
-      <div class="login">
-        <h2>ログイン</h2>
-        <div class="loginID">
-          <div class="textBox">
-            <label class="label1">ユーザー名</label>
-            <input v-model="username" class="text" type="textbox">
-            <br>
-          </div>
-          <div class="textBox">
-            <label class="label2">パスワード</label>
-            <input v-model="password" class="text" type="password">
-          </div>
-        </div>
-        <button class="btn" @click="login()">
-          ログイン
-        </button>
+    <div v-if="loginPage" class="loginArea">
+      <h2>LOGIN</h2>
+      <div v-if="loginError" class="error">
+        ユーザー名もしくはパスワードが不正です
       </div>
+      <div class="textBox">
+        <label for="username" />
+        <input v-model="username" class="text" type="textbox" placeholder="UserName">
+      </div>
+      <div class="textBox">
+        <label for="password" />
+        <input v-model="password" class="text" type="password" placeholder="Password">
+      </div>
+      <button class="btn" @click="signup()">
+        新規登録
+      </button>
+      <button class="btn" @click="login()">
+        ログイン
+      </button>
     </div>
     <div v-if="loginError" class="error">
       メールアドレスかパスワード不正です
+    <div v-if="signupPage" class="signupArea">
+      <h2>SIGN UP</h2>
+      <div class="textBox">
+        <label for="username" />
+        <input v-model="username" class="text" type="textbox" placeholder="UserName">
+        <br>
+      </div>
+      <div class="textBox">
+        <label for="email" />
+        <input v-model="email" class="text" type="email" placeholder="Mailaddress">
+        <br>
+      </div>
+      <div class="textBox">
+        <label for="password" />
+        <input v-model="password" class="text" type="password" placeholder="Password">
+      </div>
+      <button class="upbtn" @click="switchingPage()">
+        登録
+      </button>
     </div>
   </div>
 </template>
@@ -38,7 +58,10 @@ export default {
   data () {
     return {
       username: '',
-      password: ''
+      email: '',
+      password: '',
+      loginPage: true,
+      signupPage: false
     }
   },
   computed: {
@@ -47,11 +70,19 @@ export default {
     },
     loginError () {
       return this.$store.state.auth.error
+    },
+    success () {
+      return this.$store.state.auth.success
     }
   },
   watch: {
     token (newToken) {
       this.$router.push('/top')
+    },
+    success () {
+      this.loginDialog = true
+      this.signupDialog = false
+      this.errMessage = false
     }
   },
   created () {
@@ -67,6 +98,23 @@ export default {
           password: this.password
         }
       )
+    },
+    signup () {
+      this.loginPage = false
+      this.signupPage = true
+    },
+    switchingPage () {
+      this.$store.dispatch(
+        'auth/signup',
+        {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          role: ['user']
+        }
+      )
+      this.loginPage = true
+      this.signupPage = false
     }
   }
 }
@@ -117,30 +165,38 @@ export default {
   letter-spacing: -2px;
 }
 
-  .login {
-  background:#FFF;
-  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
-  border-radius:18px;
-  width:400px;
-  height: 300px;
-  text-align: center;
-  padding: 15px;
-  position: absolute;
-  top: 260px;
-  right: 130px;
+  .loginArea {background:#FFF;
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+    border-radius:18px;
+    width:400px;
+    height: 330px;
+    text-align: center;
+    padding: 15px;
+    position: absolute;
+    top: 240px;
+    right: 120px;
   }
 
-  h2 {
-  text-align:center;
-  font-size:1.4em;
-  font-weight:600;
-  color:#565452;
-  margin-top: 8px;
+ .signupArea {
+    background:#FFF;
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+    border-radius:18px;
+    width:400px;
+    height: 400px;
+    text-align: center;
+    padding: 15px;
+    position: absolute;
+    top: 240px;
+    right: 120px;
   }
 
-  .loginArea {
-  text-align: center;
-}
+    h2 {
+    text-align:center;
+    font-size:1.4em;
+    font-weight:600;
+    color:#565452;
+    margin-top: 8px;
+    }
 
   input {
     width:250px;
@@ -156,56 +212,79 @@ export default {
     }
   }
 
-.btn {
-  background:#7448FF;
-  color:#fff;
-  position: inline-block;
-  text-align: center;
-  font-weight: 900;
-  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
-  border-radius: 40px;
-  position:relative;
-  left: 20px;
-  top: 20px;
-  width: 130px;
-  height: 50px;
-  padding-bottom: 6px;
-  border:0;
-  font-size:1.25em;
-  margin: 10px -90px 14px 100px;
-  text-shadow:1px 1px 0px rgba(0,0,0,.1);
-  cursor: pointer;
+  .btn {
+    background:#7448FF;
+    color:#fff;
+    position: inline-block;
+    text-align: center;
+    font-weight: 900;
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+    border-radius: 40px;
+    width: 130px;
+    height: 50px;
+    padding-bottom: 6px;
+    border:0;
+    font-size:1.25em;
+    margin: 20px;
+    text-shadow:1px 1px 0px rgba(0,0,0,.1);
+    cursor: pointer;
 
-  :active {
-    top:3px;
-    box-shadow:none;
+    :active {
+      top:3px;
+      box-shadow:none;
+    }
+
+    :focus {
+      outline: 0;
+    }
   }
 
-  :focus {
-    outline: 0;
-  }
-}
+  .upbtn {
+    background:#7448FF;
+    color:#fff;
+    position: inline-block;
+    text-align: center;
+    font-weight: 900;
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+    border-radius: 40px;
+    position:relative;
+    left: 20px;
+    top: 20px;
+    width: 130px;
+    height: 50px;
+    padding-bottom: 6px;
+    border:0;
+    font-size:1.25em;
+    margin: 10px -90px 14px 100px;
+    text-shadow:1px 1px 0px rgba(0,0,0,.1);
+    cursor: pointer;
 
-.error {
-  position: relative;
-  left: 1030px;
-  bottom: 170px;
-  font-size: 1.2em;
-  font-weight: 600;
-  color: #F6FB17;
-  background: #565452;
-  width: 78px;
-  text-align: center;
-}
+    :active {
+      top:3px;
+      box-shadow:none;
+    }
+
+    :focus {
+      outline: 0;
+    }
+  }
+
+  .error {
+    font-size: 1em;
+    font-weight: bold;
+    color: red;
+    width: 370px;
+    text-align: center;
+    letter-spacing: -1px;
+  }
 
 .textBox {
-  display: block;
   flex-direction: column;
   align-items: center;
-  width:250px;
+  width: 270px;
   position: relative;
-  text-align: center;
-  padding: 15px 15px 15px 0;
+  padding: 20px;
+  margin-left: -120px;
   font-size: 20px;
   outline: none;
   color: #565452;
@@ -214,35 +293,25 @@ export default {
   border-radius: 30px;
   height: 45px;
 }
-// .textBox .text {
-//   font-weight: 500;
-//   width: calc(100% - 2vw);
-//   height: 27px;
-//   padding-left: 0.5vw;
-//   background-color: transparent;
-//   color: #565452;
-//   position: absolute;
-//   bottom: 0px;
-//   outline: none;
-//   border-style: solid;
-//   border-color: #E3E7EA;
-//   border-width: 0px 0px 2px 0px;
-//   font-size: 20px;
-//   -webkit-transition: border-color 0.45s linear;
-//   transition: border-color 0.45s linear;
-// }
 
-  .label1 {
-    position: inline-block;
-    margin:-10px 0 80px -100px;
-    font-size: 16px;
-  }
+.text {
+  font-weight: 500;
+  width: calc(100% - 2vw);
+  height: 27px;
+  padding: 0 auto;
+  background-color: transparent;
+  color: #565452;
+  position: absolute;
+  bottom: 0px;
+  outline: none;
+  border-style: solid;
+  border-color: #E3E7EA;
+  border-width: 0px 0px 2px 0px;
+  font-size: 20px;
+  -webkit-transition: border-color 0.45s linear;
+  transition: border-color 0.45s linear;
+}
 
-  .label2 {
-    position: inline-block;
-    margin:-10px 0 80px -100px;
-    font-size: 16px;
-  }
   .textBox > input.text:focus {
     border-color: #7448FF;
   }
