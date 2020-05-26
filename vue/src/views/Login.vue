@@ -27,8 +27,6 @@
         ログイン
       </button>
     </div>
-    <div v-if="loginError" class="error">
-      メールアドレスかパスワード不正です
     <div v-if="signupPage" class="signupArea">
       <h2>SIGN UP</h2>
       <div class="textBox">
