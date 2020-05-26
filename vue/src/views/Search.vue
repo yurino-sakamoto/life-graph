@@ -5,17 +5,30 @@
     <div class="form-item">
       <label for="username" />
       <input v-model="likeName" placeholder="UserName">
+      from
       <label for="date" />
       <input v-model="startDate" type="date">
-      〜〜
+      to
       <label for="date" />
       <input v-model="finishDate" type="date">
       <button class="btn" @click="searchGraphData()">
-        Search
+        検索 <img class="searchimg" src="../assets/searchWhite.png">
       </button>
     </div>
     <div v-if="showResult" class="result">
       <h2>Search Results</h2>
+      <p>並び替えができます</p>
+      <div class="sortButton">
+        <button class="sort" @click="sortByName()">
+          ユーザー名
+        </button>
+        <button class="sort" @click="sortByDateUp()">
+          更新日時（降順）
+        </button>
+        <button class="sort" @click="sortByDateDown()">
+          更新日時（昇順）
+        </button>
+      </div>
       <table>
         <thead>
           <tr>
@@ -29,26 +42,15 @@
             <td>{{ index + 1 }}</td>
             <td>{{ searchItem.userName }}</td>
             <td>{{ searchItem.updated_at | moment }}</td>
-            <button @click="userReference(searchItem.user_id)">
+            <button class="resultBtn" @click="userReference(searchItem.user_id)">
               参照
             </button>
-            <button v-if="!authCheck" @click="deleteGraphData(searchItem.id)">
+            <button v-if="!authCheck" class="resultBtn" @click="deleteGraphData(searchItem.id)">
               削除
             </button>
           </tr>
         </tbody>
       </table>
-      <footer>
-        <div class="nav-links">
-          <a class="prev page-numbers" href="">«</a>
-          <a class="page-numbers" href="">1</a>
-          <span class="page-numbers current">2</span>
-          <a class="page-numbers" href="">3</a>
-          <span class="page-numbers dots">…</span>
-          <a class="page-numbers" href="">10</a>
-          <a class="next page-numbers" href="">»</a>
-        </div>
-      </footer>
     </div>
   </div>
 </template>
@@ -110,6 +112,25 @@ export default {
       if (confirm('本当に削除してよろしいですか？')) {
         this.$store.dispatch('search/deleteGraphData', parentId)
       }
+    },
+    sortByName () {
+      this.searchItems.sort(function (a, b) {
+        if (a.userName > b.userName) return -1
+      })
+    },
+    sortByDateUp () {
+      this.searchItems.sort(function (a, b) {
+        if (a.updated_at > b.updated_at) return -1
+        if (a.updated_at < b.updated_at) return 1
+        return 0
+      })
+    },
+    sortByDateDown () {
+      this.searchItems.sort(function (a, b) {
+        if (a.updated_at < b.updated_at) return -1
+        if (a.updated_at > b.updated_at) return 1
+        return 0
+      })
     }
   }
 }
@@ -117,20 +138,21 @@ export default {
 
 <style lang="scss" scoped>
 .search {
-  margin-top: 80px;
+  padding-top: 80px;
   background: #F3F3F9;
+  min-height: 700px;
   height: 100%;
+  overflow: hidden;
 
   h1 {
-    text-align: left;
     top: -25px;
-    margin: 0 0 0 10px;
+    text-align: center;
     padding: 30px;
-    margin: 0 0 0 30px;
     font-size: 60px;
     font-weight: 800;
     line-height: 0.8em;
     letter-spacing: -1px;
+
   }
 
   h2 {
@@ -147,21 +169,23 @@ export default {
     margin: 3em auto;
     padding: 0 1em;
     max-width: 370px;
+    color: #565452;
+    font-weight: bold;
 
     input {
       background: #fafafa;
       border-bottom: 2px solid #e9e9e9;
       font-family: 'Open Sans', sans-serif;
       font-size: 1em;
-      height: 50px;
+      height: 45px;
       width: 100%;
       font: 15px/24px sans-serif;
       box-sizing: border-box;
       padding: 0.3em;
       transition: 0.3s;
       letter-spacing: 1px;
-      color: #aaaaaa;
-      border: 1px solid #1b2538;
+      color: #565452;
+      border: 1px solid #CCCCCC;
       border-radius: 4px;
       margin: .4rem 0;
     }
@@ -170,6 +194,11 @@ export default {
       border: 1px solid #da3c41;
       outline: none;
       box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
+    }
+
+    .searchimg{
+      width: 15px;
+      height: 15px;
     }
   }
 
@@ -185,6 +214,7 @@ export default {
     background:#f26964;
     font-size:1.2em;
     color:#fff;
+    font-weight: bold;
     text-shadow:1px 1px 0px rgba(0,0,0,.1);
     box-shadow:0px 3px 0px #c1524e;
     cursor: pointer;
@@ -195,15 +225,22 @@ export default {
       }
     }
 
+  .sortButton {
+      display: block;
+      margin-bottom: 60px;
+      white-space: nowrap;
+      height: 60px;
+    }
+
   .result {
     margin: 2em 0;
     padding: 0.5em 1em;
     border: solid 3px #565452;
     border-radius: 8px;
-    width: 100%;
-    max-width: 600px;
+    width: 60%;
     text-align: center;
-    margin-left: 28%;
+    margin-left: auto;
+    margin-right: auto;
     padding-bottom: 30px;
 
     h2 {
@@ -212,47 +249,56 @@ export default {
       font-weight: bold;
       color: #565452;
     }
-  }
-  .nav-links{
-    padding:2em;
-    display:flex;
-    justify-content:center;
-  }
-  a,span{
-    width:50px;
-    height:50px;
-    margin:2px;
-    line-height:50px;
-    text-align:center;
-    font-size:14px;
-    font-weight:bold;
-    text-decoration:none;
-    background:#fff;
-    color:#222;
-  }
-  a:hover{
-    background:gold;
-    border-radius:100%;
-  }
-  .current{
-    background:gold;
-    border-radius:100%;
-  }
-  .dots{
-    background:none;
-  }
-  .headline{
-    font-size: 42px;
-  }
-  .nav-list {
+
+  p {
+    font-size: 20px;
+    color: #565452;
+    font-weight: bold;
+    border-bottom:2px solid #ccc;
+    width: 70%;
+    margin: 20px auto;
+    padding-bottom: 20px;
     text-align: center;
-    padding: 10px 0;
-    margin: 0 auto;
   }
-  .nav-list-item {
-    list-style: none;
-    display: inline-block;
-    margin: 0 20px;
+
+    table {
+      color: #565452;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    thead {
+      white-space: nowrap;
+    }
+  }
+
+  $btn-bg: #f26964;
+  $btn-hover-bg: gray;
+  $btn-color: #fff;
+  $btn-hover-color: #000;
+
+.sort {
+    padding: 1em 1.5em 2em 1.5em;
+    width: 30%;
+    background-color: $btn-bg;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0 0 0 $btn-color, 0 3rem 0 $btn-hover-color;
+    transition: background-color 150ms, text-shadow 200ms;
+    font-size: 1.1rem;
+    box-shadow: 0 0px 20px gray;
+
+    &:hover {
+        background-color: $btn-hover-bg;
+        text-shadow: 0 -3rem 0 $btn-color, 0 0 0 $btn-hover-color;
+    }
+  }
+
+  .resultBtn {
+    margin: 20px;
+    font-weight: bold;
   }
 }
 </style>
