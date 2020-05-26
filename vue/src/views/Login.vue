@@ -173,7 +173,6 @@ export default {
     position: absolute;
     top: 240px;
     right: 120px;
-    text-align: center;
   }
 
  .signupArea {
@@ -187,7 +186,6 @@ export default {
     position: absolute;
     top: 240px;
     right: 120px;
-    text-align: center;
   }
 
     h2 {
