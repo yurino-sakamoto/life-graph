@@ -4,7 +4,9 @@ export default {
   namespaced: true,
   state: {
     userId: '',
-    token: ''
+    token: '',
+    error: '',
+    success: true
   },
   mutations: {
     create (state, data) {
@@ -18,14 +20,26 @@ export default {
     deleteToken (state) {
       state.token = ''
       state.userId = ''
+    },
+    error (state, err) {
+      state.error = err
+    },
+    clearError (state) {
+      state.error = ''
+    },
+    accountCreate (state) {
+      state.success = !state.success
     }
   },
   actions: {
-    // ログインボタンを押すと起動。userIdとtokenが更新される。
     create ({ commit }, data) {
       const url = '/api/auth/login'
       axios.post(url, data).then(res => commit('create', res.data))
-        .catch(err => err)
+        .catch(err => commit('error', err))
+    },
+    signup ({ commit }, data) {
+      const url = '/api/auth/signup'
+      axios.post(url, data).then(res => commit('accountCreate', res.data))
     }
   }
 }

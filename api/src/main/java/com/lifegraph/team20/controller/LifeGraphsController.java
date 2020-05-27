@@ -1,80 +1,84 @@
 package com.lifegraph.team20.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lifegraph.team20.Service.LifeGraphService;
 import com.lifegraph.team20.payload.request.RegisterRequest;
+import com.lifegraph.team20.payload.response.Account;
+import com.lifegraph.team20.payload.response.ChildGraphReference;
+import com.lifegraph.team20.payload.response.SearchResponse;
+import com.lifegraph.team20.security.services.LifeGraphService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class LifeGraphsController {
 
-	@Autowired
-	private LifeGraphService service;
+  @Autowired
+  private LifeGraphService service;
 
-	// 保存（APIで使い分ける 問題点：1テーブル）
-	@PostMapping(value = "/life-graphs")
-	public ResponseEntity<Void> postContent(@RequestBody @Valid RegisterRequest request) {
-		service.register(request);
+  /*
+   * 登録（参照）API
+   */
+  @PostMapping(value = "/life-graphs")
+  public ResponseEntity<Void> postContent(@RequestBody @Valid RegisterRequest request) throws URISyntaxException {
+    service.register(request);
+    return ResponseEntity.created(new URI("/life-graphs/" + request.getParentId())).build();
+  }
 
-		//TODO URL指定をする
-		return ResponseEntity.created(null).build();
-	}
+  /*
+   * 削除API
+   */
+  // TODO 管理者権限関連の設定
+  @DeleteMapping(value = "/life-graphs/{parentId}")
+  public ResponseEntity<Void> deleteTable(@PathVariable("parentId") long parentId) {
+    service.deleteTable(parentId);
+    return ResponseEntity.noContent().build();
+  }
 
-	//TODO 管理者権限関連の設定
-	//パスパラメータを受け取れていない（/1のこと パスバリアブルでidを取得すると1が返却（調べる））
-	//削除（現状、問題点：1テーブルのみ）
-	@DeleteMapping(value = "/{parentId}")
-	public ResponseEntity<Void> deleteTable(@PathVariable("parentId") long parentId) {
-//		パスバリアブル
-		//デリートの手順
-		//持っておいて欲しいもの（user_id,Authority）
-		//①
-		//②
-		//管理者権限以上・削除などののビジネスロジックを実行↓↓
-		service.deleteTable(parentId);
-		return ResponseEntity.noContent().build();
-	}
+  /*
+   * アカウント参照API
+   */
+
+  @GetMapping("/auth/accounts/{id}")
+  public ResponseEntity<Account> accountReference(@PathVariable("id") Integer id) {
+    Account accountRef = service.selectUserInfo(id);
+    return ResponseEntity.ok(accountRef);
+  }
+
+  /*
+   * 人生グラフ参照API
+   */
+  @GetMapping("/life-graphs/{userId}")
+  public ResponseEntity<List<ChildGraphReference>> lifeGraphReference(@PathVariable("userId") Integer userId) {
+    List<ChildGraphReference> childRef = service.selectChildRef(userId);
+    return ResponseEntity.ok(childRef);
+  }
+
+  /*
+   * 人生グラフ検索API
+   */
+  @GetMapping("/life-graphs")
+  public ResponseEntity<List<SearchResponse>> SearchGraphInfos(@RequestParam("likeName") Optional<String> likeName,
+      @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Optional<Date> startDate,
+      @RequestParam("finishDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Optional<Date> finishDate) {
+    List<SearchResponse> res = service.search(likeName, startDate, finishDate);
+    return ResponseEntity.ok(res);
+  }
 }
-
-
-
-
-//    //保存（APIで使い分ける　問題点：1テーブル）
-//    @RequestMapping(value = "/new",method = RequestMethod.POST)
-//    Parentdata postContent(@RequestBody Parentdata parentdata) {
-//    	return contentService.postContent(parentdata);
-//    }
-
-//  // 見るやつ（いらん）
-//  @RequestMapping(value = "/a", method = RequestMethod.GET)
-//  List<ChildGraph> getContent() {
-//    //
-//    return contentService.getContent();
-//  }
-//
-//  // 更新（APIで使い分ける）
-//  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//  ChildGraph putTweet(@PathVariable("id") Integer id, @RequestBody ChildGraph content) {
-//    content.setId(id);
-//    return contentService.updateContent(content);
-//  }
-//}
-//
-////新規登録：ボタンが押される
-////親テーブルと小テーブルの情報が追加（/new）
-////親テーブル：user_id
-////小テーブル：id、parent_id、comment、age、score
-//
-////変更の場合（/{id}）
-////親テーブル：user_id
-////小テーブル：id、parent_id、comment、age、score

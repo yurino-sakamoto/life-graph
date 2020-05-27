@@ -1,140 +1,166 @@
 <template>
-  <div id="editSection">
+  <div class="editSection">
     <div>
       <Header />
     </div>
-    <div class="editTitle">
-      編集
-    </div>
     <div id="editForm">
-      <h1>Life Graph</h1>
+      <h1>Edit</h1>
       <div id="input">
         <table id="field">
           <tr>
-            <th scope="row">
+            <th class="th1" scope="row">
               <label for="age">
-                年齢
+                年齢(歳)
               </label>
             </th>
-            <td>
-              <input
-                id="age"
-                ref="editor"
-                v-model="age"
-                type="number"
-                autocomplete="off"
-                @keyup.enter="changeContents"
-              >
-            </td>
-          </tr>
+            <th>
+              <td>
+                <input
+                  id="ageInput"
+                  ref="editor"
+                  v-model="age"
+                  type="number"
+                  autocomplete="off"
+                  placeholder="必須"
+                  maxlength="3"
+                  @keyup.enter="changeContents"
+                >
+              </td>
+            </th>
+          </tr><br>
           <tr>
-            <th scope="row">
+            <th class="th1" scope="row">
               <label for="score">
-                満足度
+                満足度(点)
               </label>
             </th>
             <td>
               <input
-                id="score"
+                id="scoreInput"
                 ref="editor"
                 v-model="score"
                 type="number"
                 autocomplete="off"
+                placeholder="必須"
+                maxlength="3"
               >
             </td>
-          </tr>
+          </tr><br>
           <tr>
-            <th scope="row">
+            <th class="th1" scope="row">
               <label for="comment">
                 コメント
               </label>
             </th>
             <td>
               <textarea
-                id="comment"
+                id="commentInput"
                 ref="editor"
                 v-model="comment"
                 cols="30"
                 rows="5"
-                placeholder="内容を入力してください。"
+                placeholder="内容を入力してください"
+                maxlength="255"
               />
             </td>
           </tr>
-          <button
-            class="button"
-            @click="removetext(age,score,comment)"
-          >
-            リセット
-          </button>
-          <button
-            class="button"
-            @click="add"
-          >
-            {{ changeButtonText }}
-          </button>
         </table>
-      </div>
-      <div class="listInfo">
-        <table>
-          <thead>
-            <tr>
-              <th>年齢</th>
-              <th>スコア</th>
-              <th>コメント</th>
-            </tr>
-          </thead>
-          <tbody v-if="isActive">
-            <tr
-              v-for="(content,index) in contents"
-              :key="index"
-            >
-              <!-- わからん -->
-              <td>
-                {{ content.age }}
-              </td>
-              <td>
-                {{ content.score }}
-              </td>
-              <td class="commentTable">
-                {{ content.comment }}
-              </td>
-              <button
-                class="button"
-                @click="edit(index)"
+        <div class="warning">
+          <br><p>※年齢・満足度は半角英数で入力してください</p>
+          <p>※満足度は-100から100の範囲で指定してください</p>
+          <p>※コメントは250文字以内で入力してください</p><br>
+        </div>
+        <button
+          class="resetButton"
+          @click="removetext()"
+        >
+          リセット
+        </button>
+        <button
+          class="button"
+          :disabled="!canAdd"
+          :class="{'disabled': !canAdd}"
+          @click="add"
+        >
+          {{ changeButtonText }}
+        </button>
+        <div v-if="ageCheckForm" class="ageCheck">
+          *年齢は1〜100で入力してください
+        </div>
+        <div v-if="!scoreCheck" class="scoreCheck">
+          *満足度は-100〜100で入力してください
+        </div>
+        <div v-if="editError" class="ageCheck">
+          *更新に失敗しました
+        </div>
+        <div class="listInfo">
+          <table class="tableRecord">
+            <thead>
+              <tr>
+                <th class="th2">
+                  年齢(歳)
+                </th>
+                <th class="th2">
+                  満足度(点)
+                </th>
+                <th class="th2">
+                  コメント
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(content,index) in contents"
+                :key="index"
               >
-                修正
-              </button>
-              <button
-                class="button"
-                @click="deleteContents(index)"
-              >
-                削除
-              </button>
-            </tr>
-          </tbody>
-        </table>
+                <td class="addRecord">
+                  {{ content.age }}
+                </td>
+                <td class="addRecord">
+                  {{ content.score }}
+                </td>
+                <td class="commentTable">
+                  {{ content.comment }}
+                </td>
+                <button
+                  class="deleteButton"
+                  @click="excludeFromArrayById(content.id)"
+                >
+                  削除
+                </button>
+                <button
+                  class="editButton"
+                  @click="edit(content.id)"
+                >
+                  修正
+                </button>
+              </tr>
+            </tbody>
+          </table>
+          <div class="marginConfig" />
+          <button
+            class="button, reload"
+            @click="update()"
+          >
+            更新
+          </button>
+        </div>
       </div>
-      <button
-        class="button"
-        @click="update()"
-      >
-        更新/編集完了？
-      </button>
+      <div class="editGraph">
+        <div
+          class="chart"
+        >
+          <Chart refs="chart" />
+        </div>
+      </div><br><br>
     </div>
-    <div class="editGraph">
-      <div
-        v-if="loaded"
-        id="chart"
-      >
-        <Chart />
-      </div>
-    </div><br><br>
   </div>
 </template>
 
-<script>
+<script scoped>
 import Header from '../components/Header.vue'
 import Chart from '../components/Chart.vue'
+
 export default {
   name: 'Edit',
   components: {
@@ -147,9 +173,10 @@ export default {
       score: '',
       comment: '',
       isActive: false,
-      contents: [], // ここに情報あると空のデータが存在してしまう
+      contents: [],
       load: true,
-      editIndex: -1 // 初期値-1だと
+      editId: 0,
+      tmpId: 0
     }
   },
   computed: {
@@ -157,112 +184,434 @@ export default {
       return this.$store.state.chart.loaded
     },
     changeButtonText () {
-      return this.editIndex === -1 ? '追加' : '完了'
+      return this.editIndex === 0 ? '追加' : '完了'
+    },
+    canAdd () {
+      return this.inputCheck && this.ageCheck && this.scoreCheck && !this.ageExistCheck
+    },
+    inputCheck () {
+      return this.age !== '' && this.score !== ''
+    },
+    ageCheck () {
+      return this.age === '' || (this.age >= 0 && this.age <= 100)
+    },
+    scoreCheck () {
+      return this.score >= -100 && this.score <= 100
+    },
+    ageExistCheck () {
+      if (this.editId !== 0) return false
+      if (!this.contents.find(content => content.age === Number(this.age))) return false
+      return true
+    },
+    editError () {
+      return this.$store.state.chart.error
+    },
+    ageCheckForm () {
+      return this.age < 0 || this.age > 100
     }
   },
+  created () {
+    this.$store.commit('chart/clearError')
+    this.$store.dispatch('chart/addContent', this.$store.state.auth.userId)
+  },
+  mounted () {
+    this.setContents()
+  },
   methods: {
-    // テキストボックス値削除
-    removetext: function (removeitem) {
+    setContents () {
+      this.contents = this.$store.state.chart.contents.slice()
+    },
+    removetext () {
       this.age = ''
       this.score = ''
       this.comment = ''
+      this.editId = 0
     },
     add () {
       this.isActive = true
-      if (this.editIndex === -1) { // ifの時addボタンの挙動
-        this.contents.push({ age: this.age, score: this.score, comment: this.comment }) // 配列の最後に
-      } else { // elseの時editボタンの挙動
-        this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment }) // splice配列の最初？配列から要素を削除・追加して組み替え。１は第２引数で削除する数
-        this.editIndex = -1
+      if (this.editId !== 0) {
+        this.excludeFromArrayById(this.editId)
       }
-      this.age = ''
-      this.score = ''
-      this.comment = '' // 上から読んでいく
-      const content = {
-        age: this.age,
-        score: this.score,
+      const content = this.contents.find(content => content.age === Number(this.age))
+      if (content) {
+        this.excludeFromArrayById(content.id)
+      }
+      const id = --this.tmpId
+      this.contents.push({
+        id: id,
+        age: Number(this.age),
+        score: Number(this.score),
         comment: this.comment
+      })
+      this.removetext()
+      this.sort()
+    },
+    edit (id) {
+      this.editId = id
+      const content = this.contents.find(content => content.id === id)
+      this.age = content.age
+      this.score = content.score
+      this.comment = content.comment
+      this.$refs.editor.focus()
+    },
+    update () {
+      this.$store.dispatch(
+        'chart/addData',
+        this.contents
+      )
+      const currentParentId = this.$store.state.chart.parentId
+      const currentUserId = this.$store.state.auth.userId
+      const apiContents = {
+        parentId: currentParentId,
+        userId: currentUserId,
+        children: this.$store.state.chart.contents
       }
-      this.$store.dispatch('addContent', content)
+      this.$store.dispatch('chart/editContent', apiContents)
     },
-    edit (index) {
-      this.editIndex = index
-      this.age = this.contents[index].age // indexに応じたageが出てくる
-      this.score = this.contents[index].score
-      this.comment = this.contents[index].comment
-      this.$refs.editor.focus() // フォーカスを設定
+    excludeFromArrayById (id) {
+      this.contents = this.contents.filter(content => content.id !== id)
     },
-    deleteContents (index) {
-      this.contents.splice(index, 1)
+    sort () {
+      this.contents.sort(function (a, b) {
+        if (a.age < b.age) return -1
+        if (a.age > b.age) return 1
+        return 0
+      })
     }
   }
 }
 </script>
 
 <style>
-#editSection {
-  background: #F3F3F9;
+.editSection {
+  background: #f3f3f9;
+  height: 1200px;
   text-align: center;
+  width: 100%;
 }
+
+.warning {
+  bottom: 130px;
+  font-size: 12px;
+  left: 340px;
+  line-height: 60%;
+  position: relative;
+  text-align: left;
+}
+
 #input {
-  background:#FFF;
+  background: #fff;
   border-radius: 20px;
   color: #565452;
-  width: 40%;
-  height: 400px;
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.2));
+  float: left;
   font-size: 12pt;
-  word-break: break-all;
-  margin: 10px auto;
-  padding: 20px;
+  margin: 0 2px 50px 50px;
+  padding: 24px;
   text-align: center;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+  width: 620px;
+  word-break: break-all;
 }
-.editTitle,h1 {
+
+#ageInput {
+  background: #fafafa;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.5em;
+  height: 40px;
+  width: 70px;
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  padding: 0.3em;
+  transition: 0.3s;
+  letter-spacing: 1px;
   color: #565452;
-  font-size: 30px;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  margin: .4rem 0;
+  position: fixed;
+  top: 10px;
+  left: 107px;
 }
-.button {
+
+#ageInput[type="text"]:focus {
+  box-shadow: 0 0 1px 0 #7448FF;
+  outline: 0;
+  }
+
+#scoreInput {
+  background: #fafafa;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.5em;
+  height: 40px;
+  width: 70px;
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  padding: 0.3em;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  color: #565452;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  margin: .4rem 0;
+  position: fixed;
+  left: 107px;
+  top: 66px;
+}
+
+#scoreInput[type="text"]:focus {
+  box-shadow: 0 0 1px 0 #7448FF;
+  outline: 0;
+  }
+
+#commentInput {
+  background: #fafafa;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.5em;
+  height: 90px;
+  width: 260px;
+  resize: none;
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  padding: 0.3em;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  color: #565452;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  margin: .4rem 0;
+  position: fixed;
+  left: 107px;
+  top: 124px;
+}
+
+#commentInput[type="text"]:focus {
+  box-shadow: 0 0 1px 0 #7448FF;
+  outline: 0;
+  }
+
+.marginConfig {
+  background: #fff;
+  height: 90px;
+}
+
+.editGraph {
+  background: #fff;
+  border-radius: 20px;
+  color: #565452;
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.2));
+  float: right;
+  height: 460px;
+  font-size: 12pt;
+  margin: 0 50px 0 -2px;
+  padding: 0px;
+  text-align: center;
+  width: 640px;
+  word-break: break-all;
+}
+
+.field {
+  margin: 0 0 30px 0;
+}
+
+.tableRecord {
+  margin: 20px 0 0 0;
+}
+
+.th1 {
+  padding: 0 2px 8px 0;
+  text-align: left;
+  width: 80px;
+}
+
+.th2 {
+  padding: 0 2px;
+  text-align: left;
+  width: 80px;
+}
+
+.listInfo {
+  margin: 30px 0 0 0;
+}
+
+td {
+  padding: 0 5px;
+  text-align: left;
+  width: 64px;
+}
+
+.addRecord {
+  padding: 10px 0;
+  text-align: center;
+}
+
+.commentTable {
+  padding: 2px 0 2px 16px;
+  text-align: left;
+  width: 240px;
+}
+
+tr {
+  height: auto;
+}
+
+h1 {
+  color: #565452;
+  font-size: 40px;
+  margin: 20px 0 20px 0;
+  padding-top: 80px;
+  text-align: center;
+}
+
+.resetButton {
+  background: rgb(204, 204, 204);
   border: none;
   outline: none;
-  background:#FE5F52;
-  border-radius: 10px;
-  margin: 10px auto;
-  padding: 6px;
+  background:rgb(204,204,204);
+  font-weight: bold;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
   font-size: 12pt;
-  color:#FFF
+  height: 40px;
+  padding: 4px 8px;
+  position: absolute;
+  right: 136px;
+  top: 220px;
+  width: 100px;
 }
-.commentTable {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  }
-.listInfo {
-  overflow: hidden;
-  background:#FFF;
-  border-radius: 20px;
-  color: #565452;
-  width: 60%;
-  height: 400px;
+
+.button {
+  background: #fe5f52;
+  border: none;
+  font-weight: bold;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
   font-size: 12pt;
-  word-break: break-all;
-  margin: 10px auto;
-  padding: 20px;
-  text-align: center;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+  height: 40px;
+  outline: none;
+  padding: 4px 8px;
+  position: absolute;
+  right: 30px;
+  top: 220px;
+  width: 100px;
 }
-.editGraph {
-  background:#FFF;
-  color: #565452;
-  border-radius: 20px;
-  width: 50%;
-  height: 400px;
+
+.button.disabled {
+  background: #ffbab3;
+  cursor: pointer;
+}
+
+.deleteButton {
+  background: rgb(204, 204, 204);
+  border: none;
+  font-weight: bold;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
   font-size: 12pt;
-  word-break: break-all;
+  outline: none;
+  padding: 4px;
+  position: absolute;
+  right: 96px;
+  width: 60px;
   margin: 0 auto;
-  padding: 20px;
+}
+
+.editButton {
+  background: #fe5f52;
+  border: none;
+  font-weight: bold;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12pt;
+  outline: none;
+  padding: 4px;
+  position: absolute;
+  right: 30px;
+  width: 60px;
+
+  /* :hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
+}
+
+/* 更新 */
+
+button {
+  background: #fe5f52;
+  border: none;
+  font-weight: bold;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12pt;
+  height: 40px;
+  margin: 0 5px;
+  outline: none;
+  padding: 4px 8px;
+  width: 90px;
+
+  /* :hover {
+    background-color: #8566ce;
+    color: #FFF;
+    } */
+}
+
+.reload {
+  bottom: 30px;
+  position: absolute;
+  right: 30px;
+}
+
+.chart {
+  padding: 8px 8px 8px 6px;
+  width: 560px;
+  height: auto;
+  position: fixed;
+  top: 26px;
+  bottom: 30px;
+  z-index: 90;
+  left: 26px;
+}
+
+/* 入力フォーム */
+
+/* バリデーション */
+
+.ageCheck {
+  color: red;
+  position: absolute;
+  left: 110px;
+  letter-spacing: -1px;
+  line-height: 60%;
+}
+
+.scoreCheck {
+  color: red;
+  position: absolute;
+  left: 110px;
+  top: 235px;
+  letter-spacing: -1px;
+  line-height: 60%;
+}
+
+.editError {
+  left: 40px;
+  margin: 2px;
   text-align: center;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.2))
+  bottom: 130px;
+  left: 340px;
+  line-height: 60%;
+  position: relative;
+  left: 920px;
+  bottom: 450px;
+  font-size: 1em;
+  font-weight: 400;
+  color: #565452;
+  width: 800px;
+  letter-spacing: -1px;
 }
 </style>

@@ -12,8 +12,6 @@ public class RegisterRequest {
   @NotNull
   private Long userId;
 
-  // when create, this is null.
-  // when update, this is not null.
   private Long parentId;
 
   private List<RegisterChildRequest> children;

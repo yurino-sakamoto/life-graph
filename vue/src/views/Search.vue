@@ -1,75 +1,165 @@
 <template>
   <div class="search">
     <Header />
-    <h1>Let`s Search LifeGraph</h1>
+    <h1>Let's Search LifeGraph !</h1>
     <div class="form-item">
       <label for="username" />
-      <input v-model="username" placeholder="UserName">
-      <!-- 範囲指定しなければいけない↓ -->
+      <input v-model="likeName" placeholder="UserName">
+      from
       <label for="date" />
-      <input v-model="date" type="date">
-      <button class="btn" @click="login()">
-        Search
+      <input v-model="startDate" type="date">
+      to
+      <label for="date" />
+      <input v-model="finishDate" type="date">
+      <button class="btn" @click="searchGraphData()">
+        検索 <img class="searchimg" src="../assets/searchWhite.png">
       </button>
     </div>
-    <footer>
-      <h2>検索結果</h2>
-      <table id="sampleTable">
-        <tr>
-          <th>見出し</th>
-          <thcmanSortBtn>a</thcmanSortBtn>
-          <thcmanSortBtn>b</thcmanSortBtn>
-          <thcmanSortBtn>c</thcmanSortBtn>
-          <thcmanSortBtn>d</thcmanSortBtn>
-          <thcmanSortBtn>e</thcmanSortBtn>
-        </tr>
-        <tr><th>行1</th><td>4</td><td>1</td><td>DEFGH</td><td>あいう</td><td>100</td></tr>
-        <tr><th>行2</th><td>3</td><td>100</td><td>abc</td><td>かきく</td><td>10,000</td></tr>
-        <tr><th>行3</th><td>5</td><td>20</td><td>ijkl</td><td>さしす</td><td>1,000</td></tr>
-        <tr><th>行4</th><td>1</td><td>9</td><td>MNOP</td><td>たちつ</td><td>10</td></tr>
-        <tr><th>行5</th><td>2</td><td>80</td><td>qr</td><td>なにぬ</td><td>100,000</td></tr>
-      </table>
-      <div class="nav-links">
-        <a class="prev page-numbers" href="">«</a>
-        <a class="page-numbers" href="">1</a>
-        <span class="page-numbers current">2</span>
-        <a class="page-numbers" href="">3</a>
-        <span class="page-numbers dots">…</span>
-        <a class="page-numbers" href="">10</a>
-        <a class="next page-numbers" href="">»</a>
+    <div v-if="showResult" class="result">
+      <h2>Search Results</h2>
+      <p>並び替えができます</p>
+      <div class="sortButton">
+        <button class="sort" @click="sortByName()">
+          ユーザー名
+        </button>
+        <button class="sort" @click="sortByDateUp()">
+          更新日時（降順）
+        </button>
+        <button class="sort" @click="sortByDateDown()">
+          更新日時（昇順）
+        </button>
       </div>
-    </footer>
+      <table>
+        <thead>
+          <tr>
+            <th />
+            <th>ユーザー名</th>
+            <th>日時</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(searchItem, index) in searchItems" :key="index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ searchItem.userName }}</td>
+            <td>{{ searchItem.updated_at | moment }}</td>
+            <button class="resultBtn" @click="userReference(searchItem.user_id)">
+              参照
+            </button>
+            <button v-if="!authCheck" class="resultBtn" @click="deleteGraphData(searchItem.id)">
+              削除
+            </button>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
 import Header from '../components/Header.vue'
+import moment from 'moment'
 
 export default {
   name: 'App',
   components: {
     Header
+  },
+  filters: {
+    moment: function (date) {
+      return moment(date).format('yyyy/MM/DD')
+    }
+  },
+  data () {
+    return {
+      likeName: '',
+      startDate: '',
+      finishDate: '',
+      isActive: false,
+      load: true,
+      editIndex: -1
+    }
+  },
+  computed: {
+    authCheck () {
+      return this.$store.state.account.accountInfo.name === 'ROLE_USER'
+    },
+    showResult () {
+      return this.$store.state.search.showResult
+    },
+    searchItems () {
+      return this.$store.state.search.searchItems
+    }
+  },
+  created () {
+    this.$store.commit('search/loadFalse')
+    this.$store.commit('chart/loadFalse')
+    this.$store.commit('search/clereSearchItems')
+  },
+  methods: {
+    searchGraphData () {
+      const data = {
+        likeName: this.likeName,
+        startDate: this.startDate,
+        finishDate: this.finishDate
+      }
+      this.$store.dispatch('search/searchAPI', data)
+    },
+    userReference (userId) {
+      this.$router.push({ name: 'Reference', params: { userId: userId } })
+    },
+    // TODO 管理者関連のの記述
+    deleteGraphData (parentId) {
+      if (confirm('本当に削除してよろしいですか？')) {
+        this.$store.dispatch('search/deleteGraphData', parentId)
+      }
+    },
+    sortByName () {
+      this.searchItems.sort(function (a, b) {
+        if (a.userName > b.userName) return -1
+      })
+    },
+    sortByDateUp () {
+      this.searchItems.sort(function (a, b) {
+        if (a.updated_at > b.updated_at) return -1
+        if (a.updated_at < b.updated_at) return 1
+        return 0
+      })
+    },
+    sortByDateDown () {
+      this.searchItems.sort(function (a, b) {
+        if (a.updated_at < b.updated_at) return -1
+        if (a.updated_at > b.updated_at) return 1
+        return 0
+      })
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .search {
-  margin-top: 80px;
-  background: radial-gradient(white, #E5E5E9);
-  height: 100%;;
+  padding-top: 80px;
+  background: #F3F3F9;
+  min-height: 700px;
+  height: 100%;
+  overflow: hidden;
 
   h1 {
+    top: -25px;
     text-align: center;
     padding: 30px;
-    font-size: 50px;
-    font-weight: bold;
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 0.8em;
+    letter-spacing: -1px;
+
   }
 
   h2 {
     text-align: center;
     padding: 20px;
     font-size: 40px;
+    color: #565452;
     font-weight: bold;
   }
 
@@ -79,36 +169,43 @@ export default {
     margin: 3em auto;
     padding: 0 1em;
     max-width: 370px;
-    position: relative;
+    color: #565452;
+    font-weight: bold;
 
     input {
       background: #fafafa;
       border-bottom: 2px solid #e9e9e9;
       font-family: 'Open Sans', sans-serif;
       font-size: 1em;
-      height: 50px;
+      height: 45px;
       width: 100%;
       font: 15px/24px sans-serif;
       box-sizing: border-box;
       padding: 0.3em;
       transition: 0.3s;
       letter-spacing: 1px;
-      color: #aaaaaa;
-      border: 1px solid #1b2538;
+      color: #565452;
+      border: 1px solid #CCCCCC;
       border-radius: 4px;
       margin: .4rem 0;
     }
-  }
 
-  .form-item input:focus {
-    border: 1px solid #da3c41;
-    outline: none;
-    box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
+    :focus {
+      border: 1px solid #da3c41;
+      outline: none;
+      box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
+    }
+
+    .searchimg{
+      width: 15px;
+      height: 15px;
+    }
   }
 
   .btn {
-    position:relative;
     padding: 0.3em;
+    margin-right: auto;
+    margin-left : auto;
     width: 100%;
     max-width: 370px;
     height: 50px;
@@ -117,6 +214,7 @@ export default {
     background:#f26964;
     font-size:1.2em;
     color:#fff;
+    font-weight: bold;
     text-shadow:1px 1px 0px rgba(0,0,0,.1);
     box-shadow:0px 3px 0px #c1524e;
     cursor: pointer;
@@ -127,93 +225,80 @@ export default {
       }
     }
 
-  .tsImgArea{
-    line-height: 1;
-  }
-  /* 昇順降順 */
-  .tsImg{
-    display    : inline-block;
-    width      : 8px;
-    height     : 6px;
-    background : #eee;
-    border     : 1px solid #777;
-    margin     : 1px 3px;
-    padding    : 3px;
-    cursor     : pointer;
-
-    :hover{
-      background : #FFD700;
+  .sortButton {
+      display: block;
+      margin-bottom: 60px;
+      white-space: nowrap;
+      height: 60px;
     }
 
-    &path{
-      fill: #777;
-    }
-  }
-
-  #sampleTable {
-    width          : 100%;
-    border-collapse: collapse;         /* 境界線結合 */
-    border-spacing : 0;                /* 罫線間余白 */
-    font-size      : 9pt;              /* 文字サイズ */
-    background-color: gray;
-    position: relative;
-    height: auto;
-    min-height: 100%;
-
-    &th {
-      text-align    : center;            /* 文字位置   */
-      font-weight   : bold;              /* 太文字     */
-      padding       : 6px 5px;          /* 余白       */
-      white-space   : nowrap;
-    }
-    &td {
-      text-align    : center;            /* 文字位置   */
-      padding       : 6px 5px;           /* 余白       */
-      white-space   : nowrap;
-    }
-  }
-
-  /* ふったーCSS */
-  .nav-links{
-    padding:2em;
-    display:flex;
-    justify-content:center;
-  }
-  a,span{
-    width:50px;
-    height:50px;
-    margin:2px;
-    line-height:50px;
-    text-align:center;
-    font-size:14px;
-    font-weight:bold;
-    text-decoration:none;
-    background:#fff;
-    color:#222;
-  }
-  a:hover{
-    background:gold;
-    border-radius:100%;
-  }
-  .current{
-    background:gold;
-    border-radius:100%;
-  }
-  .dots{
-    background:none;
-  }
-  .headline{
-    font-size: 42px;
-  }
-  .nav-list {
+  .result {
+    margin: 2em 0;
+    padding: 0.5em 1em;
+    border: solid 3px #565452;
+    border-radius: 8px;
+    width: 60%;
     text-align: center;
-    padding: 10px 0;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 30px;
+
+    h2 {
+      padding: 20px;
+      font-size: 40px;
+      font-weight: bold;
+      color: #565452;
+    }
+
+  p {
+    font-size: 20px;
+    color: #565452;
+    font-weight: bold;
+    border-bottom:2px solid #ccc;
+    width: 70%;
+    margin: 20px auto;
+    padding-bottom: 20px;
+    text-align: center;
   }
-  .nav-list-item {
-    list-style: none;
-    display: inline-block;
-    margin: 0 20px;
+
+    table {
+      color: #565452;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    thead {
+      white-space: nowrap;
+    }
+  }
+
+  $btn-bg: #f26964;
+  $btn-hover-bg: gray;
+  $btn-color: #fff;
+  $btn-hover-color: #000;
+
+.sort {
+    padding: 1em 1.5em 2em 1.5em;
+    width: 30%;
+    background-color: $btn-bg;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0 0 0 $btn-color, 0 3rem 0 $btn-hover-color;
+    transition: background-color 150ms, text-shadow 200ms;
+    font-size: 1.1rem;
+    box-shadow: 0 0px 20px gray;
+
+    &:hover {
+        background-color: $btn-hover-bg;
+        text-shadow: 0 -3rem 0 $btn-color, 0 0 0 $btn-hover-color;
+    }
+  }
+
+  .resultBtn {
+    margin: 20px;
+    font-weight: bold;
   }
 }
 </style>

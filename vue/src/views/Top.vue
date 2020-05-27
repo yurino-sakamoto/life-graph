@@ -1,8 +1,8 @@
 <template>
-  <div class="top">
+  <div class="topSection">
     <Header />
-    <div class="topSection">
-      <h1>This is your LifeGraph</h1>
+    <h1>This is your LifeGraph !</h1>
+    <div class="topModule">
       <chart class="topChart" />
     </div>
   </div>
@@ -18,28 +18,52 @@ export default {
   components: {
     Header,
     Chart
+  },
+  created () {
+    this.$store.dispatch('chart/addContent', this.$store.state.auth.userId)
   }
 }
-
 </script>
 
 <style scoped>
 
-.top {
+.topSection {
   margin-top: 80px;
-  background: radial-gradient(white, #E5E5E9);
-  height: 700px;
+  background: #F3F3F9;
+  height: 720px;
+}
+
+.topModule {
+  background:#FFF;
+  color: #565452;
+  border-radius: 20px;
+  width: 800px;
+  height: 480px;
+  font-size: 12pt;
+  word-break: break-all;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
 }
 
 h1 {
   text-align: center;
-  padding: 30px;
-  font-size: 70px;
-  font-weight: bold;
+  position: relative;
+  top: -25px;
+  margin: 0 0 0 30px;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 0.8em;
+  letter-spacing: -1px;
+  color: #565452;
 }
 
-.topChart{
-  width: 1000px;
+.topChart {
+  width: 760px;
+  height: 460px;
+  position: relative;
+  top: 20px;
+  right: 6px;
   text-align: center;
   margin: auto;
 }
