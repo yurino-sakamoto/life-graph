@@ -84,14 +84,14 @@
         >
           {{ changeButtonText }}
         </button>
-        <div v-if="!ageCheck" class="ageCheck">
-          年齢は1〜100で入力してください
+        <div v-if="ageCheckForm" class="ageCheck">
+          *年齢は1〜100で入力してください
         </div>
         <div v-if="!scoreCheck" class="scoreCheck">
-          満足度は-100〜100で入力してください
+          *満足度は-100〜100で入力してください
         </div>
-        <div v-if="editError" class="editError">
-          更新に失敗しました
+        <div v-if="editError" class="ageCheck">
+          *更新に失敗しました
         </div>
         <div class="listInfo">
           <table class="tableRecord">
@@ -205,6 +205,9 @@ export default {
     },
     editError () {
       return this.$store.state.chart.error
+    },
+    ageCheckForm () {
+      return this.age < 0 || this.age > 100
     }
   },
   created () {
@@ -264,9 +267,6 @@ export default {
         children: this.$store.state.chart.contents
       }
       this.$store.dispatch('chart/editContent', apiContents)
-      // const userId = this.$store.state.auth.userId
-      // this.$store.dispatch('chart/addContent', userId)
-      // this.$refs.chart.createChart()
     },
     excludeFromArrayById (id) {
       this.contents = this.contents.filter(content => content.id !== id)
@@ -288,7 +288,6 @@ export default {
   height: 1200px;
   text-align: center;
   width: 100%;
-  margin: ;
 }
 
 .warning {
@@ -583,35 +582,20 @@ button {
 /* バリデーション */
 
 .ageCheck {
-  font-size: 1em;
-  left: 40px;
-  margin: 2px;
-  position: relative;
-  text-align: center;
-  width: 126px;
-  line-height: 60%;
-  bottom: 450px;
-  font-weight: 400;
-  color: #565452;
-  width: 800px;
+  color: red;
+  position: absolute;
+  left: 110px;
   letter-spacing: -1px;
+  line-height: 60%;
 }
 
 .scoreCheck {
-  left: 40px;
-  margin: 2px;
-  text-align: center;
-  bottom: 130px;
-  left: 340px;
-  line-height: 60%;
-  position: relative;
-  left: 920px;
-  bottom: 450px;
-  font-size: 1em;
-  font-weight: 400;
-  color: #565452;
-  width: 800px;
+  color: red;
+  position: absolute;
+  left: 110px;
+  top: 235px;
   letter-spacing: -1px;
+  line-height: 60%;
 }
 
 .editError {
