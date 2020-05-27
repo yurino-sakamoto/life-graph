@@ -69,7 +69,6 @@ public class LifeGraphService {
 		LocalDateTime now = LocalDateTime.now();
 
 		//親テーブルがすでにある時
-		System.out.println("親の分岐に入るよ");
 		if (request.getParentId() != null) {
 			// insert
 			parent = parentRepository.findById(request.getParentId())
